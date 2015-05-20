@@ -3,10 +3,11 @@
 	<name>bidwinear</name>
 	<comment></comment>
 	<projects>
-		<project>bidwinearConnector</project>
 		<project>bidwinearClient</project>
+		<project>bidwinearConnector</project>
 		<project>bidwinearEJB</project>
 		<project>bidwinearWeb</project>
+		<project>RemoteSystemsTempFiles</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
