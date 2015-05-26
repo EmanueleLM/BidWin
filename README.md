@@ -26,4 +26,4 @@ RASD HAS BEEN DELIVERED 27/07/15 22:22
 https://github.com/EmanueleLM/BidWin/blob/master/delivery/RASD_lamalfamalvestiti_eng.pdf
 
 
-Delivery: here we put the documents (RASD, DD etc)  https://github.com/EmanueleLM/BidWin/tree/master/delivery
+Delivery: here we put the documents (RASD, DD etc) -->  https://github.com/EmanueleLM/BidWin/tree/master/delivery
