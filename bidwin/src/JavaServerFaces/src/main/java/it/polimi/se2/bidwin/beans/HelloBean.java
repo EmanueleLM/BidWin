@@ -5,14 +5,13 @@ import javax.faces.bean.SessionScoped;
 
 import java.io.Serializable;
 
-@ManagedBean
+@ManagedBean (name = "helloBean")
 @SessionScoped
 public class HelloBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-        public HelloBean(String name) {
-            this.name = name;
+        public HelloBean() {
         }  
         
 	private String name;
