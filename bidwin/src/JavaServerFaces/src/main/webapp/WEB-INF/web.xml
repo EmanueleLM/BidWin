@@ -12,10 +12,17 @@
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
+        
+        <resource-ref>
+                <description>MySQL Datasource example</description>
+                <res-ref-name>jdbc/glassfish</res-ref-name>
+                <res-type>javax.sql.DataSource</res-type>
+                <res-auth>Container</res-auth>
+        </resource-ref>
 
 	<!-- Welcome page -->
 	<welcome-file-list>
-		<welcome-file>faces/hello.xhtml</welcome-file>
+		<welcome-file>faces/default.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<!-- JSF mapping -->
