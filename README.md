@@ -4,7 +4,7 @@ It consists of inverse auction system: an inverse auction system works like a
 regular auction. The difference is that in an inverse auction a user has to propose
 the lowest unique bid to win the auction.
 
-### !!! 25/05/15 Delivery link restored !!! ###
+#### !!! 25/05/15 Delivery link restored !!! ####
 
 RASD and DD has been moved to their original folder.
 
