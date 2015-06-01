@@ -28,4 +28,4 @@ https://github.com/EmanueleLM/BidWin/blob/master/delivery/RASD_lamalfamalvestiti
 
 Delivery: here we put the documents (RASD, DD etc) --->  https://github.com/EmanueleLM/BidWin/tree/master/delivery
 
-"All animals are equals.."
+
