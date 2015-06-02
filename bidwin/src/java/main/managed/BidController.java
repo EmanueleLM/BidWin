@@ -1,5 +1,7 @@
-package main;
+package main.managed;
 
+import main.facade.BidFacade;
+import main.Bid;
 import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
@@ -23,7 +25,7 @@ public class BidController implements Serializable {
     private Bid current;
     private DataModel items = null;
     @EJB
-    private main.BidFacade ejbFacade;
+    private main.facade.BidFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
