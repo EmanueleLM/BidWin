@@ -63,7 +63,6 @@ public class Users implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "Surname")
     private String surname;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -246,10 +245,7 @@ public class Users implements Serializable {
             return false;
         }
         Users other = (Users) object;
-        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
-            return false;
-        }
-        return true;
+        return !((this.username != null && !this.username.equals(other.username)) || (null != other.username && this.username == null));
     }
 
     @Override

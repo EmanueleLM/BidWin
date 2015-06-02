@@ -5,6 +5,7 @@
  */
 package main;
 
+import main.Auction;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;

@@ -1,5 +1,7 @@
-package main;
+package main.managed;
 
+import main.facade.AuctionFacade;
+import main.Auction;
 import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
@@ -23,7 +25,7 @@ public class AuctionController implements Serializable {
     private Auction current;
     private DataModel items = null;
     @EJB
-    private main.AuctionFacade ejbFacade;
+    private main.facade.AuctionFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

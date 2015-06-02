@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package main.facade;
 
+import main.Auction;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Ga
  */
 @Stateless
-public class BidFacade extends AbstractFacade<Bid> {
+public class AuctionFacade extends AbstractFacade<Auction> {
     @PersistenceContext(unitName = "data_1PU")
     private EntityManager em;
 
@@ -23,8 +24,8 @@ public class BidFacade extends AbstractFacade<Bid> {
         return em;
     }
 
-    public BidFacade() {
-        super(Bid.class);
+    public AuctionFacade() {
+        super(Auction.class);
     }
     
 }
