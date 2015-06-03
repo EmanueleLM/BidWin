@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListBidTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListBidEmpty}" rendered="#{bidController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{bidController.items.rowCount > 0}">
+                    <h:outputText value="#{bidController.pagination.pageFirstItem + 1}..#{bidController.pagination.pageLastItem + 1}/#{bidController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{bidController.previous}" value="#{bundle.Previous} #{bidController.pagination.pageSize}" rendered="#{bidController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{bidController.next}" value="#{bundle.Next} #{bidController.pagination.pageSize}" rendered="#{bidController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{bidController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBidTitle_bidPK_value}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bidPK.value}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBidTitle_users}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.users}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBidTitle_auction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.auction}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{bidController.prepareView}" value="#{bundle.ListBidViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{bidController.prepareEdit}" value="#{bundle.ListBidEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{bidController.destroy}" value="#{bundle.ListBidDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{bidController.prepareCreate}" value="#{bundle.ListBidCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListBidIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

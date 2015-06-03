@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateBidTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateBidLabel_bidPK_value}" for="bidPK_value" />
+                    <h:inputText id="bidPK_value" value="#{bidController.selected.bidPK.value}" title="#{bundle.CreateBidTitle_bidPK_value}" required="true" requiredMessage="#{bundle.CreateBidRequiredMessage_bidPK_value}"/>
+                    <h:outputLabel value="#{bundle.CreateBidLabel_users}" for="users" />
+                    <h:selectOneMenu id="users" value="#{bidController.selected.users}" title="#{bundle.CreateBidTitle_users}" required="true" requiredMessage="#{bundle.CreateBidRequiredMessage_users}">
+                        <f:selectItems value="#{usersController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateBidLabel_auction}" for="auction" />
+                    <h:selectOneMenu id="auction" value="#{bidController.selected.auction}" title="#{bundle.CreateBidTitle_auction}" required="true" requiredMessage="#{bundle.CreateBidRequiredMessage_auction}">
+                        <f:selectItems value="#{auctionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{bidController.create}" value="#{bundle.CreateBidSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{bidController.prepareList}" value="#{bundle.CreateBidShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateBidIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
