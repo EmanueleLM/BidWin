@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.facade;
+package main;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import main.Users;
 
 /**
  *
  * @author Ga
  */
 @Stateless
-public class UsersFacade extends AbstractFacade<Users> {
-    @PersistenceContext(unitName = "bidwinRealmPU")
+public class AuctionFacade extends AbstractFacade<Auction> {
+    @PersistenceContext(unitName = "bidwinrealmPU")
     private EntityManager em;
 
     @Override
@@ -24,8 +23,8 @@ public class UsersFacade extends AbstractFacade<Users> {
         return em;
     }
 
-    public UsersFacade() {
-        super(Users.class);
+    public AuctionFacade() {
+        super(Auction.class);
     }
     
 }

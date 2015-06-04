@@ -163,7 +163,7 @@ public class Objects implements Serializable {
 
     @Override
     public String toString() {
-        return "src.main.se2.polimi.java.Objects[ objectid=" + objectid + " ]";
+        return "src.Objects[ objectid=" + objectid + " ]";
     }
     
 }

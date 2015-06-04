@@ -6,8 +6,6 @@
 package main;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,15 +26,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Bid.findAll", query = "SELECT b FROM Bid b"),
     @NamedQuery(name = "Bid.findByUsername", query = "SELECT b FROM Bid b WHERE b.bidPK.username = :username"),
     @NamedQuery(name = "Bid.findByAuctionid", query = "SELECT b FROM Bid b WHERE b.bidPK.auctionid = :auctionid"),
-    @NamedQuery(name = "Bid.findByValue", query = "SELECT b FROM Bid b WHERE b.value = :value")})
+    @NamedQuery(name = "Bid.findByValue", query = "SELECT b FROM Bid b WHERE b.bidPK.value = :value")})
 public class Bid implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected BidPK bidPK;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "Value")
-    private int value;
     @JoinColumn(name = "Username", referencedColumnName = "Username", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Users users;
@@ -52,13 +45,8 @@ public class Bid implements Serializable {
         this.bidPK = bidPK;
     }
 
-    public Bid(BidPK bidPK, int value) {
-        this.bidPK = bidPK;
-        this.value = value;
-    }
-
-    public Bid(String username, int auctionid) {
-        this.bidPK = new BidPK(username, auctionid);
+    public Bid(String username, int auctionid, int value) {
+        this.bidPK = new BidPK(username, auctionid, value);
     }
 
     public BidPK getBidPK() {
@@ -67,14 +55,6 @@ public class Bid implements Serializable {
 
     public void setBidPK(BidPK bidPK) {
         this.bidPK = bidPK;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public Users getUsers() {
@@ -115,7 +95,7 @@ public class Bid implements Serializable {
 
     @Override
     public String toString() {
-        return "src.main.se2.polimi.java.Bid[ bidPK=" + bidPK + " ]";
+        return "src.Bid[ bidPK=" + bidPK + " ]";
     }
     
 }

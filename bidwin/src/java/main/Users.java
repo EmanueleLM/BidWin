@@ -5,25 +5,25 @@
  */
 package main;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -63,6 +63,7 @@ public class Users implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "Surname")
     private String surname;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -108,6 +109,11 @@ public class Users implements Serializable {
     private Collection<Objects> objectsCollection;
 
     public Users() {
+        this.credits = 100;
+    }
+    
+    public Users(boolean bonus) {
+        this.credits = bonus ? 100 :  0;
     }
 
     public Users(String username) {
@@ -127,7 +133,7 @@ public class Users implements Serializable {
         this.credits = credits;
         this.password = password;
     }
-
+    
     public String getUsername() {
         return username;
     }
@@ -235,11 +241,11 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Objects> getCollection() {
+    public Collection<Objects> getObjectsCollection() {
         return objectsCollection;
     }
 
-    public void setobjectsCollection(Collection<Objects> objectsCollection) {
+    public void setObjectsCollection(Collection<Objects> objectsCollection) {
         this.objectsCollection = objectsCollection;
     }
 
@@ -257,12 +263,15 @@ public class Users implements Serializable {
             return false;
         }
         Users other = (Users) object;
-        return !((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username)));
+        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "src.main.se2.polimi.java.Users[ username=" + username + " ]";
+        return "src.Users[ username=" + username + " ]";
     }
     
 }

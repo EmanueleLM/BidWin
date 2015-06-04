@@ -122,7 +122,7 @@ public class Groups implements Serializable {
 
     @Override
     public String toString() {
-        return "src.main.se2.polimi.java.Groups[ groupId=" + groupId + " ]";
+        return "src.Groups[ groupId=" + groupId + " ]";
     }
     
 }
