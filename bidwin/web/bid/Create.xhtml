@@ -15,8 +15,8 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateBidLabel_value}" for="value" />
-                    <h:inputText id="value" value="#{bidController.selected.value}" title="#{bundle.CreateBidTitle_value}" required="true" requiredMessage="#{bundle.CreateBidRequiredMessage_value}"/>
+                    <h:outputLabel value="#{bundle.CreateBidLabel_bidPK_value}" for="bidPK_value" />
+                    <h:inputText id="bidPK_value" value="#{bidController.selected.bidPK.value}" title="#{bundle.CreateBidTitle_bidPK_value}" required="true" requiredMessage="#{bundle.CreateBidRequiredMessage_bidPK_value}"/>
                     <h:outputLabel value="#{bundle.CreateBidLabel_users}" for="users" />
                     <h:selectOneMenu id="users" value="#{bidController.selected.users}" title="#{bundle.CreateBidTitle_users}" required="true" requiredMessage="#{bundle.CreateBidRequiredMessage_users}">
                         <f:selectItems value="#{usersController.itemsAvailableSelectOne}"/>

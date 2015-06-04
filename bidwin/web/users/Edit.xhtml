@@ -39,10 +39,6 @@
                     <h:inputText id="credits" value="#{usersController.selected.credits}" title="#{bundle.EditUsersTitle_credits}" required="true" requiredMessage="#{bundle.EditUsersRequiredMessage_credits}"/>
                     <h:outputLabel value="#{bundle.EditUsersLabel_password}" for="password" />
                     <h:inputText id="password" value="#{usersController.selected.password}" title="#{bundle.EditUsersTitle_password}" required="true" requiredMessage="#{bundle.EditUsersRequiredMessage_password}"/>
-                    <h:outputLabel value="#{bundle.EditUsersLabel_objects}" for="objects" />
-                    <h:selectOneMenu id="objects" value="#{usersController.selected.objects}" title="#{bundle.EditUsersTitle_objects}" >
-                        <f:selectItems value="#{objectsController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                 </h:panelGrid>
                 <h:commandLink action="#{usersController.update}" value="#{bundle.EditUsersSaveLink}"/>
                 <br />

@@ -130,12 +130,15 @@ public class Auction implements Serializable {
             return false;
         }
         Auction other = (Auction) object;
-        return !((this.auctionid == null && other.auctionid != null) || (this.auctionid != null && !this.auctionid.equals(other.auctionid)));
+        if ((this.auctionid == null && other.auctionid != null) || (this.auctionid != null && !this.auctionid.equals(other.auctionid))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "src.main.se2.polimi.java.Auction[ auctionid=" + auctionid + " ]";
+        return "src.Auction[ auctionid=" + auctionid + " ]";
     }
     
 }

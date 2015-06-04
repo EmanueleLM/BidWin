@@ -27,13 +27,18 @@ public class BidPK implements Serializable {
     @NotNull
     @Column(name = "Auction_id")
     private int auctionid;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Value")
+    private int value;
 
     public BidPK() {
     }
 
-    public BidPK(String username, int auctionid) {
+    public BidPK(String username, int auctionid, int value) {
         this.username = username;
         this.auctionid = auctionid;
+        this.value = value;
     }
 
     public String getUsername() {
@@ -52,11 +57,20 @@ public class BidPK implements Serializable {
         this.auctionid = auctionid;
     }
 
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (username != null ? username.hashCode() : 0);
         hash += (int) auctionid;
+        hash += (int) value;
         return hash;
     }
 
@@ -73,12 +87,15 @@ public class BidPK implements Serializable {
         if (this.auctionid != other.auctionid) {
             return false;
         }
+        if (this.value != other.value) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "src.main.se2.polimi.java.BidPK[ username=" + username + ", auctionid=" + auctionid + " ]";
+        return "src.BidPK[ username=" + username + ", auctionid=" + auctionid + ", value=" + value + " ]";
     }
     
 }
