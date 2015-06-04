@@ -1,5 +1,6 @@
-package main;
+package main.managed;
 
+import main.facade.GroupsFacade;
 import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
@@ -15,30 +16,31 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import main.Groups;
 
-@ManagedBean(name = "auctionController")
+@ManagedBean(name = "groupsController")
 @SessionScoped
-public class AuctionController implements Serializable {
+public class GroupsController implements Serializable {
 
-    private Auction current;
+    private Groups current;
     private DataModel items = null;
     @EJB
-    private main.AuctionFacade ejbFacade;
+    private main.facade.GroupsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public AuctionController() {
+    public GroupsController() {
     }
 
-    public Auction getSelected() {
+    public Groups getSelected() {
         if (current == null) {
-            current = new Auction();
+            current = new Groups();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private AuctionFacade getFacade() {
+    private GroupsFacade getFacade() {
         return ejbFacade;
     }
 
@@ -66,13 +68,13 @@ public class AuctionController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Auction) getItems().getRowData();
+        current = (Groups) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Auction();
+        current = new Groups();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -80,7 +82,7 @@ public class AuctionController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AuctionCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("GroupsCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -89,7 +91,7 @@ public class AuctionController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Auction) getItems().getRowData();
+        current = (Groups) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -97,7 +99,7 @@ public class AuctionController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AuctionUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("GroupsUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -106,7 +108,7 @@ public class AuctionController implements Serializable {
     }
 
     public String destroy() {
-        current = (Auction) getItems().getRowData();
+        current = (Groups) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -130,7 +132,7 @@ public class AuctionController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AuctionDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("GroupsDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -186,16 +188,16 @@ public class AuctionController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Auction.class)
-    public static class AuctionControllerConverter implements Converter {
+    @FacesConverter(forClass = Groups.class)
+    public static class GroupsControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AuctionController controller = (AuctionController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "auctionController");
+            GroupsController controller = (GroupsController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "groupsController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -216,11 +218,11 @@ public class AuctionController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Auction) {
-                Auction o = (Auction) object;
-                return getStringKey(o.getAuctionid());
+            if (object instanceof Groups) {
+                Groups o = (Groups) object;
+                return getStringKey(o.getGroupId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Auction.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Groups.class.getName());
             }
         }
 

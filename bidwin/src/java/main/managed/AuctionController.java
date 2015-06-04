@@ -1,5 +1,6 @@
-package main;
+package main.managed;
 
+import main.facade.AuctionFacade;
 import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
@@ -15,31 +16,31 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import main.Auction;
 
-@ManagedBean(name = "bidController")
+@ManagedBean(name = "auctionController")
 @SessionScoped
-public class BidController implements Serializable {
+public class AuctionController implements Serializable {
 
-    private Bid current;
+    private Auction current;
     private DataModel items = null;
     @EJB
-    private main.BidFacade ejbFacade;
+    private main.facade.AuctionFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public BidController() {
+    public AuctionController() {
     }
 
-    public Bid getSelected() {
+    public Auction getSelected() {
         if (current == null) {
-            current = new Bid();
-            current.setBidPK(new main.BidPK());
+            current = new Auction();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private BidFacade getFacade() {
+    private AuctionFacade getFacade() {
         return ejbFacade;
     }
 
@@ -67,24 +68,21 @@ public class BidController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Bid) getItems().getRowData();
+        current = (Auction) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Bid();
-        current.setBidPK(new main.BidPK());
+        current = new Auction();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            current.getBidPK().setUsername(current.getUsers().getUsername());
-            current.getBidPK().setAuctionid(current.getAuction().getAuctionid());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BidCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AuctionCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -93,17 +91,15 @@ public class BidController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Bid) getItems().getRowData();
+        current = (Auction) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-            current.getBidPK().setUsername(current.getUsers().getUsername());
-            current.getBidPK().setAuctionid(current.getAuction().getAuctionid());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BidUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AuctionUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -112,7 +108,7 @@ public class BidController implements Serializable {
     }
 
     public String destroy() {
-        current = (Bid) getItems().getRowData();
+        current = (Auction) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -136,7 +132,7 @@ public class BidController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BidDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AuctionDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -192,39 +188,28 @@ public class BidController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Bid.class)
-    public static class BidControllerConverter implements Converter {
-
-        private static final String SEPARATOR = "#";
-        private static final String SEPARATOR_ESCAPED = "\\#";
+    @FacesConverter(forClass = Auction.class)
+    public static class AuctionControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            BidController controller = (BidController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "bidController");
+            AuctionController controller = (AuctionController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "auctionController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        main.BidPK getKey(String value) {
-            main.BidPK key;
-            String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new main.BidPK();
-            key.setUsername(values[0]);
-            key.setAuctionid(Integer.parseInt(values[1]));
-            key.setValue(Integer.parseInt(values[2]));
+        java.lang.Integer getKey(String value) {
+            java.lang.Integer key;
+            key = Integer.valueOf(value);
             return key;
         }
 
-        String getStringKey(main.BidPK value) {
+        String getStringKey(java.lang.Integer value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value.getUsername());
-            sb.append(SEPARATOR);
-            sb.append(value.getAuctionid());
-            sb.append(SEPARATOR);
-            sb.append(value.getValue());
+            sb.append(value);
             return sb.toString();
         }
 
@@ -233,11 +218,11 @@ public class BidController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Bid) {
-                Bid o = (Bid) object;
-                return getStringKey(o.getBidPK());
+            if (object instanceof Auction) {
+                Auction o = (Auction) object;
+                return getStringKey(o.getAuctionid());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Bid.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Auction.class.getName());
             }
         }
 

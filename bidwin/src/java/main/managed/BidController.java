@@ -1,5 +1,6 @@
-package main;
+package main.managed;
 
+import main.facade.BidFacade;
 import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
@@ -15,30 +16,32 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import main.Bid;
 
-@ManagedBean(name = "groupsController")
+@ManagedBean(name = "bidController")
 @SessionScoped
-public class GroupsController implements Serializable {
+public class BidController implements Serializable {
 
-    private Groups current;
+    private Bid current;
     private DataModel items = null;
     @EJB
-    private main.GroupsFacade ejbFacade;
+    private main.facade.BidFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public GroupsController() {
+    public BidController() {
     }
 
-    public Groups getSelected() {
+    public Bid getSelected() {
         if (current == null) {
-            current = new Groups();
+            current = new Bid();
+            current.setBidPK(new main.BidPK());
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private GroupsFacade getFacade() {
+    private BidFacade getFacade() {
         return ejbFacade;
     }
 
@@ -66,21 +69,24 @@ public class GroupsController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Groups) getItems().getRowData();
+        current = (Bid) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Groups();
+        current = new Bid();
+        current.setBidPK(new main.BidPK());
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
+            current.getBidPK().setUsername(current.getUsers().getUsername());
+            current.getBidPK().setAuctionid(current.getAuction().getAuctionid());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("GroupsCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BidCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -89,15 +95,17 @@ public class GroupsController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Groups) getItems().getRowData();
+        current = (Bid) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
+            current.getBidPK().setUsername(current.getUsers().getUsername());
+            current.getBidPK().setAuctionid(current.getAuction().getAuctionid());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("GroupsUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BidUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -106,7 +114,7 @@ public class GroupsController implements Serializable {
     }
 
     public String destroy() {
-        current = (Groups) getItems().getRowData();
+        current = (Bid) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -130,7 +138,7 @@ public class GroupsController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("GroupsDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BidDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -186,28 +194,39 @@ public class GroupsController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Groups.class)
-    public static class GroupsControllerConverter implements Converter {
+    @FacesConverter(forClass = Bid.class)
+    public static class BidControllerConverter implements Converter {
+
+        private static final String SEPARATOR = "#";
+        private static final String SEPARATOR_ESCAPED = "\\#";
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            GroupsController controller = (GroupsController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "groupsController");
+            BidController controller = (BidController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "bidController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        main.BidPK getKey(String value) {
+            main.BidPK key;
+            String values[] = value.split(SEPARATOR_ESCAPED);
+            key = new main.BidPK();
+            key.setUsername(values[0]);
+            key.setAuctionid(Integer.parseInt(values[1]));
+            key.setValue(Integer.parseInt(values[2]));
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(main.BidPK value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value);
+            sb.append(value.getUsername());
+            sb.append(SEPARATOR);
+            sb.append(value.getAuctionid());
+            sb.append(SEPARATOR);
+            sb.append(value.getValue());
             return sb.toString();
         }
 
@@ -216,11 +235,11 @@ public class GroupsController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Groups) {
-                Groups o = (Groups) object;
-                return getStringKey(o.getGroupId());
+            if (object instanceof Bid) {
+                Bid o = (Bid) object;
+                return getStringKey(o.getBidPK());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Groups.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Bid.class.getName());
             }
         }
 

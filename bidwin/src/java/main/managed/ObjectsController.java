@@ -1,5 +1,6 @@
-package main;
+package main.managed;
 
+import main.facade.ObjectsFacade;
 import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
@@ -15,30 +16,31 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import main.Objects;
 
-@ManagedBean(name = "vUserRoleController")
+@ManagedBean(name = "objectsController")
 @SessionScoped
-public class VUserRoleController implements Serializable {
+public class ObjectsController implements Serializable {
 
-    private VUserRole current;
+    private Objects current;
     private DataModel items = null;
     @EJB
-    private main.VUserRoleFacade ejbFacade;
+    private main.facade.ObjectsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public VUserRoleController() {
+    public ObjectsController() {
     }
 
-    public VUserRole getSelected() {
+    public Objects getSelected() {
         if (current == null) {
-            current = new VUserRole();
+            current = new Objects();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private VUserRoleFacade getFacade() {
+    private ObjectsFacade getFacade() {
         return ejbFacade;
     }
 
@@ -66,13 +68,13 @@ public class VUserRoleController implements Serializable {
     }
 
     public String prepareView() {
-        current = (VUserRole) getItems().getRowData();
+        current = (Objects) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new VUserRole();
+        current = new Objects();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -80,7 +82,7 @@ public class VUserRoleController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("VUserRoleCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ObjectsCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -89,7 +91,7 @@ public class VUserRoleController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (VUserRole) getItems().getRowData();
+        current = (Objects) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -97,7 +99,7 @@ public class VUserRoleController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("VUserRoleUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ObjectsUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -106,7 +108,7 @@ public class VUserRoleController implements Serializable {
     }
 
     public String destroy() {
-        current = (VUserRole) getItems().getRowData();
+        current = (Objects) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -130,7 +132,7 @@ public class VUserRoleController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("VUserRoleDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ObjectsDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -186,26 +188,26 @@ public class VUserRoleController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = VUserRole.class)
-    public static class VUserRoleControllerConverter implements Converter {
+    @FacesConverter(forClass = Objects.class)
+    public static class ObjectsControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            VUserRoleController controller = (VUserRoleController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "vUserRoleController");
+            ObjectsController controller = (ObjectsController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "objectsController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.String getKey(String value) {
-            java.lang.String key;
-            key = value;
+        java.lang.Integer getKey(String value) {
+            java.lang.Integer key;
+            key = Integer.valueOf(value);
             return key;
         }
 
-        String getStringKey(java.lang.String value) {
+        String getStringKey(java.lang.Integer value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -216,11 +218,11 @@ public class VUserRoleController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof VUserRole) {
-                VUserRole o = (VUserRole) object;
-                return getStringKey(o.getUsername());
+            if (object instanceof Objects) {
+                Objects o = (Objects) object;
+                return getStringKey(o.getObjectid());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + VUserRole.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Objects.class.getName());
             }
         }
 
