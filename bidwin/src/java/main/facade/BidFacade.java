@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package main.facade;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import main.Bid;
 
 /**
  *
  * @author Ga
  */
 @Stateless
-public class VUserRoleFacade extends AbstractFacade<VUserRole> {
+public class BidFacade extends AbstractFacade<Bid> {
     @PersistenceContext(unitName = "bidwinrealmPU")
     private EntityManager em;
 
@@ -23,8 +24,8 @@ public class VUserRoleFacade extends AbstractFacade<VUserRole> {
         return em;
     }
 
-    public VUserRoleFacade() {
-        super(VUserRole.class);
+    public BidFacade() {
+        super(Bid.class);
     }
     
 }

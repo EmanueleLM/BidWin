@@ -1,4 +1,4 @@
-package main;
+package main.managed;
 
 
 import javax.faces.application.FacesMessage;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @ManagedBean
-public class LoginBean {
+public class LoginController {
  
 private String username;
 private String password;

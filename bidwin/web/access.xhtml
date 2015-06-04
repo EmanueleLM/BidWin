@@ -16,10 +16,10 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateUsersLabel_username}" for="username" />
-                    <h:inputText id="username" value="#{loginBean.username}" title="#{bundle.CreateUsersTitle_username}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_username}"/>
+                    <h:inputText id="username" value="#{loginController.username}" title="#{bundle.CreateUsersTitle_username}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_username}"/>
                     <h:outputLabel value="#{bundle.CreateUsersLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{loginBean.password}" title="#{bundle.CreateUsersTitle_password}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_password}"/>
-                    <h:commandLink id="submit" action="#{loginBean.login()}" value="#{bundle.Login}" />
+                    <h:inputText id="password" value="#{loginController.password}" title="#{bundle.CreateUsersTitle_password}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_password}"/>
+                    <h:commandLink id="submit" action="#{loginController.login()}" value="#{bundle.Login}" />
                     <h:link outcome="/welcome" value="#{bundle.CreateUsersIndexLink}"/>
                 </h:panelGrid>
                 
