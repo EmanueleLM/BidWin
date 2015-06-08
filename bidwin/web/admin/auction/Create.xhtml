@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAuctionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAuctionLabel_auctionid}" for="auctionid" />
+                    <h:inputText id="auctionid" value="#{auctionController.selected.auctionid}" title="#{bundle.CreateAuctionTitle_auctionid}" required="true" requiredMessage="#{bundle.CreateAuctionRequiredMessage_auctionid}"/>
+                    <h:outputLabel value="#{bundle.CreateAuctionLabel_startTime}" for="startTime" />
+                    <h:inputText id="startTime" value="#{auctionController.selected.startTime}" title="#{bundle.CreateAuctionTitle_startTime}" required="true" requiredMessage="#{bundle.CreateAuctionRequiredMessage_startTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAuctionLabel_endTime}" for="endTime" />
+                    <h:inputText id="endTime" value="#{auctionController.selected.endTime}" title="#{bundle.CreateAuctionTitle_endTime}" required="true" requiredMessage="#{bundle.CreateAuctionRequiredMessage_endTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAuctionLabel_objectid}" for="objectid" />
+                    <h:selectOneMenu id="objectid" value="#{auctionController.selected.objectid}" title="#{bundle.CreateAuctionTitle_objectid}" required="true" requiredMessage="#{bundle.CreateAuctionRequiredMessage_objectid}">
+                        <f:selectItems value="#{objectsController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{auctionController.create}" value="#{bundle.CreateAuctionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{auctionController.prepareList}" value="#{bundle.CreateAuctionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/admin/admin" value="#{bundle.CreateAuctionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

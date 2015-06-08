@@ -79,9 +79,9 @@ public class UsersController implements Serializable {
     }
 
     public String prepareCreate() {
-        current = new Users(true);
+        current = new Users();
         selectedItemIndex = -1;
-        return "welcome";
+        return "Create";
     }
 
     public String create() {
