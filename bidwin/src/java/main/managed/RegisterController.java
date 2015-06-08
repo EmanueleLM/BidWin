@@ -30,8 +30,12 @@ public class RegisterController {
 	}
 	
 	public String register() {
-		usersession.save(user);
-		return "/login?faces-redirect=true";
+                if ( usersession.usernamecheck(user) ) {
+                    usersession.save(user);
+                    return "/login?faces-redirect=true";
+                }
+		// else 
+                return "errore da segnalare";
 	}
 
 }

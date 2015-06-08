@@ -38,6 +38,20 @@ public class UserSession {
 	em.persist(newuser);
     }
 
+    public List<Users> findAll() {
+        javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(Users.class));
+        return em.createQuery(cq).getResultList();
+    }
+
+    public boolean usernamecheck(UsersDTO user) {
+        for (Users u : findAll()) {
+            if (u.getUsername().equals( user.getUsername() )) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
     // Ritorna l'utente loggato come oggetto
