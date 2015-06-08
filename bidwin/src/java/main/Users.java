@@ -5,6 +5,7 @@
  */
 package main;
 
+import main.dto.UsersDTO;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -24,11 +25,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import org.apache.commons.codec.digest.DigestUtils;
 
-/**
- *
- * @author Ga
- */
+
 @Entity
 @Table(name = "users")
 @XmlRootElement
@@ -63,7 +62,6 @@ public class Users implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "Surname")
     private String surname;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -98,7 +96,6 @@ public class Users implements Serializable {
     private int credits;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "Password")
     private String password;
     @ManyToMany(mappedBy = "usersCollection")
@@ -109,15 +106,21 @@ public class Users implements Serializable {
     private Collection<Objects> objectsCollection;
 
     public Users() {
-        this.credits = 100;
-    }
-    
-    public Users(boolean bonus) {
-        this.credits = bonus ? 100 :  0;
     }
 
-    public Users(String username) {
-        this.username = username;
+    public Users(UsersDTO user){
+        
+        this.username         = user.getUsername();
+        this.name             = user.getName();
+        this.surname          = user.getSurname();
+        this.email            = user.getEmail();
+        this.ranking          = 0;
+        this.address          = user.getAddress();
+        this.paymentInfo      = user.getPaymentInfo();
+        this.auctionCounter   = 0;
+        this.birthdate        = user.getBirthdate();
+        this.credits          = 100;
+        this.password         = DigestUtils.sha256Hex( user.getPassword() );
     }
 
     public Users(String username, String name, String surname, String email, int ranking, String address, String paymentInfo, int auctionCounter, Date birthdate, int credits, String password) {
@@ -131,7 +134,7 @@ public class Users implements Serializable {
         this.auctionCounter = auctionCounter;
         this.birthdate = birthdate;
         this.credits = credits;
-        this.password = password;
+        this.password = DigestUtils.sha256Hex( password );
     }
     
     public String getUsername() {

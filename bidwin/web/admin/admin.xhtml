@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title> Facelet Title </title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        Hello from Facelets
+        <br />
+        <h:link outcome="/admin/auction/List" value="Show All Auction Items"/>
+        <br />
+        <h:link outcome="/admin/bid/List" value="Show All Bid Items"/>
+        <br />
+        <h:link outcome="/admin/groups/List" value="Show All Groups Items"/>
+        <br />
+        <h:link outcome="/admin/objects/List" value="Show All Objects Items"/>
+        <br />
+        <h:link outcome="/admin/users/List" value="Show All Users Items"/>
+        <br /><br /><br /><br />
+        <h:commandButton action="#{logoutBean.logout()}" value="Logout" />
+    </h:body>
+
+
+
+
+</html>
+
