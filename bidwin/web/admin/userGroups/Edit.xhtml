@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundleUserGroups.EditUserGroupsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundleUserGroups.EditUserGroupsLabel_userGroupsPK_groupId}" for="userGroupsPK_groupId" />
+                    <h:inputText id="userGroupsPK_groupId" value="#{userGroupsController.selected.userGroupsPK.groupId}" title="#{bundleUserGroups.EditUserGroupsTitle_userGroupsPK_groupId}" required="true" requiredMessage="#{bundleUserGroups.EditUserGroupsRequiredMessage_userGroupsPK_groupId}"/>
+                    <h:outputLabel value="#{bundleUserGroups.EditUserGroupsLabel_userGroupsPK_username}" for="userGroupsPK_username" />
+                    <h:inputText id="userGroupsPK_username" value="#{userGroupsController.selected.userGroupsPK.username}" title="#{bundleUserGroups.EditUserGroupsTitle_userGroupsPK_username}" required="true" requiredMessage="#{bundleUserGroups.EditUserGroupsRequiredMessage_userGroupsPK_username}"/>
+                    <h:outputLabel value="#{bundleUserGroups.EditUserGroupsLabel_uriId}" for="uriId" />
+                    <h:inputText id="uriId" value="#{userGroupsController.selected.uriId}" title="#{bundleUserGroups.EditUserGroupsTitle_uriId}" />
+                </h:panelGrid>
+                <h:commandLink action="#{userGroupsController.update}" value="#{bundleUserGroups.EditUserGroupsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundleUserGroups.EditUserGroupsViewLink}"/>
+                <br />
+                <h:commandLink action="#{userGroupsController.prepareList}" value="#{bundleUserGroups.EditUserGroupsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundleUserGroups.EditUserGroupsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
