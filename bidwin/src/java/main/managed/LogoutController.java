@@ -11,7 +11,7 @@ public class LogoutController {
 	
 	public String logout() {
 	    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-	    return "/faces/login?faces-redirect=true";
+	    return "/user/welcome?faces-redirect=true";
 	  }
 
 }

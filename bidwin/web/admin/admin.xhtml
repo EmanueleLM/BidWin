@@ -21,7 +21,9 @@
         <br />
         <h:link outcome="/admin/userGroups/List" value="Show All User Gruop Items"/>
         <br /><br /><br /><br />
-        <h:commandButton action="#{logoutBean.logout()}" value="Logout" />
+        <h:form>
+            <h:commandButton action="#{logoutBean.logout()}" value="Logout" />
+        </h:form>
     </h:body>
 
 
