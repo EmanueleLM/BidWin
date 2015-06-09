@@ -33,9 +33,9 @@ public class RegisterController {
                 if ( usersession.usernamecheck(user) ) {
                     usersession.save(user);
                     return "/login?faces-redirect=true";
+                } else {
+                    return "/register?faces-redirect=true&alreadyused=true";
                 }
-		// else 
-                return "errore da segnalare";
 	}
 
 }

@@ -5,6 +5,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ *
+ * @author Mago
+ */
 public class UsersDTO {
 	
         @NotEmpty
@@ -96,5 +100,5 @@ public class UsersDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
 }
