@@ -16,6 +16,8 @@ import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import main.UserGroups;
+import main.UserGroupsPK;
 
 /**
  *
@@ -32,10 +34,13 @@ public class UserSession {
     
     public void save(UsersDTO user) {
 	Users newuser = new Users(user);
-        
-        // Lele devi farlo qua
-        
+        UserGroups usergroup = new UserGroups();
+        UserGroupsPK usergroupPK = new UserGroupsPK();
+        usergroupPK.setGroupId(1);
+        usergroupPK.setUsername(user.getUsername());
+        usergroup.setUserGroupsPK(usergroupPK);
 	em.persist(newuser);
+        em.persist(usergroup);
     }
 
     public List<Users> findAll() {
