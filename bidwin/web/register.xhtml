@@ -53,12 +53,11 @@
 			<p:commandButton value="Register" update="regGrid"
 				action="#{registerBean.register()}" />
                         
-                        
                         <h:form rendered="#{param['alreadyused']}">
                             <h:outputLabel>Username already used</h:outputLabel>
                         </h:form>
-                        
-                        </p:panel>
+                
+                </p:panel>
 	</h:form>
 </h:body>
 

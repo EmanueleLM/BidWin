@@ -5,10 +5,8 @@
  */
 package main.session;
 
-import java.util.ArrayList;
 import java.util.List;
 import main.Users;
-import main.Groups;
 import main.dto.UsersDTO;
 
 import javax.annotation.Resource;

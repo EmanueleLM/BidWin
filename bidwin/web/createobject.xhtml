@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>New Object</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel header="New Object form">
+			<h:panelGrid columns="3" id="regGrid">
+                                <h:outputLabel for="objectName">Object Name:</h:outputLabel>
+                                <p:inputText id="objectName" value="#{createobjectBean.object.objectName}" />
+				<p:message for="objectName" />
+
+				<h:outputLabel for="objectType">Object Type:</h:outputLabel>
+                                <p:inputText id="objectType" value="#{createobjectBean.object.objectType}" />
+				<p:message for="objectType" />
+
+				<h:outputLabel for="description">Description:</h:outputLabel>
+                                <p:inputText id="description" value="#{createobjectBean.object.description}" />
+				<p:message for="description" />
+
+                                <h:outputLabel for="imageLink">Image Link:</h:outputLabel>
+                                <p:inputText id="imageLink" value="#{createobjectBean.object.imageLink}" />
+				<p:message for="imageLink" />
+
+			</h:panelGrid>
+			<p:commandButton value="Create" update="regGrid"
+                                action="#{createobjectBean.register()}" />
+                        
+                </p:panel>
+	</h:form>
+</h:body>
+
+</html>
