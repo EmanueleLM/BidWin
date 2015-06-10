@@ -7,7 +7,7 @@
 	<title> Login </title>
 </h:head>
 <h:body>
-	<p:panel header="Login Form">
+	<p:panel header="BidWin: Login Form">
                 <h:form id="login" onsubmit="document.getElementById('login').action='j_security_check';" prependId="false">
                     <h:panelGrid columns="2">
                         <p:outputLabel for="j_username" value="Username" />
@@ -15,12 +15,21 @@
                         <p:outputLabel for="j_password" value="Password" />
                         <p:password id="j_password" />
                         <p:commandButton id="submit" value="Login" ajax="false"/>
+                        <p:tooltip id="toolTipFadeSubmit" for="submit" value="Log In"  showEffect="clip" hideEffect="explode"/>
                     </h:panelGrid>
                 </h:form>
+                <br />
 		<h:form>
-			<h:link value="Register" outcome="/register" />
-                        <br />  <br />  <br />  <br />  <br />  <br />
-                        <h:link value="admin" outcome="/admin/admin" />
+			<h:outputText value="Not yet a registered user? Please " />
+                        <h:outputLink id="fade"  value="/bidwin/faces/register.xhtml">
+                            <h:outputText value="Register!" />
+                        </h:outputLink>
+                        <p:tooltip id="toolTipFadeRegister" for="fade" value="Register" />
+                        <br />  <br />  <br /> 
+                        <h:outputLink id="admin" value="/bidwin/faces/admin/admin.xhtml">
+                            <h:outputText value="Admin" />
+                        </h:outputLink>
+                        <p:tooltip id="toolTipFadeAdmin" for="admin" value="Log as Admin" />
 		</h:form>
 	</p:panel>
 </h:body>
