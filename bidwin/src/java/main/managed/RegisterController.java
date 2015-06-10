@@ -7,6 +7,10 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+/**
+ *
+ * @author Mago
+ */
 @ManagedBean(name="registerBean")
 @RequestScoped
 public class RegisterController {
@@ -28,7 +32,7 @@ public class RegisterController {
 	public void setUser(UsersDTO user) {
 		this.user = user;
 	}
-	
+
 	public String register() {
                 if ( usersession.usernamecheck(user) ) {
                     usersession.save(user);

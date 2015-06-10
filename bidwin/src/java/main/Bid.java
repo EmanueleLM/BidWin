@@ -14,6 +14,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import main.dto.BidDTO;
 
 /**
  *
@@ -41,8 +42,9 @@ public class Bid implements Serializable {
     public Bid() {
     }
 
-    public Bid(BidPK bidPK) {
-        this.bidPK = bidPK;
+    public Bid(BidDTO bid, Users username, Auction auction) {
+        
+        this.bidPK = new BidPK( username.getUsername(), auction.getAuctionid(), bid.getValue() );
     }
 
     public Bid(String username, int auctionid, int value) {

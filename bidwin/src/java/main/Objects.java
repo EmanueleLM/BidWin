@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import main.dto.ObjectsDTO;
 
 /**
  *
@@ -73,8 +74,13 @@ public class Objects implements Serializable {
     public Objects() {
     }
 
-    public Objects(Integer objectid) {
-        this.objectid = objectid;
+    public Objects(ObjectsDTO object, Users username) {
+        
+        this.objectName    = object.getObjectName();
+        this.objectType    = object.getObjectType();
+        this.description   = object.getDescription();
+        this.imageLink     = object.getImageLink();
+        this.username      = username;
     }
 
     public Objects(Integer objectid, String objectName, String objectType, String description, String imageLink) {
