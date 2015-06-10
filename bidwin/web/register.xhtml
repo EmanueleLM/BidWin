@@ -11,6 +11,10 @@
 <h:body>
 	<h:form>
 		<p:panel header="Registration Form">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" url="/" />
+                        <p:menuitem value="Home" url="/" />
+                    </p:breadCrumb>
 			<h:panelGrid columns="3" id="regGrid">
                                 <h:outputLabel for="username">Username:</h:outputLabel>
 				<p:inputText id="username" value="#{registerBean.user.username}" />
@@ -50,8 +54,9 @@
 				<h:outputLabel for="pwd2">Confirm Password:</h:outputLabel>
 				<p:password id="pwd2" label="Confirm Password" value="#{registerBean.user.password}"/>
 			</h:panelGrid>
-			<p:commandButton value="Register" update="regGrid"
+			<p:commandButton id="registerform" value="Register" update="regGrid"
 				action="#{registerBean.register()}" />
+                        <p:tooltip id="toolTipFadeRegister" for="registerform" value="Submit Registration" />
                         
                         <h:form rendered="#{param['alreadyused']}">
                             <h:outputLabel>Username already used</h:outputLabel>

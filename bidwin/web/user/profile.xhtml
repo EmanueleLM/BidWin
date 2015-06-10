@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>User's Profile</title>
+</h:head>
+<h:body>
+	<h:form>
+                        <p:breadCrumb>
+                                <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                                <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                                <p:menuitem value="Profile" url="#" />
+                            </p:breadCrumb>
+                        <p:panel header="User's profile">
+			<h:panelGrid columns="2" id="regGrid">
+                                <h:outputLabel for="Username">Username:</h:outputLabel>
+                                <p:outputLabel id="Username" value="#" />
+
+				<h:outputLabel for="Name">Name:</h:outputLabel>
+                                <p:outputLabel id="Name" value="#" />
+
+				<h:outputLabel for="Surname">Surname:</h:outputLabel>
+                                <p:outputLabel id="Surname" value="#" />
+                                
+				<h:outputLabel for="Mail">Mail:</h:outputLabel>
+                                <p:outputLabel id="Mail" value="#" />
+        		</h:panelGrid>   
+                         
+                        <h:panelGrid columns="5" id="credGrid">    
+				<h:outputLabel for="Credits">Credits:</h:outputLabel>
+                                <p:outputLabel id="Credits" value="#" />   
+                                <p:commandButton id="RechargePocket" value="Recharge" action="#" />
+                                <p:tooltip id="toolTipFadeRechargePocket" for="RechargePocket" value="Recharge your pocket!" />
+               		</h:panelGrid>
+                            
+		 </p:panel>
+	</h:form>
+</h:body>
+
+</html>

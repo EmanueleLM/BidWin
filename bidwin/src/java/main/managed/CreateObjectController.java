@@ -35,7 +35,7 @@ public class CreateObjectController {
 
         public String register() {
                 objectsession.save(object);
-                return "/welcome?faces-redirect=true"; 
+                return "/faces/user/welcome?faces-redirect=true"; 
 	}
 
 }

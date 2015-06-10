@@ -8,31 +8,69 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-        <ui:composition template="/template.xhtml">
-            <ui:define name="title">
-                   Bidwin
-            </ui:define>
-            <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-                <h:form>
-                    <h:outputLabel>
-                    BidWin e' un sistema interattivo di aste online!<br></br>
-                    Registrati e scopri un mondo di offerete e novita',<br></br>
-                    occasioni imperdibili e prodotti fantastici: e il <br></br>
-                    prezzo lo decidi te!
-                    <br></br>
-                    <br></br>                    
-                    Registrati al sistema o se sei gia' registrato,<br></br>
-                    effettua il login.<br></br>
-                    </h:outputLabel>
-                    <h:link outcome="/register" value="#{bundle.Register}"/>
-                    <h:commandButton action="#{logoutBean.logout}" value="Logout" />
-                </h:form>
-            </ui:define>
-        </ui:composition>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+        <h:head>
+                <title> Login </title>
+        </h:head>
+            <h:body>
+            <p:panel header="BidWin: Login Form">  
+                    <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" url="#" />
+                        <p:menuitem value="Home" url="#" />
+                    </p:breadCrumb>
+                        <h:form>  
+                            <p:growl id="messages"/>
 
+                            <p:menubar>
+                            <p:submenu label="Profile">
+                                    <p:menuitem value="Manage Profile" url="/faces/user/profile.xhtml" />
+                                    <p:menuitem value="Recharge Pocket" url="/faces/user/recharge.xhtml" />
+                                </p:submenu>
+                                
+                                <p:submenu label="Auctions" icon="ui-icon-document">
+                                    <p:menuitem value="New Auction" url="#" />
+                                    <p:menuitem value="Manage Auction   " url="#" />
+                                </p:submenu>
+
+                                <p:submenu label="Objects" icon="ui-icon-document">
+                                    <p:menuitem value="New Object" url="/faces/user/createobject.xhtml" />
+                                    <p:menuitem value="Manage Objects" url="#" />
+                                </p:submenu>
+
+                                <p:submenu label="Help" icon="ui-icon-help">
+                                    <p:menuitem value="Contents" url="#" />
+                                </p:submenu>
+
+                                <f:facet name="options">
+                                    <p:inputText style="margin-right:10px" placeholder="Search"/>
+                                    <p:commandButton ajax="false" value="Logout" icon="ui-icon-extlink" action="#{logoutBean.logout()}"/>
+                                </f:facet>
+                            </p:menubar>
+                        </h:form>
+                            <p:carousel numVisible="1" itemStyle="height:200px;width:600px;" effect="easeInStrong" headerText="Tabs" style="margin-left:300px;">
+                                <p:tab title="Notification">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:graphicImage name="image" />
+                                        <h:outputText
+                                            value="..." />
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Notification">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:graphicImage name="image" />
+                                        <h:outputText value="..." />
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Notification">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:graphicImage name="image" />
+                                        <h:outputText value="..." />
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:carousel>
+                    </h:form>
+                </p:panel>
+            </h:body>
 </html>

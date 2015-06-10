@@ -10,7 +10,12 @@
 </h:head>
 <h:body>
 	<h:form>
-		<p:panel header="New Object form">
+                        <p:breadCrumb>
+                                <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                                <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                                <p:menuitem value="New Object" url="#" />
+                            </p:breadCrumb>
+                        <p:panel header="New Object form">
 			<h:panelGrid columns="3" id="regGrid">
                                 <h:outputLabel for="objectName">Object Name:</h:outputLabel>
                                 <p:inputText id="objectName" value="#{createobjectBean.object.objectName}" />
@@ -29,9 +34,9 @@
 				<p:message for="imageLink" />
 
 			</h:panelGrid>
-			<p:commandButton value="Create" update="regGrid"
+			<p:commandButton id="createobject" value="Create" update="regGrid"
                                 action="#{createobjectBean.register()}" />
-                        
+                        <p:tooltip id="toolTipFadeCreateObject" for="createobject" value="Create the object" />
                 </p:panel>
 	</h:form>
 </h:body>
