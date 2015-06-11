@@ -17,11 +17,26 @@ public class UserInformationController {
     
     
     public String showUsername() {
-        return usersession.getPrincipalUser().getUsername();
+        return usersession.getPrincipalUser().getUsername().toString();
     }
     
     public String showName() {
-        return usersession.getPrincipalUser().getName();
+        return usersession.getPrincipalUser().getName().toString();
+    }
+    
+    public String showSurname() {
+        return usersession.getPrincipalUser().getSurname().toString();
     }
 
+    public String showEmail() {
+        return usersession.getPrincipalUser().getEmail().toString();
+    }
+    
+    public int showCredits() {
+        return usersession.getPrincipalUser().getCredits();
+    }
+    
+    public String showPaymentInfo() {
+        return usersession.getPrincipalUser().getPaymentInfo().toString();
+    }
 }

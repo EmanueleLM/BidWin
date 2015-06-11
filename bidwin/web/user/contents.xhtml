@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+        <h:head>
+                <title> Login </title>
+        </h:head>
+            <h:body>
+            <p:panel header="BidWin: Contents">  
+                    <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                        <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                        <p:menuitem value="Contents" url="#" />
+                    </p:breadCrumb>
+                        <h:form>  
+                            <p:growl id="messages"/>
+
+                        </h:form>
+                            <p:carousel numVisible="1" itemStyle="height:430px;width:600px;" effect="easeInStrong" headerText="Infos" style="margin-left:300px;">
+                                <p:tab title="Bidwin">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:graphicImage name="image" />
+                                        <h:outputLabel><b>BidWin</b> is an application implementing an inverse auction system.<br />
+                                                    An inverse auction works like a regular auction.<br />                                                                                               
+                                                    The difference is that in an inverse auction a user has to propose the <b>lowest</b> unique bid                                       
+                                                    to win the auction.<br />                                                                                               
+                                                    Each user has to guess the <b>lowest bid.</b> Bids can be placed till the bidding closing time.<br /> 
+                                                    The winner is the user who has placed the lowest unique bid. If for instance,                               
+                                                    the situation is the following:<br />  <br />                                                        
+                                                    • <b>Two</b> users have bid for <b>10</b> <br />                                                                        
+                                                    • <b>One</b> user has bid for <b>8</b>  <br />                                                                     
+                                                    • <b>One</b> user has bid for <b>7</b>  <br />                                                                       
+                                                    • <b>Three</b> users have bid for <b>4</b> <br /> <br />                                                                   
+                                                    The lowest unique bid is the one for 7 and therefore the user who has placed this bid will win.  <br />        
+                                                    Before the ending of the bidding time each user can provide more that one bid."<br /> <br /> 
+                                        </h:outputLabel>
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Create an Auction!">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:graphicImage name="image" />
+                                        <h:outputLabel>
+                                            Proudly developed by:<br /> <br /> <br /> <br />
+                                            <b>La</b> <b>Malfa</b> <b>Emanuele</b> - emanuele.lamalfa@mail.polimi.it-<br />
+                                            <b>Malvestiti</b> <b>Davide</b> - davide.malvestiti@mail.polimi.it -<br /> <br /> <br /> <br />
+                                            If you want some, come get some!
+                                        </h:outputLabel>
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Make an offer!">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <p:graphicImage name="image" />
+                                        <h:outputText value="..." />
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:carousel>
+                    </h:form>
+                </p:panel>
+            </h:body>
+</html>

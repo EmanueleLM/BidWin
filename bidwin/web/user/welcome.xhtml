@@ -14,7 +14,7 @@ and open the template in the editor.
                 <title> Login </title>
         </h:head>
             <h:body>
-            <p:panel header="BidWin: Login Form">  
+            <p:panel header="BidWin: Homepage">  
                     <h:form>
                     <p:breadCrumb>
                         <p:menuitem value="Home" url="#" />
@@ -22,7 +22,6 @@ and open the template in the editor.
                     </p:breadCrumb>
                         <h:form>  
                             <p:growl id="messages"/>
-
                             <p:menubar>
                             <p:submenu label="Profile">
                                     <p:menuitem value="Manage Profile" url="/faces/user/profile.xhtml" />
@@ -40,10 +39,11 @@ and open the template in the editor.
                                 </p:submenu>
 
                                 <p:submenu label="Help" icon="ui-icon-help">
-                                    <p:menuitem value="Contents" url="#" />
+                                    <p:menuitem value="Contents" url="/faces/user/contents.xhtml" />
                                 </p:submenu>
 
                                 <f:facet name="options">
+                                    <p:outputLabel id="serachauction">Search for an auction:  </p:outputLabel>        
                                     <p:inputText style="margin-right:10px" placeholder="Search"/>
                                     <p:commandButton ajax="false" value="Logout" icon="ui-icon-extlink" action="#{logoutBean.logout()}"/>
                                 </f:facet>
