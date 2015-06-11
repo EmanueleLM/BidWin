@@ -50,12 +50,12 @@ public class Auction implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "StartTime")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
     @Basic(optional = false)
     @NotNull
     @Column(name = "EndTime")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
     @JoinColumn(name = "Object_id", referencedColumnName = "Object_id")
     @OneToOne(optional = false)

@@ -19,11 +19,11 @@
                     <h:inputText id="auctionid" value="#{auctionController.selected.auctionid}" title="#{bundle.EditAuctionTitle_auctionid}" required="true" requiredMessage="#{bundle.EditAuctionRequiredMessage_auctionid}"/>
                     <h:outputLabel value="#{bundle.EditAuctionLabel_startTime}" for="startTime" />
                     <h:inputText id="startTime" value="#{auctionController.selected.startTime}" title="#{bundle.EditAuctionTitle_startTime}" required="true" requiredMessage="#{bundle.EditAuctionRequiredMessage_startTime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.EditAuctionLabel_endTime}" for="endTime" />
                     <h:inputText id="endTime" value="#{auctionController.selected.endTime}" title="#{bundle.EditAuctionTitle_endTime}" required="true" requiredMessage="#{bundle.EditAuctionRequiredMessage_endTime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.EditAuctionLabel_objectid}" for="objectid" />
                     <h:selectOneMenu id="objectid" value="#{auctionController.selected.objectid}" title="#{bundle.EditAuctionTitle_objectid}" required="true" requiredMessage="#{bundle.EditAuctionRequiredMessage_objectid}">
