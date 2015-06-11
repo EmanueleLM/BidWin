@@ -13,7 +13,7 @@
                         <p:breadCrumb>
                                 <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
                                 <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
-                                <p:menuitem value="Profile" url="#" />
+                                <p:menuitem value="User's details" url="#" />
                             </p:breadCrumb>
                         <p:panel header="User's profile">
 			<h:panelGrid columns="2" id="regGrid">
@@ -33,7 +33,7 @@
                         <h:panelGrid columns="5" id="credGrid">    
 				<h:outputLabel for="Credits">Credits:</h:outputLabel>
                                 <p:outputLabel id="Credits" value="#{userInfo.showCredits()}" />   
-                                <p:commandButton id="RechargePocket" value="Recharge" action="/faces/user/recharge.xhtml" />
+                                <p:commandButton id="RechargePocket" value="Recharge" action="/faces/user/buycredits.xhtml" />
                                 <p:tooltip id="toolTipFadeRechargePocket" for="RechargePocket" value="Recharge your pocket!" />
                		</h:panelGrid>
                             
