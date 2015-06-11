@@ -17,23 +17,23 @@
                             </p:breadCrumb>
                         <p:panel header="User's profile">
 			<h:panelGrid columns="2" id="regGrid">
-                                <h:outputLabel for="Username">Username:</h:outputLabel>
-                                <p:outputLabel id="Username" value="#" />
+                            <h:outputLabel for="Username">Username:</h:outputLabel>
+                            <p:outputLabel id="Username" value="#{userInfo.showUsername()}" />
 
-				<h:outputLabel for="Name">Name:</h:outputLabel>
-                                <p:outputLabel id="Name" value="#" />
+				<h:outputLabel for="Name" >Name:</h:outputLabel>
+                                <p:outputLabel id="Name" value="#{userInfo.showName()}" />
 
 				<h:outputLabel for="Surname">Surname:</h:outputLabel>
-                                <p:outputLabel id="Surname" value="#" />
+                                <p:outputLabel id="Surname" value="#{userInfo.showSurname()}"/>
                                 
 				<h:outputLabel for="Mail">Mail:</h:outputLabel>
-                                <p:outputLabel id="Mail" value="#" />
+                                <p:outputLabel id="Mail" value="#{userInfo.showEmail()}" />
         		</h:panelGrid>   
                          
                         <h:panelGrid columns="5" id="credGrid">    
 				<h:outputLabel for="Credits">Credits:</h:outputLabel>
-                                <p:outputLabel id="Credits" value="#" />   
-                                <p:commandButton id="RechargePocket" value="Recharge" action="#" />
+                                <p:outputLabel id="Credits" value="#{userInfo.showCredits()}" />   
+                                <p:commandButton id="RechargePocket" value="Recharge" action="/faces/user/recharge.xhtml" />
                                 <p:tooltip id="toolTipFadeRechargePocket" for="RechargePocket" value="Recharge your pocket!" />
                		</h:panelGrid>
                             
