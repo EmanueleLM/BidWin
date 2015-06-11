@@ -41,6 +41,12 @@ public class UserSession {
         em.persist(usergroup);
     }
 
+    public void updatepocket(int total) {
+	Users user = getPrincipalUser();
+        user.setCredits(total);
+        em.merge(user);
+    }
+
     public List<Users> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(Users.class));
