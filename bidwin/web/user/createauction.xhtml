@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>User's Profile</title>
+</h:head>
+<h:body>
+	<h:form>
+            <p:breadCrumb>
+                    <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                    <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                    <p:menuitem value="My Objects" url="/faces/user/myobjects.xhtml" />                    
+                    <p:menuitem value="Create Auction" url="#" />
+            </p:breadCrumb>
+            
+            <p:panel header="User's objects">
+                
+             		<h:panelGrid columns="2" id="regGrid">
+                            <h:outputLabel for="Username">Object Name</h:outputLabel>
+                            <p:outputLabel id="Username" value="campo statico con il nome dell'oggetto" />
+
+				<h:outputLabel for="Name" >Start Time</h:outputLabel>
+                                <p:outputLabel id="Name" value="tempo inizio asta" />
+
+				<h:outputLabel for="Surname">Durata</h:outputLabel>
+                                <p:outputLabel id="Surname" value="eventuale spinner o boxdove scegliere durata"/>
+                                
+        		</h:panelGrid>   
+                
+                        <p:commandButton id="CreateAuction" value="CreateAuction" action="#" />
+                        <p:tooltip id="toolTipFadeCreateAuction" for="CreateAuction" value="Create an auction!" />
+
+
+            </p:panel>
+                        
+            
+        </h:form>
+</h:body>
+
+</html>
