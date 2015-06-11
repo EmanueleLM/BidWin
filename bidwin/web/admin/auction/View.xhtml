@@ -19,11 +19,11 @@
                     <h:outputText value="#{auctionController.selected.auctionid}" title="#{bundle.ViewAuctionTitle_auctionid}"/>
                     <h:outputText value="#{bundle.ViewAuctionLabel_startTime}"/>
                     <h:outputText value="#{auctionController.selected.startTime}" title="#{bundle.ViewAuctionTitle_startTime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewAuctionLabel_endTime}"/>
                     <h:outputText value="#{auctionController.selected.endTime}" title="#{bundle.ViewAuctionTitle_endTime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewAuctionLabel_objectid}"/>
                     <h:outputText value="#{auctionController.selected.objectid}" title="#{bundle.ViewAuctionTitle_objectid}"/>

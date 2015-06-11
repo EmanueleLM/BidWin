@@ -28,7 +28,7 @@
     </login-config>
     <context-param>
     <param-name>primefaces.THEME</param-name>
-    <param-value>blitzer</param-value>
+    <param-value>glass-x</param-value>
     </context-param>
     <security-constraint>
         <display-name>AdminC</display-name>
