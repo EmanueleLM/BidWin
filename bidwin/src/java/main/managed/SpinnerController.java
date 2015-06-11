@@ -24,6 +24,11 @@ public class SpinnerController {
     private UserSession usersession;
 
  
+    public void rechargePocket() {
+        usersession.updatepocket(this.number + usersession.getPrincipalUser().getCredits());
+        setNumber(0);
+    }
+
     public int getNumber() {
         return number;
     }
