@@ -5,6 +5,7 @@ import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -17,6 +18,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.Objects;
+import main.session.ObjectSession;
 
 @ManagedBean(name = "objectsController")
 @SessionScoped
@@ -28,6 +30,10 @@ public class ObjectsController implements Serializable {
     private main.facade.ObjectsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    @EJB
+    private ObjectSession objectsession;
+
 
     public ObjectsController() {
     }
@@ -44,6 +50,14 @@ public class ObjectsController implements Serializable {
         return ejbFacade;
     }
 
+    private ObjectSession getObjectSession() {
+        return objectsession;
+    }
+    
+    public List<Objects> myobjects() {
+        return objectsession.getMyObjects();
+    }
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -78,7 +92,11 @@ public class ObjectsController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
-
+    
+    public void prepareAuction() {
+        //inserire funzione per avere oggetto correntemente selezionato
+    }
+    
     public String create() {
         try {
             getFacade().create(current);
@@ -226,6 +244,10 @@ public class ObjectsController implements Serializable {
             }
         }
 
+    }
+    
+    public String foo() {
+        return "foo";
     }
 
 }

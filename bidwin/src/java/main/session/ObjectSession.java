@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import main.Objects;
 import main.dto.ObjectsDTO;
 
@@ -40,11 +41,13 @@ public class ObjectSession {
 
     public List<Objects> getMyObjects(){
         try {
-            List<Objects> myobjects = (ArrayList<Objects>)em.createQuery("SELECT o.* FROM objects o WHERE o.Username=:us").setParameter("us", usersession.getPrincipalUsername() ).getResultList();
-            return myobjects;
+        Query jpqlQuery = em.createNativeQuery("Select * from objects where username = ?1",Objects.class);
+        List<Objects> results = jpqlQuery.setParameter(1, usersession.getPrincipalUsername()).getResultList();
+        return results;
         } catch(NoResultException e) { 
             return null;
         }
     }
-
+    
+  
 }

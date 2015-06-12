@@ -20,18 +20,21 @@
             <p:panel header="User's objects">
                 
              		<h:panelGrid columns="2" id="regGrid">
-                            <h:outputLabel for="Username">Object Name</h:outputLabel>
-                            <p:outputLabel id="Username" value="campo statico con il nome dell'oggetto" />
+                                <h:outputLabel for="Id">Object Id</h:outputLabel>
+                                <p:outputLabel id="Id" value="#" />
+                            
+                                <h:outputLabel for="ObjectName">Object Name</h:outputLabel>
+                                <p:outputLabel id="ObjectName" value="#" />
 
-				<h:outputLabel for="Name" >Start Time</h:outputLabel>
-                                <p:outputLabel id="Name" value="tempo inizio asta" />
+				<h:outputLabel for="StartTime" >Start Time</h:outputLabel>
+                                <p:outputLabel id="StartTime" value="tempo inizio asta" />
 
-				<h:outputLabel for="Surname">Durata</h:outputLabel>
-                                <p:outputLabel id="Surname" value="eventuale spinner o boxdove scegliere durata"/>
+				<h:outputLabel for="EndTime">Durata</h:outputLabel>
+                                <p:outputLabel id="EndTime" value="eventuale spinner o boxdove scegliere durata"/>
                                 
         		</h:panelGrid>   
                 
-                        <p:commandButton id="CreateAuction" value="CreateAuction" action="#" />
+                <p:commandButton id="CreateAuction" value="CreateAuction" action="#" />
                         <p:tooltip id="toolTipFadeCreateAuction" for="CreateAuction" value="Create an auction!" />
 
 

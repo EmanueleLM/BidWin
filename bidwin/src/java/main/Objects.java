@@ -33,6 +33,7 @@ import main.dto.ObjectsDTO;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Objects.findAll", query = "SELECT o FROM Objects o"),
+    @NamedQuery(name = "Objects.findAllByUsername", query = "SELECT o FROM Objects o WHERE o.username = :username"),
     @NamedQuery(name = "Objects.findByObjectid", query = "SELECT o FROM Objects o WHERE o.objectid = :objectid"),
     @NamedQuery(name = "Objects.findByObjectName", query = "SELECT o FROM Objects o WHERE o.objectName = :objectName"),
     @NamedQuery(name = "Objects.findByObjectType", query = "SELECT o FROM Objects o WHERE o.objectType = :objectType"),
@@ -169,7 +170,7 @@ public class Objects implements Serializable {
 
     @Override
     public String toString() {
-        return "src.Objects[ objectid=" + objectid + " ]";
+        return this.objectName;
     }
     
 }
