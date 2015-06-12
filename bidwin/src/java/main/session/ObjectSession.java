@@ -5,11 +5,14 @@
  */
 package main.session;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import main.Objects;
 import main.dto.ObjectsDTO;
@@ -33,6 +36,15 @@ public class ObjectSession {
     public void save(ObjectsDTO object) {
 	Objects newobject = new Objects(object,usersession.getPrincipalUser());
 	em.persist(newobject);
+    }
+
+    public List<Objects> getMyObjects(){
+        try {
+            List<Objects> myobjects = (ArrayList<Objects>)em.createQuery("SELECT o.* FROM objects o WHERE o.Username=:us").setParameter("us", usersession.getPrincipalUsername() ).getResultList();
+            return myobjects;
+        } catch(NoResultException e) { 
+            return null;
+        }
     }
 
 }
