@@ -19,20 +19,31 @@
             
             <p:panel header="User's objects">
                 
-             		<h:panelGrid columns="2" id="regGrid">
-                                <h:outputLabel for="Id">Object Id</h:outputLabel>
+                <h:panelGrid columns="2" id="regGrid" cellspacing="10px">
+                                <h:outputLabel for="Id">Object Id: </h:outputLabel>
                                 <h:outputText value="#{objectsController.objectid}" />
-                            
-                                <h:outputLabel for="ObjectName">Object Name</h:outputLabel>
-                                <h:outputText value="#{objectsController.currentObject.objectName}" />
-
-				<h:outputLabel for="StartTime" >Start Time</h:outputLabel>
-                                <p:outputLabel id="StartTime" value="eventuale spinner o boxdove scegliere DATA e ORA" />
                                 
-        		</h:panelGrid>   
+                  
+                                <h:outputLabel for="ObjectName">Object Name: </h:outputLabel>
+                                <h:outputText value="#{objectsController.currentObject.objectName}" />
+                                
+				<h:outputLabel for="StartTime" >Start Time: </h:outputLabel>
+                                <p:clock pattern="HH:mm:ss dd.MM.yyyy" />
+
+                                <h:outputLabel for="ajaxSpinner" value="Duration: " />
+                                <p:outputPanel>
+                                    <p:spinner id="ajaxSpinner" value="#{spinnerView.number+5}" min="5" max="30" stepFactor="5">
+                                                </p:spinner>
+                                </p:outputPanel>
+                                
+        		</h:panelGrid>
+
+                                <br />
                 
                 <p:commandButton id="CreateAuction" value="CreateAuction" action="#" />
-                        <p:tooltip id="toolTipFadeCreateAuction" for="CreateAuction" value="Create an auction!" />
+                <p:tooltip id="toolTipFadeCreateAuction" for="CreateAuction" value="Create an auction!" />
+                
+                <br />
 
 
             </p:panel>
