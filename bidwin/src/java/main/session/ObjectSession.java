@@ -5,7 +5,6 @@
  */
 package main.session;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -42,12 +41,23 @@ public class ObjectSession {
     public List<Objects> getMyObjects(){
         try {
         Query jpqlQuery = em.createNativeQuery("Select * from objects where username = ?1",Objects.class);
-        List<Objects> results = jpqlQuery.setParameter(1, usersession.getPrincipalUsername()).getResultList();
+        jpqlQuery.setParameter(1, usersession.getPrincipalUsername() );
+        List<Objects> results = (List<Objects>) jpqlQuery.getResultList();
         return results;
         } catch(NoResultException e) { 
             return null;
         }
     }
     
-  
+    public Objects getObjectFromId(int objectid){
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select * from objects where Object_id = ?1",Objects.class);
+        jpqlQuery.setParameter(1, objectid );
+        Objects result = (Objects) jpqlQuery.getSingleResult();
+        return result;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+
 }
