@@ -21,16 +21,13 @@
                 
              		<h:panelGrid columns="2" id="regGrid">
                                 <h:outputLabel for="Id">Object Id</h:outputLabel>
-                                <p:outputLabel id="Id" value="#" />
+                                <h:outputText value="#{objectsController.objectid}" />
                             
                                 <h:outputLabel for="ObjectName">Object Name</h:outputLabel>
-                                <p:outputLabel id="ObjectName" value="#" />
+                                <h:outputText value="#{objectsController.currentObject.objectName}" />
 
 				<h:outputLabel for="StartTime" >Start Time</h:outputLabel>
-                                <p:outputLabel id="StartTime" value="tempo inizio asta" />
-
-				<h:outputLabel for="EndTime">Durata</h:outputLabel>
-                                <p:outputLabel id="EndTime" value="eventuale spinner o boxdove scegliere durata"/>
+                                <p:outputLabel id="StartTime" value="eventuale spinner o boxdove scegliere DATA e ORA" />
                                 
         		</h:panelGrid>   
                 

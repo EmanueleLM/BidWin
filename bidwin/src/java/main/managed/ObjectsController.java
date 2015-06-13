@@ -30,6 +30,8 @@ public class ObjectsController implements Serializable {
     private main.facade.ObjectsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private int objectid;
+    private Objects currentObject;
     
     @EJB
     private ObjectSession objectsession;
@@ -49,13 +51,17 @@ public class ObjectsController implements Serializable {
     private ObjectsFacade getFacade() {
         return ejbFacade;
     }
-
-    private ObjectSession getObjectSession() {
-        return objectsession;
-    }
     
     public List<Objects> myobjects() {
         return objectsession.getMyObjects();
+    }
+    
+    public int getObjectid() {
+        return this.objectid;
+    }
+    
+    public Objects getCurrentObject() {
+        return this.currentObject;
     }
     
     public PaginationHelper getPagination() {
@@ -93,8 +99,11 @@ public class ObjectsController implements Serializable {
         return "Create";
     }
     
-    public void prepareAuction() {
-        //inserire funzione per avere oggetto correntemente selezionato
+    public String prepareAuction(int objectid) {
+        this.objectid = objectid;
+        currentObject = new Objects();
+        currentObject = objectsession.getObjectFromId(objectid);
+        return "createauction";
     }
     
     public String create() {

@@ -5,7 +5,6 @@
  */
 package main.session;
 
-import java.util.ArrayList;
 import javax.annotation.Resource;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
@@ -14,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import main.Auction;
 import main.dto.AuctionDTO;
 
@@ -43,8 +43,10 @@ public class AuctionSession {
         date = new Date();
         date.getTime();
         try {
-            List<Auction> auctions = (ArrayList<Auction>)em.createQuery("SELECT a.* FROM auction a WHERE a.EndTime>:end").setParameter("end", date ).getResultList();
-            return auctions;
+        Query jpqlQuery = em.createNativeQuery("Select * from auction where EndTime > ?1",Auction.class);
+        jpqlQuery.setParameter(1, date );
+        List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
+        return results;
         } catch(NoResultException e) { 
             return null;
         }
