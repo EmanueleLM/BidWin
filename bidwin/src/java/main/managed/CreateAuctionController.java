@@ -33,9 +33,11 @@ public class CreateAuctionController {
 		this.auction = auction;
 	}
 
-        public String register() {
+        public String register(int objectid, int numberauction) {
+                auction.setObjectid(objectid);
+                auction.setNumberauction(numberauction);
                 auctionsession.save(auction);
-                return "/welcome?faces-redirect=true"; 
+                return "/user/welcome?faces-redirect=true"; 
 	}
 
 }

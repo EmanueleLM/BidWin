@@ -1,6 +1,5 @@
 package main.dto;
 
-import java.util.Date;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -11,18 +10,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class AuctionDTO {
         
         @NotNull
-    private Date startTime;
+    private int numberauction;
         
         @NotEmpty
     private int objectid;
 
 
-    public Date getStartTime() {
-        return startTime;
+    public int getNumberauction() {
+        return numberauction;
     }
 
-    public void setStartTime(Date time) {
-        this.startTime = time;
+    public void setNumberauction(int numberauction) {
+        this.numberauction = numberauction;
     }
 
     public Integer getObjectid() {

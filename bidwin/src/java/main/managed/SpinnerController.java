@@ -57,7 +57,5 @@ public class SpinnerController {
     public void setNumberauction(int numberauction) {
         this.numberauction = numberauction;
     }
-    
-    
 
 }
