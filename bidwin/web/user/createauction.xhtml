@@ -28,7 +28,7 @@
                                 <h:outputText value="#{objectsController.currentObject.objectName}" />
                                 
 				<h:outputLabel for="StartTime" >Start Time: </h:outputLabel>
-                                <p:clock pattern="HH:mm:ss dd.MM.yyyy" />
+                                <p:clock pattern="HH:mm:ss dd.MM.yyyy"/>
 
                                 <h:outputLabel for="ajaxSpinner" value="Duration: " />
                                 <p:outputPanel>
@@ -40,7 +40,7 @@
 
                                 <br />
                 
-                <p:commandButton id="CreateAuction" value="CreateAuction" action="#" />
+                                <p:commandButton id="CreateAuction" value="CreateAuction" action="#{createauctionBean.register()}"/>
                 <p:tooltip id="toolTipFadeCreateAuction" for="CreateAuction" value="Create an auction for your #{objectsController.currentObject.objectName}!" />
                 
                 <br />

@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import main.Auction;
@@ -29,12 +30,14 @@ public class AuctionSession {
     @Resource
     protected EJBContext context;
     
+    @EJB
+    private ObjectSession objectsession;
+    
     private Date date;
     
     
-    public void save(AuctionDTO object) {
+    public void save(AuctionDTO auction) {
 	Auction newauction = new Auction();
-        
         // cerca object
 	em.persist(newauction);
     }

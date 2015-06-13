@@ -10,52 +10,52 @@
 </h:head>
 <h:body>
 	<h:form>
-		<p:panel header="Registration Form">
+		<p:panel header="Registration Form" style=" text-align: center;margin-left: 20%; margin-right: 20%;">
                     <p:breadCrumb>
-                        <p:menuitem value="Home" url="/" />
-                        <p:menuitem value="Home" url="/" />
+                        <p:menuitem value="Login" url="/" />
+                        <p:menuitem value="Login" url="/" />
                     </p:breadCrumb>
-			<h:panelGrid columns="3" id="regGrid">
-                                <h:outputLabel for="username">Username:</h:outputLabel>
-				<p:inputText id="username" value="#{registerBean.user.username}" />
+			<h:panelGrid columns="3" id="regGrid" style="text-align: center; margin-left: 25%;">
+                                <h:outputLabel for="username" style="margin-top: 10px">Username:</h:outputLabel>
+				<p:inputText id="username" value="#{registerBean.user.username}" style="margin-top: 10px"/>
 				<p:message for="username" />
 
-				<h:outputLabel for="name">Name:</h:outputLabel>
-				<p:inputText id="name" value="#{registerBean.user.name}" />
+				<h:outputLabel for="name" style="margin-top: 10px">Name:</h:outputLabel>
+				<p:inputText id="name" value="#{registerBean.user.name}" style="margin-top: 10px" />
 				<p:message for="name" />
 
-				<h:outputLabel for="surname">Surname:</h:outputLabel>
-				<p:inputText id="surname" value="#{registerBean.user.surname}" />
+				<h:outputLabel for="surname" style="margin-top: 10px">Surname:</h:outputLabel>
+				<p:inputText id="surname" value="#{registerBean.user.surname}" style="margin-top: 10px"/>
 				<p:message for="surname" />
 
-				<h:outputLabel for="email">Email:</h:outputLabel>
-				<p:inputText id="email" value="#{registerBean.user.email}" />
+				<h:outputLabel for="email" style="margin-top: 10px">Email:</h:outputLabel>
+				<p:inputText id="email" value="#{registerBean.user.email}" style="margin-top: 10px"/>
 				<p:message for="email" />
 
-				<h:outputLabel for="address">Address:</h:outputLabel>
-				<p:inputText id="address" value="#{registerBean.user.address}" />
+				<h:outputLabel for="address" style="margin-top: 10px">Address:</h:outputLabel>
+				<p:inputText id="address" value="#{registerBean.user.address}" style="margin-top: 10px"/>
 				<p:message for="address" />
 
-				<h:outputLabel for="paymentInfo">Payment Info:</h:outputLabel>
-				<p:inputText id="paymentInfo" value="#{registerBean.user.paymentInfo}" />
+				<h:outputLabel for="paymentInfo" style="margin-top: 10px">Payment Info:</h:outputLabel>
+				<p:inputText id="paymentInfo" value="#{registerBean.user.paymentInfo}" style="margin-top: 10px"/>
 				<p:message for="paymentInfo" />
 
-				<h:outputLabel for="birthdate">Birthdate:</h:outputLabel>
+				<h:outputLabel for="birthdate" style="margin-top: 10px">Birthdate:</h:outputLabel>
 				<p:inputText id="birthdate" value="#{registerBean.user.birthdate}">
                                     <f:convertDateTime pattern="MM/dd/yyyy" />
                                 </p:inputText>
 				<p:message for="birthdate" />
 
-				<h:outputLabel for="password">Password:</h:outputLabel>
+				<h:outputLabel for="password" style="margin-top: 10px">Password:</h:outputLabel>
 				<p:password id="password" value="#{registerBean.user.password}"
-					feedback="true" match="pwd2" label="Password"/>
+					feedback="true" match="pwd2" label="Password" style="margin-top: 10px"/>
 				<p:message for="password" />
 
-				<h:outputLabel for="pwd2">Confirm Password:</h:outputLabel>
-				<p:password id="pwd2" label="Confirm Password" value="#{registerBean.user.password}"/>
+				<h:outputLabel for="pwd2" style="margin-top: 10px">Confirm Password:</h:outputLabel>
+				<p:password id="pwd2" label="Confirm Password" value="#{registerBean.user.password}" style="margin-top: 10px"/>
 			</h:panelGrid>
 			<p:commandButton id="registerform" value="Register" update="regGrid"
-				action="#{registerBean.register()}" />
+				action="#{registerBean.register()}" style="margin-top: 20px"/>
                         <p:tooltip id="toolTipFadeRegister" for="registerform" value="Submit Registration" />
                         
                         <h:form rendered="#{param['alreadyused']}">

@@ -7,16 +7,16 @@
 	<title> Login </title>
 </h:head>
 <h:body>
-	<p:panel header="BidWin: Login Form">
+	<p:panel header="BidWin: Login Form" style=" text-align: center;margin-left: 20%; margin-right: 20%;"> <br />
                 <h:form id="login" onsubmit="document.getElementById('login').action='j_security_check';" prependId="false">
-                    <h:panelGrid columns="2">
-                        <p:outputLabel for="j_username" value="Username" />
-                        <p:inputText id="j_username" />            
-                        <p:outputLabel for="j_password" value="Password" />
-                        <p:password id="j_password" />
-                        <p:commandButton id="submit" value="Login" ajax="false"/>
-                        <p:tooltip id="toolTipFadeSubmit" for="submit" value="Log In"  showEffect="clip" hideEffect="explode"/>
+                    <h:panelGrid columns="2" style=" text-align: center;margin-left: 25%; margin-right: 20%;">
+                        <p:outputLabel for="j_username" value="Username: " />
+                        <p:inputText id="j_username" style="margin-top: 10px"/>          
+                        <p:outputLabel for="j_password" value="Password: " />
+                        <p:password id="j_password" style="margin-top: 10px"/> 
                     </h:panelGrid>
+                    <p:commandButton style="margin-top: 20px;" id="submit" value="Login" ajax="false"/>
+                    <p:tooltip id="toolTipFadeSubmit" for="submit" value="Log In"  showEffect="clip" hideEffect="explode"/>
                 </h:form>
                 <br />
 		<h:form>
