@@ -40,7 +40,7 @@
 
                                 <br />
                 
-                                <p:commandButton id="CreateAuction" value="CreateAuction" action="#{createauctionBean.register()}"/>
+                                <p:commandButton id="CreateAuction" value="CreateAuction" action="#{createauctionBean.register(objectsController.objectid, spinnerView.numberauction)}"/>
                 <p:tooltip id="toolTipFadeCreateAuction" for="CreateAuction" value="Create an auction for your #{objectsController.currentObject.objectName}!" />
                 
                 <br />

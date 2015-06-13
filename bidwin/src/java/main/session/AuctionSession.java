@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import main.Objects;
 import main.Auction;
 import main.dto.AuctionDTO;
 
@@ -33,21 +34,79 @@ public class AuctionSession {
     @EJB
     private ObjectSession objectsession;
     
+    @EJB
+    private UserSession usersession;
+    
     private Date date;
     
     
     public void save(AuctionDTO auction) {
-	Auction newauction = new Auction();
-        // cerca object
+        date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
+        Date dateEnd = new Date( System.currentTimeMillis() + (2*60*60*1000) + (auction.getNumberauction()*60*1000) );
+        Objects object = objectsession.getObjectFromId(auction.getObjectid());
+        
+	Auction newauction = new Auction(date, dateEnd, object);
 	em.persist(newauction);
     }
 
-    public List<Auction> getOpenedAuction(){
-        date = new Date();
-        date.getTime();
+    public List<Auction> getMyOpenedAuctions(){
+        date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
         try {
-        Query jpqlQuery = em.createNativeQuery("Select * from auction where EndTime > ?1",Auction.class);
+        Query jpqlQuery = em.createNativeQuery("Select auction.* from auction,objects where  auction.Object_id=objects.Object_id  and  auction.EndTime > ?1  and  objects.Username = ?2",Auction.class);
         jpqlQuery.setParameter(1, date );
+        jpqlQuery.setParameter(2, usersession.getPrincipalUsername() );
+        List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+
+    public List<Auction> getMyClosedAuctions(){
+        date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select auction.* from auction,objects where  auction.Object_id=objects.Object_id  and  auction.EndTime < ?1  and  objects.Username = ?2",Auction.class);
+        jpqlQuery.setParameter(1, date );
+        jpqlQuery.setParameter(2, usersession.getPrincipalUsername() );
+        List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+
+    public List<Auction> getAllOpenedAuctions(){
+        date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select auction.* from auction,objects where  auction.Object_id=objects.Object_id  and  auction.EndTime > ?1  and  objects.Username <> ?2",Auction.class);
+        jpqlQuery.setParameter(1, date );
+        jpqlQuery.setParameter(2, usersession.getPrincipalUsername() );
+        List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+
+    public List<Auction> getMyOpenedBids(){
+        date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select auction.* from auction,bid where  auction.Auction_id=bid.Auction_id  and  auction.EndTime > ?1  and  bid.Username = ?2",Auction.class);
+        jpqlQuery.setParameter(1, date );
+        jpqlQuery.setParameter(2, usersession.getPrincipalUsername() );
+        List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+
+    public List<Auction> getMyClosedBids(){
+        date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select auction.* from auction,bid where  auction.Auction_id=bid.Auction_id  and  auction.EndTime < ?1  and  bid.Username = ?2",Auction.class);
+        jpqlQuery.setParameter(1, date );
+        jpqlQuery.setParameter(2, usersession.getPrincipalUsername() );
         List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
         return results;
         } catch(NoResultException e) { 

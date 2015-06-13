@@ -26,7 +26,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import main.dto.AuctionDTO;
 
 /**
  *
@@ -66,10 +65,10 @@ public class Auction implements Serializable {
     public Auction() {
     }
 
-    public Auction(AuctionDTO auction, Objects object) {
+    public Auction(Date startTime, Date endTime, Objects object) {
         
-        this.startTime     = auction.getStartTime();
-        this.endTime       = auction.getStartTime();
+        this.startTime     = startTime;
+        this.endTime       = endTime;
         this.objectid      = object;
     }
 

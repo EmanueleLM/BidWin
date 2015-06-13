@@ -6,12 +6,10 @@
 package main.session;
 
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import main.Auction;
 import main.Bid;
 import main.dto.BidDTO;
 
@@ -27,14 +25,11 @@ public class BidSession {
     @Resource
     protected EJBContext context;
     
-    @EJB
-    private UserSession usersession;
-    
     
     public void save(BidDTO bid) {
-	Bid newobject = new Bid(bid,usersession.getPrincipalUser(), new Auction() );
         
-        // cerca auction
+        
+	Bid newobject = new Bid();
 	em.persist(newobject);
     }
 

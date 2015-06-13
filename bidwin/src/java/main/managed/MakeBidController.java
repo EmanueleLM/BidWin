@@ -35,7 +35,7 @@ public class MakeBidController {
 
         public String makeBid() {
                 bidsession.save(bid);
-                return "/welcome?faces-redirect=true"; 
+                return "/user/welcome?faces-redirect=true"; 
 	}
 
 }
