@@ -16,11 +16,17 @@ import main.session.UserSession;
 public class SpinnerController {
      
     private int number;
+    private int numberauction;
     private int total;
     
     @EJB
     private UserSession usersession;
-
+    
+    public SpinnerController() {
+        number = 0;
+        numberauction = 5;
+        total = number;
+    }
  
     public void rechargePocket() {
         usersession.updatepocket(this.number + usersession.getPrincipalUser().getCredits());
@@ -43,5 +49,15 @@ public class SpinnerController {
     public void setTotal(int total) {
         this.total = usersession.getPrincipalUser().getCredits();
     }
+
+    public int getNumberauction() {
+        return numberauction;
+    }
+
+    public void setNumberauction(int numberauction) {
+        this.numberauction = numberauction;
+    }
+    
+    
 
 }
