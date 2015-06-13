@@ -21,8 +21,8 @@ public class AuctionDTO {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setStartTime(Date time) {
+        this.startTime = time;
     }
 
     public Integer getObjectid() {
