@@ -29,8 +29,8 @@ and open the template in the editor.
                                 </p:submenu>
                                 
                                 <p:submenu label="Auctions" icon="ui-icon-document">
-                                    <p:menuitem value="New Auction" url="#" />
-                                    <p:menuitem value="Auctions" url="#" />
+                                    <p:menuitem value="New Auction" url="/faces/user/myobjects.xhtml    " />
+                                    <p:menuitem value="My Auctions" url="/faces/user/myauctions.xhtml" />
                                 </p:submenu>
 
                                 <p:submenu label="Objects" icon="ui-icon-document">
@@ -43,13 +43,25 @@ and open the template in the editor.
                                 </p:submenu>
 
                                 <f:facet name="options">
-                                    <p:outputLabel id="serachauction">Search for an auction:  </p:outputLabel>        
-                                    <p:inputText style="margin-right:10px" placeholder="Search"/>
                                     <p:commandButton ajax="false" value="Logout" icon="ui-icon-extlink" action="#{logoutBean.logout()}"/>
                                 </f:facet>
                             </p:menubar>
-                        </h:form>
-                            <p:carousel numVisible="1" itemStyle="height:200px;width:600px;" effect="easeInStrong" headerText="Tabs" style="margin-left:300px;">
+                            <h:panelGrid columns="2" cellpadding="10">
+                            <p:menubar style="margin-right: 10%; height:300px; width:200px;" >
+                                    <f:facet name="options">
+                                        <p:inputText placeholder="Search" style="margin-top:5px" />
+                                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                                <p:outputLabel for="search" value="Search:" />
+                                                <p:selectOneRadio id="search" value="#" layout="grid" columns="1">
+                                                    <f:selectItem itemLabel="By User" itemValue="ByUser" />
+                                                    <f:selectItem itemLabel="By Object" itemValue="ByObjects" />
+                                                    <f:selectItem itemLabel="By None" itemValue="AllAuctions" />
+                                                </p:selectOneRadio>
+                                            </h:panelGrid>
+                                    </f:facet>
+                            </p:menubar>   
+                            
+                            <p:carousel numVisible="1" itemStyle="height:200px;width:500px;" effect="easeInStrong" headerText="Tabs" style="margin-left:180px; margin-top:10px;">
                                 <p:tab title="Notification">
                                     <h:panelGrid columns="2" cellpadding="10">
                                         <p:graphicImage name="image" />
@@ -70,6 +82,10 @@ and open the template in the editor.
                                     </h:panelGrid>
                                 </p:tab>
                             </p:carousel>
+                            </h:panelGrid>
+                            
+                        </h:form>
+                            
                     </h:form>
                 </p:panel>
             </h:body>
