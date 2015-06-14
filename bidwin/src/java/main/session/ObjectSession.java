@@ -40,7 +40,7 @@ public class ObjectSession {
 
     public List<Objects> getMyObjects(){
         try {
-        Query jpqlQuery = em.createNativeQuery("Select * from objects where username = ?1",Objects.class);
+        Query jpqlQuery = em.createNativeQuery("Select * from objects o where  o.Username = ?1  and  o.Object_id  >=  (Select s.Object_id from objects s where  s.Username = ?1  and  o.ObjectName = s.ObjectName  and  o.ObjectType = s.ObjectType  and  o.Description = s.Description  and  o.ImageLink = s.ImageLink)",Objects.class);
         jpqlQuery.setParameter(1, usersession.getPrincipalUsername() );
         List<Objects> results = (List<Objects>) jpqlQuery.getResultList();
         return results;
@@ -48,7 +48,7 @@ public class ObjectSession {
             return null;
         }
     }
-    
+
     public Objects getObjectFromId(int objectid){
         try {
         Query jpqlQuery = em.createNativeQuery("Select * from objects where Object_id = ?1",Objects.class);
