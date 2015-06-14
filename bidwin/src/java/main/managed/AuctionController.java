@@ -5,6 +5,7 @@ import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -17,6 +18,9 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.Auction;
+import main.Objects;
+import main.session.AuctionSession;
+import main.session.ObjectSession;
 
 @ManagedBean(name = "auctionController")
 @SessionScoped
@@ -28,6 +32,9 @@ public class AuctionController implements Serializable {
     private main.facade.AuctionFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    @EJB
+    private AuctionSession auctionsession;
 
     public AuctionController() {
     }
@@ -43,7 +50,11 @@ public class AuctionController implements Serializable {
     private AuctionFacade getFacade() {
         return ejbFacade;
     }
-
+    
+    public List<Auction> myAuctions() {
+        return auctionsession.getMyOpenedAuctions();
+    }
+        
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
