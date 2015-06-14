@@ -11,7 +11,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
         <h:head>
-                <title> Login </title>
+                <title> Welcome </title>
         </h:head>
             <h:body>
             <p:panel header="BidWin: Homepage">  
@@ -30,7 +30,8 @@ and open the template in the editor.
                                 
                                 <p:submenu label="Auctions" icon="ui-icon-document">
                                     <p:menuitem value="New Auction" url="/faces/user/myobjects.xhtml    " />
-                                    <p:menuitem value="My Auctions" url="/faces/user/myauctions.xhtml" />
+                                    <p:menuitem value="My Open Auctions" url="/faces/user/myauctions.xhtml" />
+                                    <p:menuitem value="My Closed Auctions" url="/faces/user/myclosedauctions.xhtml" />
                                 </p:submenu>
 
                                 <p:submenu label="Objects" icon="ui-icon-document">
@@ -49,7 +50,8 @@ and open the template in the editor.
                             <h:panelGrid columns="2" cellpadding="10">
                             <p:menubar style="margin-right: 10%; height:300px; width:200px;" >
                                     <f:facet name="options">
-                                        <p:inputText placeholder="Search" style="margin-top:5px" />
+                                        <p:inputText placeholder="Search" style="margin-top:5px" value="" id="searchbar" />
+                                        <p:message for="searchbar" />
                                             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                                 <p:outputLabel for="search" value="Search:" />
                                                 <p:selectOneRadio id="search" value="#" layout="grid" columns="1">
@@ -58,6 +60,9 @@ and open the template in the editor.
                                                     <f:selectItem itemLabel="By None" itemValue="AllAuctions" />
                                                 </p:selectOneRadio>
                                             </h:panelGrid>
+                                            <p:commandButton id="searcheng" value="Search" update="searchbar" action="#" />
+                                            <p:tooltip id="toolTipFadeSearchEngine" for="searcheng" value="Search for an auction!" />
+
                                     </f:facet>
                             </p:menubar>   
                             
