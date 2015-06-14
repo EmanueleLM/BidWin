@@ -113,18 +113,5 @@ public class AuctionSession {
             return null;
         }
     }
-    
-    public List<Auction> getAllAuctionsByName(){
-        date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
-        try {
-        Query jpqlQuery = em.createNativeQuery("select * from auction where EndTime< ?1 and Object_id in (select Object_id from Objects o where o.username LIKE ?2 or o.username in (select Username from users u where (u.name= ?2 or u.surname= ?2) and o.username=u.username) )", Auction.class);
-        jpqlQuery.setParameter(1, date );
-        jpqlQuery.setParameter(2, usersession.getPrincipalUsername() + "%" );
-        List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
-        return results;
-        } catch(NoResultException e) { 
-            return null;
-        }
-    }
 
 }

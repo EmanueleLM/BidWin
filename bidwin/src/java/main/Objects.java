@@ -162,10 +162,7 @@ public class Objects implements Serializable {
             return false;
         }
         Objects other = (Objects) object;
-        if ((this.objectid == null && other.objectid != null) || (this.objectid != null && !this.objectid.equals(other.objectid))) {
-            return false;
-        }
-        return true;
+        return !((this.objectid == null && other.objectid != null) || (this.objectid != null && !this.objectid.equals(other.objectid)));
     }
 
     @Override

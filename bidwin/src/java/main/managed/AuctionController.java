@@ -18,9 +18,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.Auction;
-import main.Objects;
 import main.session.AuctionSession;
-import main.session.ObjectSession;
 
 @ManagedBean(name = "auctionController")
 @SessionScoped
@@ -50,23 +48,19 @@ public class AuctionController implements Serializable {
     private AuctionFacade getFacade() {
         return ejbFacade;
     }
-    
+
     public List<Auction> myAuctions() {
         return auctionsession.getMyOpenedAuctions();
     }
-    
+
     public List<Auction> myClosedAuctions() {
         return auctionsession.getMyClosedAuctions();
     }
-    
+
     public List<Auction> allButMineAuctions() {
         return auctionsession.getAllOpenedAuctions();
     }
-    
-    public List<Auction> allAuctionsByName() {
-        return auctionsession.getAllAuctionsByName();
-    }
-        
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
