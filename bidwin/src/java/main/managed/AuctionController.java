@@ -58,6 +58,14 @@ public class AuctionController implements Serializable {
     public List<Auction> myClosedAuctions() {
         return auctionsession.getMyClosedAuctions();
     }
+    
+    public List<Auction> allButMineAuctions() {
+        return auctionsession.getAllOpenedAuctions();
+    }
+    
+    public List<Auction> allAuctionsByName() {
+        return auctionsession.getAllAuctionsByName();
+    }
         
     public PaginationHelper getPagination() {
         if (pagination == null) {

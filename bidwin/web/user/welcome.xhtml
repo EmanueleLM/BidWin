@@ -50,23 +50,24 @@ and open the template in the editor.
                             <h:panelGrid columns="2" cellpadding="10">
                             <p:menubar style="margin-right: 10%; height:300px; width:200px;" >
                                     <f:facet name="options">
-                                        <p:inputText placeholder="Search" style="margin-top:5px" value="" id="searchbar" />
+                                        <p:inputText placeholder="Search" style="margin-top:25px" id="searchbar" />
                                         <p:message for="searchbar" />
                                             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                                 <p:outputLabel for="search" value="Search:" />
                                                 <p:selectOneRadio id="search" value="#" layout="grid" columns="1">
                                                     <f:selectItem itemLabel="By User" itemValue="ByUser" />
                                                     <f:selectItem itemLabel="By Object" itemValue="ByObjects" />
-                                                    <f:selectItem itemLabel="By None" itemValue="AllAuctions" />
                                                 </p:selectOneRadio>
                                             </h:panelGrid>
-                                            <p:commandButton id="searcheng" value="Search" update="searchbar" action="#" />
+                                            <p:commandButton id="searcheng" value="Search" update="searchbar" action="#" style="margin-left:15px" />
                                             <p:tooltip id="toolTipFadeSearchEngine" for="searcheng" value="Search for an auction!" />
-
+                                            
+                                            <p:commandButton id="searchalleng" value="All Open Auctions" action="/faces/user/searchallauctions.xhtml" style="margin-top:30px" />
+                                            <p:tooltip id="toolTipFadeSearchAllEngine" for="searchalleng" value="See all the auctions!" />
                                     </f:facet>
                             </p:menubar>   
                             
-                            <p:carousel numVisible="1" itemStyle="height:200px;width:500px;" effect="easeInStrong" headerText="Tabs" style="margin-left:180px; margin-top:10px;">
+                            <p:carousel numVisible="1" itemStyle="height:200px;width:500px;" effect="easeInStrong" headerText="Tabs" style="margin-left:180px; margin-top:15px;">
                                 <p:tab title="Notification">
                                     <h:panelGrid columns="2" cellpadding="10">
                                         <p:graphicImage name="image" />
