@@ -5,6 +5,7 @@ import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -16,7 +17,11 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import main.Auction;
 import main.Bid;
+import main.Objects;
+import main.session.AuctionSession;
+import main.session.BidSession;
 
 @ManagedBean(name = "bidController")
 @SessionScoped
@@ -28,6 +33,12 @@ public class BidController implements Serializable {
     private main.facade.BidFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    private int objectid;
+    private Auction currentAuction;
+    
+    @EJB
+    private BidSession bidsession;
 
     public BidController() {
     }
@@ -40,9 +51,25 @@ public class BidController implements Serializable {
         }
         return current;
     }
+    
+    
+    //CANCELLARE COMMENTI e "return null"
+    public List<Auction> myOpenBids() {
+        return bidsession.getMyOpenBids();
+        
+    }
+    
+    //CANCELLARE COMMENTI e "return null"
+    public List<Auction> myClosedBids() {
+        return bidsession.getMyClosedBids();
+    }
 
     private BidFacade getFacade() {
         return ejbFacade;
+    }
+    
+    public int getObjectid() {
+        return this.objectid;
     }
 
     public PaginationHelper getPagination() {

@@ -38,6 +38,11 @@ and open the template in the editor.
                                     <p:menuitem value="New Object" url="/faces/user/createobject.xhtml" />
                                     <p:menuitem value="My Objects" url="/faces/user/myobjects.xhtml" />
                                 </p:submenu>
+                                
+                                <p:submenu label="Bids" icon="ui-icon-document">
+                                    <p:menuitem value="My Open Bids" url="/faces/user/myopenbids.xhtml" />
+                                    <p:menuitem value="History" url="/faces/user/myclosedbids.xhtml" />
+                                </p:submenu>
 
                                 <p:submenu label="Help" icon="ui-icon-help">
                                     <p:menuitem value="Contents" url="/faces/user/contents.xhtml" />
@@ -59,7 +64,7 @@ and open the template in the editor.
                                                     <f:selectItem itemLabel="By Object" itemValue="ByObjects" />
                                                 </p:selectOneRadio>
                                             </h:panelGrid>
-                                            <p:commandButton id="searcheng" value="Search" update="searchbar" action="#" style="margin-left:15px" />
+                                            <p:commandButton id="searcheng" value="Search" update="searchbar" action="#" style="margin-left:40px" />
                                             <p:tooltip id="toolTipFadeSearchEngine" for="searcheng" value="Search for an auction!" />
                                             
                                             <p:commandButton id="searchalleng" value="All Open Auctions" action="/faces/user/searchallauctions.xhtml" style="margin-top:30px" />

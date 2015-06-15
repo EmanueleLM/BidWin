@@ -104,7 +104,7 @@ public class AuctionSession {
     public List<Auction> getMyClosedBids(){
         date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
         try {
-        Query jpqlQuery = em.createNativeQuery("Select auction.* from auction,bid where  auction.Auction_id=bid.Auction_id  and  auction.EndTime < ?1  and  bid.Username = ?2",Auction.class);
+        Query jpqlQuery = em.createNativeQuery("Select distinct(auction.*) from auction,bid where  auction.Auction_id=bid.Auction_id  and  auction.EndTime < ?1  and  bid.Username = ?2",Auction.class);
         jpqlQuery.setParameter(1, date );
         jpqlQuery.setParameter(2, usersession.getPrincipalUsername() );
         List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
