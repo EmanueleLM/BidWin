@@ -43,7 +43,7 @@
                                 <p:commandButton id="CreateAuction" value="CreateAuction" action="#{createauctionBean.register(objectsController.objectid, spinnerView.numberauction)}"/>
                 <p:tooltip id="toolTipFadeCreateAuction" for="CreateAuction" value="Create an auction for your #{objectsController.currentObject.objectName}!" />
                 
-                <h:form rendered="#{param['alreadyused']}">
+                <h:form rendered="#{param['alreadyex']}">
                     <h:outputLabel>The Object has already had an auction</h:outputLabel>
                 </h:form>
                 

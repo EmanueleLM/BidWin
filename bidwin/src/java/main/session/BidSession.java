@@ -17,6 +17,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import main.Auction;
 import main.Bid;
+import main.Users;
 import main.dto.BidDTO;
 
 /**
@@ -40,6 +41,10 @@ public class BidSession {
     public void save(BidDTO bid) {
 	Bid newbid = new Bid( usersession.getPrincipalUsername(), bid.getAuctionid(), bid.getValue() );
 	em.persist(newbid);
+        
+        Users user = usersession.getPrincipalUser();
+        user.setCredits( user.getCredits() - 2 );
+        em.merge(user);
     }
 
     public List<Auction> getMyOpenedBids(){

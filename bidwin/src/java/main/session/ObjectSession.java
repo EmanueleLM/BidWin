@@ -52,8 +52,12 @@ public class ObjectSession {
     }
 
     public boolean auctioncheck(AuctionDTO auction) {
-        Objects objects = this.getObjectFromId( auction.getObjectid() );
-        return (objects.getAuction() == null);
+        for (Auction a : this.getAllAuctions()) {
+            if ( auction.getObjectid().equals( a.getObjectid().getObjectid() )) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Objects getObjectFromId(int objectid){
@@ -62,6 +66,16 @@ public class ObjectSession {
         jpqlQuery.setParameter(1, objectid );
         Objects result = (Objects) jpqlQuery.getSingleResult();
         return result;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+
+    public List<Auction> getAllAuctions(){
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select auction.* from auction",Auction.class);
+        List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
+        return results;
         } catch(NoResultException e) { 
             return null;
         }

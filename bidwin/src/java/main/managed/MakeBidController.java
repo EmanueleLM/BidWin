@@ -40,7 +40,7 @@ public class MakeBidController {
                     bidsession.save(bid);
                     return "/user/welcome?faces-redirect=true";
                 } else {
-                    return "/user/makebid?faces-redirect=true&alreadyused=true";
+                    return "/user/makebid?faces-redirect=true&alreadybid=true";
                 }
 	}
 
