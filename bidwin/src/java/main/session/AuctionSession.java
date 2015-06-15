@@ -45,7 +45,7 @@ public class AuctionSession {
         Date dateEnd = new Date( System.currentTimeMillis() + (2*60*60*1000) + (auction.getNumberauction()*60*1000) );
         Objects object = objectsession.getObjectFromId(auction.getObjectid());
         
-	Auction newauction = new Auction(date, dateEnd, object);
+	Auction newauction = new Auction(date, dateEnd, object, false);
 	em.persist(newauction);
     }
 

@@ -61,7 +61,7 @@ public class BidSession {
     }
         
         
-        public List<Auction> getMyClosedBids(){
+    public List<Auction> getMyClosedBids(){
         date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
         try {
         Query jpqlQuery = em.createNativeQuery("Select distinct(auction.Auction_id), auction.Object_id, auction.StartTime, auction.EndTime from auction,bid where  auction.Auction_id=bid.Auction_id  and  auction.EndTime < ?1  and  bid.Username = ?2",Auction.class);
@@ -70,6 +70,23 @@ public class BidSession {
         List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
         return results;
         } catch(NoResultException e) { 
+            return null;
+        }
+    }
+        
+        public boolean auctioncheck(BidDTO bid) {
+        Auction auction = getAuctionFromId( bid.getAuctionid() );
+        Date date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
+        return (auction.getEndTime().after( date ));
+    }
+ 
+    public Auction getAuctionFromId(int auctionid){
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select * from auction where Auction_id = ?1",Auction.class);
+        jpqlQuery.setParameter(1, auctionid );
+        Auction result = (Auction) jpqlQuery.getSingleResult();
+        return result;
+        } catch(NoResultException e) {
             return null;
         }
     }

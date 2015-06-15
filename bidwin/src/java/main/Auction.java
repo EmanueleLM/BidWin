@@ -56,6 +56,10 @@ public class Auction implements Serializable {
     @Column(name = "EndTime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Notify")
+    private int notify;
     @JoinColumn(name = "Object_id", referencedColumnName = "Object_id")
     @OneToOne(optional = false)
     private Objects objectid;
@@ -66,17 +70,19 @@ public class Auction implements Serializable {
     public Auction() {
     }
 
-    public Auction(Date startTime, Date endTime, Objects object) {
+    public Auction(Date startTime, Date endTime, Objects object, boolean notify) {
         
         this.startTime     = startTime;
         this.endTime       = endTime;
         this.objectid      = object;
+        this.notify        = notify ? 0 : 1;
     }
 
-    public Auction(Integer auctionid, Date startTime, Date endTime) {
+    public Auction(Integer auctionid, Date startTime, Date endTime, boolean notify) {
         this.auctionid = auctionid;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.notify  = notify ? 0 : 1;
     }
 
     public Integer getAuctionid() {
@@ -110,6 +116,15 @@ public class Auction implements Serializable {
     public void setObjectid(Objects objectid) {
         this.objectid = objectid;
     }
+
+    public int getNotify() {
+        return notify;
+    }
+
+    public void setNotify(int notify) {
+        this.notify = notify;
+    }
+    
 
     @XmlTransient
     public Collection<Bid> getBidCollection() {
