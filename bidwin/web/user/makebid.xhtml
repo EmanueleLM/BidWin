@@ -21,7 +21,7 @@
                 
                 <h:panelGrid columns="2" id="regGrid" cellspacing="10px">
                                 <h:outputLabel for="Id">Object Id: </h:outputLabel>
-                                <h:outputText value="#{bidController.objectid}" />
+                                <h:outputText value="#{auctionController.auctionid}" />
                                 
                   
                                 <h:outputLabel for="ObjectName">Object Name: </h:outputLabel>
@@ -29,7 +29,7 @@
                                 
                                 <h:outputLabel for="ajaxSpinner" value="Bid Value: " />
                                 <p:outputPanel>
-                                    <p:spinner id="ajaxSpinner" value="#{spinnerView.numberauction}" min="0" max="3000" stepFactor="1">
+                                    <p:spinner id="ajaxSpinner" value="#{spinnerView.numberbid}" min="0" max="3000.00" stepFactor="0.01">
                                                 </p:spinner>
                                 </p:outputPanel>
                                 
@@ -37,8 +37,12 @@
 
                                 <br />
                 
-                                <p:commandButton id="CreateAuction" value="CreateAuction" action="#{createauctionBean.register(objectsController.objectid, spinnerView.numberauction)}"/>
-                <p:tooltip id="toolTipFadeCreateAuction" for="CreateAuction" value="Create an auction for your #{objectsController.currentObject.objectName}!" />
+                                <p:commandButton id="MakeBid" value="Make Bid" action="#{newbidBean.makebid(auctionController.auctionid, spinnerView.numberbid)}"/>
+                                <p:tooltip id="toolTipFadeMakeBid" for="MakeBid" value="Make a Bid for #{auctionController.currentAuction.auctionid}!" />
+                                
+                                <h:form rendered="#{param['alreadyused']}">
+                                    <h:outputLabel>The Auction has already finished</h:outputLabel>
+                                </h:form>
                 
                 <br />
 

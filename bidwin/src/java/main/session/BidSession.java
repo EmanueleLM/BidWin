@@ -32,23 +32,18 @@ public class BidSession {
     protected EJBContext context;
     
     @EJB
-    private ObjectSession bidsession;
-    
-    @EJB
     private UserSession usersession;
     
     private Date date;
     
     
     public void save(BidDTO bid) {
-        
-        
-	Bid newobject = new Bid();
-	em.persist(newobject);
+	Bid newbid = new Bid( usersession.getPrincipalUsername(), bid.getAuctionid(), bid.getValue() );
+	em.persist(newbid);
     }
-    
-    public List<Auction> getMyOpenBids(){
-        date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
+
+    public List<Auction> getMyOpenedBids(){
+        date = new Date(System.currentTimeMillis());
         try {
         Query jpqlQuery = em.createNativeQuery("Select distinct(auction.Auction_id), auction.Object_id, auction.StartTime, auction.EndTime from auction,bid where  auction.Auction_id=bid.Auction_id  and  auction.EndTime > ?1  and  bid.Username = ?2",Auction.class);
         jpqlQuery.setParameter(1, date );
@@ -59,10 +54,9 @@ public class BidSession {
             return null;
         }
     }
-        
-        
+
     public List<Auction> getMyClosedBids(){
-        date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
+        date = new Date(System.currentTimeMillis());
         try {
         Query jpqlQuery = em.createNativeQuery("Select distinct(auction.Auction_id), auction.Object_id, auction.StartTime, auction.EndTime from auction,bid where  auction.Auction_id=bid.Auction_id  and  auction.EndTime < ?1  and  bid.Username = ?2",Auction.class);
         jpqlQuery.setParameter(1, date );
@@ -73,13 +67,13 @@ public class BidSession {
             return null;
         }
     }
-        
-        public boolean auctioncheck(BidDTO bid) {
+
+    public boolean bidcheck(BidDTO bid) {
         Auction auction = getAuctionFromId( bid.getAuctionid() );
-        Date date = new Date( System.currentTimeMillis() + (2*60*60*1000) );
+        date = new Date(System.currentTimeMillis());
         return (auction.getEndTime().after( date ));
     }
- 
+
     public Auction getAuctionFromId(int auctionid){
         try {
         Query jpqlQuery = em.createNativeQuery("Select * from auction where Auction_id = ?1",Auction.class);

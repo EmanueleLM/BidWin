@@ -29,9 +29,8 @@ and open the template in the editor.
                                 </p:submenu>
                                 
                                 <p:submenu label="Auctions" icon="ui-icon-document">
-                                    <p:menuitem value="New Auction" url="/faces/user/myobjects.xhtml    " />
                                     <p:menuitem value="My Open Auctions" url="/faces/user/myauctions.xhtml" />
-                                    <p:menuitem value="My Closed Auctions" url="/faces/user/myclosedauctions.xhtml" />
+                                    <p:menuitem value="My History" url="/faces/user/myclosedauctions.xhtml" />
                                 </p:submenu>
 
                                 <p:submenu label="Objects" icon="ui-icon-document">
@@ -40,8 +39,8 @@ and open the template in the editor.
                                 </p:submenu>
                                 
                                 <p:submenu label="Bids" icon="ui-icon-document">
-                                    <p:menuitem value="My Open Bids" url="/faces/user/myopenbids.xhtml" />
-                                    <p:menuitem value="History" url="/faces/user/myclosedbids.xhtml" />
+                                    <p:menuitem value="My Open Bids" url="/faces/user/mybids.xhtml" />
+                                    <p:menuitem value="Bids History" url="/faces/user/myclosedbids.xhtml" />
                                 </p:submenu>
 
                                 <p:submenu label="Help" icon="ui-icon-help">
@@ -60,14 +59,14 @@ and open the template in the editor.
                                             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                                 <p:outputLabel for="search" value="Search:" />
                                                 <p:selectOneRadio id="search" value="#" layout="grid" columns="1">
-                                                    <f:selectItem itemLabel="By User" itemValue="ByUser" />
-                                                    <f:selectItem itemLabel="By Object" itemValue="ByObjects" />
+                                                    <f:selectItem itemLabel="By User" itemValue="true"  />
+                                                    <f:selectItem itemLabel="By Object" itemValue="false" />
                                                 </p:selectOneRadio>
                                             </h:panelGrid>
                                             <p:commandButton id="searcheng" value="Search" update="searchbar" action="#" style="margin-left:40px" />
                                             <p:tooltip id="toolTipFadeSearchEngine" for="searcheng" value="Search for an auction!" />
                                             
-                                            <p:commandButton id="searchalleng" value="All Open Auctions" action="/faces/user/searchallauctions.xhtml" style="margin-top:30px" />
+                                            <p:commandButton id="searchalleng" value="All Open Auctions" action="/user/searchallauctions.xhtml" style="margin-top:30px" />
                                             <p:tooltip id="toolTipFadeSearchAllEngine" for="searchalleng" value="See all the auctions!" />
                                     </f:facet>
                             </p:menubar>   
