@@ -19,7 +19,7 @@ public class MakeBidController {
 	private BidSession bidsession;
 
 	private BidDTO bid;
-
+        
 
         public MakeBidController() {
 		bid = new BidDTO();

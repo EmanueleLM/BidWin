@@ -62,6 +62,7 @@ public class Auction implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
     private Collection<Bid> bidCollection;
 
+
     public Auction() {
     }
 
