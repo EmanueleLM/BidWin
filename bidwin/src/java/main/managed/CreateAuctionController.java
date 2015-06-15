@@ -44,7 +44,7 @@ public class CreateAuctionController {
                     auctionsession.save(auction);
                     return "/user/welcome?faces-redirect=true"; 
                 } else {
-                    return "/user/createauction?faces-redirect=true&alreadyused=true";
+                    return "/user/createauction?faces-redirect=true&alreadyex=true";
                 }
 	}
 

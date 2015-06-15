@@ -40,7 +40,7 @@
                                 <p:commandButton id="MakeBid" value="Make Bid" action="#{newbidBean.makebid(auctionController.auctionid, spinnerView.numberbid)}"/>
                                 <p:tooltip id="toolTipFadeMakeBid" for="MakeBid" value="Make a Bid for #{auctionController.currentAuction.auctionid}!" />
                                 
-                                <h:form rendered="#{param['alreadyused']}">
+                                <h:form rendered="#{param['alreadybid']}">
                                     <h:outputLabel>The Auction has already finished</h:outputLabel>
                                 </h:form>
                 
