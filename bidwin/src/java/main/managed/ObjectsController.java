@@ -51,19 +51,19 @@ public class ObjectsController implements Serializable {
     private ObjectsFacade getFacade() {
         return ejbFacade;
     }
-    
+
     public List<Objects> myobjects() {
         return objectsession.getMyObjects();
     }
-    
+
     public int getObjectid() {
         return this.objectid;
     }
-    
+
     public Objects getCurrentObject() {
         return this.currentObject;
     }
-    
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -98,14 +98,14 @@ public class ObjectsController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
-    
+
     public String prepareAuction(int objectid) {
         this.objectid = objectid;
         currentObject = new Objects();
         currentObject = objectsession.getObjectFromId(objectid);
         return "createauction";
     }
-    
+
     public String create() {
         try {
             getFacade().create(current);

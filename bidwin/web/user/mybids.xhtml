@@ -19,9 +19,9 @@
             <p:panel header="User's bids">
                 <h:dataTable value="#" var="obj">
                         <h:column>                            
-                            <h:outputText escape="false" value="#{bundle.ListBidEmpty}" rendered="#{bidController.myOpenBids().size() == 0}"/>
-                            <h:panelGroup rendered="#{bidController.myOpenBids().size() > 0}">
-                                <h:dataTable value="#{bidController.myOpenBids()}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                            <h:outputText escape="false" value="#{bundle.ListBidEmpty}" rendered="#{bidController.myOpenedBids().size() == 0}"/>
+                            <h:panelGroup rendered="#{bidController.myOpenedBids().size() > 0}">
+                                <h:dataTable value="#{bidController.myOpenedBids()}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListAuctionTitle_objectid}"/>

@@ -33,9 +33,15 @@ public class MakeBidController {
 		this.bid = bid;
 	}
 
-        public String makeBid() {
-                bidsession.save(bid);
-                return "/user/welcome?faces-redirect=true"; 
+        public String makebid(int auctionid, float numberbid) {
+                bid.setValue( (int)(numberbid*100) );
+                bid.setAuctionid(auctionid);
+                if ( bidsession.bidcheck(bid) ) {
+                    bidsession.save(bid);
+                    return "/user/welcome?faces-redirect=true";
+                } else {
+                    return "/user/makebid?faces-redirect=true&alreadyused=true";
+                }
 	}
 
 }

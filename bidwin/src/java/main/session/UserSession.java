@@ -13,9 +13,7 @@ import javax.annotation.Resource;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import main.UserGroups;
 import main.UserGroupsPK;
 
@@ -65,7 +63,6 @@ public class UserSession {
     }
 
 
-    // Ritorna l'utente loggato come oggetto
     public Users getPrincipalUser() {
     	return find(getPrincipalUsername());
     }
@@ -76,17 +73,6 @@ public class UserSession {
 
     public String getPrincipalUsername() {
     	return context.getCallerPrincipal().getName();
-    }
-
-    public List<Users> getUsersByName(String str){
-        try {
-        Query jpqlQuery = em.createNativeQuery("Select users.* from users where  users.Username LIKE % ?1 %  or  users.Name = ?1  or  users.Surname = ?1",Users.class);
-        jpqlQuery.setParameter(1, str );
-        List<Users> results = (List<Users>) jpqlQuery.getResultList();
-        return results;
-        } catch(NoResultException e) { 
-            return null;
-        }
     }
 
 }

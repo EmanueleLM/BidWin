@@ -46,6 +46,14 @@
                                         </f:facet>
                                         <h:outputText value="#{item.endTime}"/>
                                     </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="&nbsp;"/>
+                                        </f:facet>
+                                        <p:commandLink id="MakeBid" action="#{auctionController.prepareBid(item.auctionid)}" value="Make a bid!"/>
+                                        <p:tooltip id="toolTipFadeMakeBid" for="MakeBid" value="Make a bid for this object!" />
+                                        <h:outputText value=" "/>
+                                    </h:column>
                                 </h:dataTable>
                             </h:panelGroup>
                         </h:column>

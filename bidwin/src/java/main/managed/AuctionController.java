@@ -19,6 +19,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.Auction;
 import main.session.AuctionSession;
+import main.session.BidSession;
 
 @ManagedBean(name = "auctionController")
 @SessionScoped
@@ -30,9 +31,15 @@ public class AuctionController implements Serializable {
     private main.facade.AuctionFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private int auctionid;
+    private Auction currentAuction;
     
     @EJB
     private AuctionSession auctionsession;
+    
+    @EJB
+    private BidSession bidsession;
+
 
     public AuctionController() {
     }
@@ -59,6 +66,14 @@ public class AuctionController implements Serializable {
 
     public List<Auction> allButMineAuctions() {
         return auctionsession.getAllOpenedAuctions();
+    }
+
+    public int getAuctionid() {
+        return this.auctionid;
+    }
+
+    public Auction getCurrentAuction() {
+        return this.currentAuction;
     }
 
     public PaginationHelper getPagination() {
@@ -94,6 +109,13 @@ public class AuctionController implements Serializable {
         current = new Auction();
         selectedItemIndex = -1;
         return "Create";
+    }
+
+    public String prepareBid(int auctionid) {
+        this.auctionid = auctionid;
+        currentAuction = new Auction();
+        currentAuction = bidsession.getAuctionFromId(auctionid);
+        return "makebid";
     }
 
     public String create() {

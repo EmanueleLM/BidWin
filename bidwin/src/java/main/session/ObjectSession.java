@@ -14,7 +14,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import main.Auction;
 import main.Objects;
+import main.dto.AuctionDTO;
 import main.dto.ObjectsDTO;
 
 /**
@@ -40,13 +42,18 @@ public class ObjectSession {
 
     public List<Objects> getMyObjects(){
         try {
-        Query jpqlQuery = em.createNativeQuery("Select * from objects o where  o.Username = ?1  and  o.Object_id  >=  (Select s.Object_id from objects s where  s.Username = ?1  and  o.ObjectName = s.ObjectName  and  o.ObjectType = s.ObjectType  and  o.Description = s.Description  and  o.ImageLink = s.ImageLink)",Objects.class);
+        Query jpqlQuery = em.createNativeQuery("select * from objects o where o.Object_id  =  (select max(o1.Object_id) as object_id from objects o1 where ( o.Username = ?1  and  o.Username = o1.Username  and  o.ObjectName = o1.ObjectName  and o.ObjectType = o1.ObjectType  and  o.Description = o1.Description  and  o.ImageLink = o1.ImageLink) )",Objects.class);
         jpqlQuery.setParameter(1, usersession.getPrincipalUsername() );
         List<Objects> results = (List<Objects>) jpqlQuery.getResultList();
         return results;
         } catch(NoResultException e) { 
             return null;
         }
+    }
+
+    public boolean auctioncheck(AuctionDTO auction) {
+        Objects objects = this.getObjectFromId( auction.getObjectid() );
+        return (objects.getAuction() == null);
     }
 
     public Objects getObjectFromId(int objectid){

@@ -19,8 +19,6 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.Auction;
 import main.Bid;
-import main.Objects;
-import main.session.AuctionSession;
 import main.session.BidSession;
 
 @ManagedBean(name = "bidController")
@@ -33,9 +31,6 @@ public class BidController implements Serializable {
     private main.facade.BidFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    
-    private int objectid;
-    private Auction currentAuction;
     
     @EJB
     private BidSession bidsession;
@@ -53,23 +48,17 @@ public class BidController implements Serializable {
     }
     
     
-    //CANCELLARE COMMENTI e "return null"
-    public List<Auction> myOpenBids() {
-        return bidsession.getMyOpenBids();
+    public List<Auction> myOpenedBids() {
+        return bidsession.getMyOpenedBids();
         
     }
-    
-    //CANCELLARE COMMENTI e "return null"
+
     public List<Auction> myClosedBids() {
         return bidsession.getMyClosedBids();
     }
 
     private BidFacade getFacade() {
         return ejbFacade;
-    }
-    
-    public int getObjectid() {
-        return this.objectid;
     }
 
     public PaginationHelper getPagination() {

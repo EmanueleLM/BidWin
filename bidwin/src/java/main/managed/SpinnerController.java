@@ -17,6 +17,7 @@ public class SpinnerController {
      
     private int number;
     private int numberauction;
+    private float numberbid;
     private int total;
     
     @EJB
@@ -56,6 +57,14 @@ public class SpinnerController {
 
     public void setNumberauction(int numberauction) {
         this.numberauction = numberauction;
+    }
+
+    public float getNumberbid() {
+        return numberbid;
+    }
+
+    public void setNumberbid(float numberbid) {
+        this.numberbid = numberbid;
     }
 
 }

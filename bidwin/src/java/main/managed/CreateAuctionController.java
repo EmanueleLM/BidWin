@@ -2,6 +2,7 @@ package main.managed;
 
 import main.dto.AuctionDTO;
 import main.session.AuctionSession;
+import main.session.ObjectSession;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -17,6 +18,9 @@ public class CreateAuctionController {
 
 	@EJB
 	private AuctionSession auctionsession;
+        
+        @EJB
+	private ObjectSession objectsession;
 
 	private AuctionDTO auction;
 
@@ -36,8 +40,12 @@ public class CreateAuctionController {
         public String register(int objectid, int numberauction) {
                 auction.setObjectid(objectid);
                 auction.setNumberauction(numberauction);
-                auctionsession.save(auction);
-                return "/user/welcome?faces-redirect=true"; 
+                if ( objectsession.auctioncheck(auction) ) {
+                    auctionsession.save(auction);
+                    return "/user/welcome?faces-redirect=true"; 
+                } else {
+                    return "/user/createauction?faces-redirect=true&alreadyused=true";
+                }
 	}
 
 }
