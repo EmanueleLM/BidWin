@@ -67,6 +67,10 @@ public class AuctionController implements Serializable {
     public List<Auction> allButMineAuctions() {
         return auctionsession.getAllOpenedAuctions();
     }
+    
+    public List<Auction> allNamedButMineAuctions(String objectname) {
+        return auctionsession.getAuctionsByTag(objectname);
+    }
 
     public int getAuctionid() {
         return this.auctionid;
@@ -115,7 +119,7 @@ public class AuctionController implements Serializable {
         this.auctionid = auctionid;
         currentAuction = new Auction();
         currentAuction = bidsession.getAuctionFromId(auctionid);
-        return "makebid";
+        return "/faces/user/makebid?redirect=true";
     }
 
     public String create() {
@@ -265,6 +269,10 @@ public class AuctionController implements Serializable {
             }
         }
 
+    }
+    
+    public String foo() {
+        return "welcome";
     }
 
 }

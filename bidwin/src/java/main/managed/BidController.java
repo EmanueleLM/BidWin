@@ -31,6 +31,9 @@ public class BidController implements Serializable {
     private main.facade.BidFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private int auctionid;
+    private Auction currentAuction;
+    private List<Bid> currentbids;
     
     @EJB
     private BidSession bidsession;
@@ -59,6 +62,18 @@ public class BidController implements Serializable {
 
     private BidFacade getFacade() {
         return ejbFacade;
+    }
+
+    public int getAuctionid() {
+        return this.auctionid;
+    }
+
+    public Auction getCurrentAuction() {
+        return this.currentAuction;
+    }
+
+    public List<Bid> getCurrentbids() {
+        return this.currentbids;
     }
 
     public PaginationHelper getPagination() {
@@ -95,6 +110,14 @@ public class BidController implements Serializable {
         current.setBidPK(new main.BidPK());
         selectedItemIndex = -1;
         return "Create";
+    }
+
+    public String prepareShowBids(int auctionid) {
+        this.auctionid = auctionid;
+        currentAuction = new Auction();
+        currentAuction = bidsession.getAuctionFromId(auctionid);
+        currentbids = bidsession.getMySpecifiedBids(auctionid);
+        return "auctiondetail";
     }
 
     public String create() {

@@ -8,7 +8,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name="logoutBean")
 @RequestScoped
 public class LogoutController {
-	
+    
+   
 	public String logout() {
 	    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 	    return "/user/welcome?faces-redirect=true";

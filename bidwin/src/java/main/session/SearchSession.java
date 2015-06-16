@@ -37,8 +37,8 @@ public class SearchSession {
     
     public List<Users> getUsersByName(String str){
         try {
-        Query jpqlQuery = em.createNativeQuery("Select users.* from users where  (users.Username LIKE % ?1 %  or  users.Name = ?1  or  users.Surname = ?1) and users.Username <> ?2",Users.class);
-        jpqlQuery.setParameter(1, str );
+        Query jpqlQuery = em.createNativeQuery("Select users.* from users where  (users.Username LIKE  ?1   or  users.Name = ?1  or  users.Surname = ?1) and users.Username <> ?2",Users.class);
+        jpqlQuery.setParameter(1, "%" + str + "%" );
         jpqlQuery.setParameter(2, usersession.getPrincipalUsername() );
         List<Users> results = (List<Users>) jpqlQuery.getResultList();
         return results;
