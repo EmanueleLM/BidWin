@@ -32,7 +32,7 @@
                                 <h:panelGrid columns="2" cellpadding="5" class="ui-grid">
                                             <h:outputLabel for="ajaxSpinner" value="Recharge: " />
                                                 <p:outputPanel>
-                                                    <p:spinner id="ajaxSpinner" value="#{spinnerView.number}" min="0" max="100">
+                                                    <p:spinner id="ajaxSpinner" value="#{spinnerView.number}" min="0" max="100" stepFactor="0.01">
                                                         <p:ajax update="ajaxSpinnerValue" process="@this" />
                                                     </p:spinner>
                                                 </p:outputPanel>

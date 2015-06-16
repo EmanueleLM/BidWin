@@ -17,6 +17,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import main.Objects;
 import main.Auction;
+import main.Bid;
 import main.dto.AuctionDTO;
 
 /**
@@ -87,5 +88,29 @@ public class AuctionSession {
             return null;
         }
     }
-
+    
+    public List<Bid> getBidsFromId(int auctionid) {
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select bid.* from bid where bid.Auction_id= ?1 ",Bid.class);
+        jpqlQuery.setParameter(1, auctionid );
+        List<Bid> results = (List<Bid>) jpqlQuery.getResultList();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+    
+    public List<Auction> getAuctionsByTag(String str){
+        Date d = new Date(System.currentTimeMillis());
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select auction.* from auction,objects where  auction.Object_id=objects.Object_id  and  objects.ObjectType = ?1  and  auction.EndTime > ?2  and  objects.Username <> ?3",Auction.class);
+        jpqlQuery.setParameter(1, str );
+        jpqlQuery.setParameter(2, d );
+        jpqlQuery.setParameter(3, usersession.getPrincipalUsername() );
+        List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
 }

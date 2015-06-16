@@ -21,7 +21,7 @@ and open the template in the editor.
                         <p:menuitem value="Home" url="#" />
                     </p:breadCrumb>
                         <h:form>  
-                            <p:growl id="messages"/>
+                            <p:growl id="growlmessages"/>
                             <p:menubar>
                             <p:submenu label="Profile">
                                     <p:menuitem value="User Details" url="/faces/user/userdetails.xhtml" />
@@ -29,8 +29,9 @@ and open the template in the editor.
                                 </p:submenu>
                                 
                                 <p:submenu label="Auctions" icon="ui-icon-document">
+                                    <p:menuitem value="New Auction" url="/faces/user/myobjects.xhtml    " />
                                     <p:menuitem value="My Open Auctions" url="/faces/user/myauctions.xhtml" />
-                                    <p:menuitem value="My History" url="/faces/user/myclosedauctions.xhtml" />
+                                    <p:menuitem value="My Closed Auctions" url="/faces/user/myclosedauctions.xhtml" />
                                 </p:submenu>
 
                                 <p:submenu label="Objects" icon="ui-icon-document">
@@ -39,8 +40,8 @@ and open the template in the editor.
                                 </p:submenu>
                                 
                                 <p:submenu label="Bids" icon="ui-icon-document">
-                                    <p:menuitem value="My Open Bids" url="/faces/user/mybids.xhtml" />
-                                    <p:menuitem value="Bids History" url="/faces/user/myclosedbids.xhtml" />
+                                    <p:menuitem value="My Open Bids" url="/faces/user/myopenbids.xhtml" />
+                                    <p:menuitem value="History" url="/faces/user/myclosedbids.xhtml" />
                                 </p:submenu>
 
                                 <p:submenu label="Help" icon="ui-icon-help">
@@ -51,27 +52,35 @@ and open the template in the editor.
                                     <p:commandButton ajax="false" value="Logout" icon="ui-icon-extlink" action="#{logoutBean.logout()}"/>
                                 </f:facet>
                             </p:menubar>
+                        </h:form>
+                    </h:form>
+                        
+                        
                             <h:panelGrid columns="2" cellpadding="10">
-                            <p:menubar style="margin-right: 10%; height:300px; width:200px;" >
+                            <p:menubar style="margin-right: 10%; height:300px; width:350px;" >
                                     <f:facet name="options">
-                                        <p:inputText placeholder="Search" style="margin-top:25px" id="searchbar" />
-                                        <p:message for="searchbar" />
-                                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                                <p:outputLabel for="search" value="Search:" />
-                                                <p:selectOneRadio id="search" value="#" layout="grid" columns="1">
-                                                    <f:selectItem itemLabel="By User" itemValue="true"  />
-                                                    <f:selectItem itemLabel="By Object" itemValue="false" />
-                                                </p:selectOneRadio>
+                                        <h:form id="searchengine">
+                                            <p:messages id="messages" showDetail="true"/>
+                                            <p:inputText id="keyword" value="#{searchBean.keyword}" required="true" label="Keyword" style="margin-top:25px; margin-right:35%;margin-left:20%;"/>
+                                            <p:watermark for="keyword" value="Search with a keyword" id="watermark" />
+
+                                            <h:panelGrid columns="6" style="margin-top:20px;" cellpadding="5">
+                                                <h:outputText value="Search by:" />
+                                                <p:spacer />
+                                                <p:commandButton id="searchbyuser" action="#{searchBean.searchByUser()}" value="User" ajax="false" /> 
+                                                <p:commandButton id="searchbyobject" action="#{searchBean.searchByObject()}" value="Object" ajax="false" /> 
                                             </h:panelGrid>
-                                            <p:commandButton id="searcheng" value="Search" update="searchbar" action="#" style="margin-left:40px" />
-                                            <p:tooltip id="toolTipFadeSearchEngine" for="searcheng" value="Search for an auction!" />
-                                            
-                                            <p:commandButton id="searchalleng" value="All Open Auctions" action="/user/searchallauctions.xhtml" style="margin-top:30px" />
+                                        </h:form>
+                                        <h:form>
+                                            <p:commandButton id="searchalleng" value="All Open Auctions" action="/user/searchallauctions.xhtml" style="margin-top:30px; margin-left:20%;" />
                                             <p:tooltip id="toolTipFadeSearchAllEngine" for="searchalleng" value="See all the auctions!" />
+                                        </h:form>
                                     </f:facet>
+                                
                             </p:menubar>   
+   
                             
-                            <p:carousel numVisible="1" itemStyle="height:200px;width:500px;" effect="easeInStrong" headerText="Tabs" style="margin-left:180px; margin-top:15px;">
+                            <p:carousel numVisible="1" itemStyle="height:200px;width:500px;" effect="easeInStrong" headerText="Tabs" style="margin-left:150px; margin-top:15px;">
                                 <p:tab title="Notification">
                                     <h:panelGrid columns="2" cellpadding="10">
                                         <p:graphicImage name="image" />
@@ -94,9 +103,9 @@ and open the template in the editor.
                             </p:carousel>
                             </h:panelGrid>
                             
-                        </h:form>
+                        
                             
-                    </h:form>
+                    
                 </p:panel>
             </h:body>
 </html>

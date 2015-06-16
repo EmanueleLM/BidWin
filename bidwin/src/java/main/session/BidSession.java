@@ -39,10 +39,10 @@ public class BidSession {
     
     
     public void save(BidDTO bid) {
-	Bid newbid = new Bid( usersession.getPrincipalUsername(), bid.getAuctionid(), bid.getValue() );
-	em.persist(newbid);
         
         Users user = usersession.getPrincipalUser();
+	Bid newbid = new Bid( user.getUsername(), bid.getAuctionid(), bid.getValue() );
+	em.persist(newbid);
         user.setCredits( user.getCredits() - 2 );
         em.merge(user);
     }
@@ -89,5 +89,17 @@ public class BidSession {
             return null;
         }
     }
+    
+    public List<Bid> getMySpecifiedBids(int auctionid){
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select bid.* from bid where  bid.Auction_id= ?1 ",Bid.class);
+        jpqlQuery.setParameter(1, auctionid );
+        List<Bid> results = (List<Bid>) jpqlQuery.getResultList();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+
 
 }
