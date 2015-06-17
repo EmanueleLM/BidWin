@@ -5,6 +5,7 @@ import main.util.JsfUtil;
 import main.util.PaginationHelper;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -17,6 +18,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.Users;
+import main.session.SearchSession;
 
 @ManagedBean(name = "usersController")
 @SessionScoped
@@ -24,12 +26,28 @@ public class UsersController implements Serializable {
 
     private Users current;
     private DataModel items = null;
+    
     @EJB
     private main.facade.UsersFacade ejbFacade;
+    
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private List<Users> currentusers;
+    
+    @EJB
+    private SearchSession search;
+
 
     public UsersController() {
+    }
+
+    public String searchByUser(String keyword) {
+        currentusers = search.getUsersByName(keyword);
+        return "displayusers";
+    }
+
+    public List<Users> getCurrentusers() {
+        return this.currentusers;
     }
 
     public Users getSelected() {
@@ -232,7 +250,7 @@ public class UsersController implements Serializable {
         }
 
     }
-    
+
     public void nop() {}
 
 }

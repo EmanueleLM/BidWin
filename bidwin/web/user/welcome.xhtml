@@ -28,10 +28,9 @@ and open the template in the editor.
                                     <p:menuitem value="Buy Credits" url="/faces/user/buycredits.xhtml" />
                                 </p:submenu>
                                 
-                                <p:submenu label="Auctions" icon="ui-icon-document">
-                                    <p:menuitem value="New Auction" url="/faces/user/myobjects.xhtml    " />
-                                    <p:menuitem value="My Open Auctions" url="/faces/user/myauctions.xhtml" />
-                                    <p:menuitem value="My Closed Auctions" url="/faces/user/myclosedauctions.xhtml" />
+                                <p:submenu label="My Auctions" icon="ui-icon-document">
+                                    <p:menuitem value="My Opened Auctions" url="/faces/user/myauctions.xhtml" />
+                                    <p:menuitem value="History of my Auctions" url="/faces/user/myclosedauctions.xhtml" />
                                 </p:submenu>
 
                                 <p:submenu label="Objects" icon="ui-icon-document">
@@ -40,8 +39,8 @@ and open the template in the editor.
                                 </p:submenu>
                                 
                                 <p:submenu label="Bids" icon="ui-icon-document">
-                                    <p:menuitem value="My Open Bids" url="/faces/user/myopenbids.xhtml" />
-                                    <p:menuitem value="History" url="/faces/user/myclosedbids.xhtml" />
+                                    <p:menuitem value="My Opened Bids" url="/faces/user/myopenbids.xhtml" />
+                                    <p:menuitem value="History of my Bids" url="/faces/user/myclosedbids.xhtml" />
                                 </p:submenu>
 
                                 <p:submenu label="Help" icon="ui-icon-help">
@@ -67,8 +66,8 @@ and open the template in the editor.
                                             <h:panelGrid columns="6" style="margin-top:20px;" cellpadding="5">
                                                 <h:outputText value="Search by:" />
                                                 <p:spacer />
-                                                <p:commandButton id="searchbyuser" action="#{searchBean.searchByUser()}" value="User" ajax="false" /> 
-                                                <p:commandButton id="searchbyobject" action="#{searchBean.searchByObject()}" value="Object" ajax="false" /> 
+                                                <p:commandButton id="searchbyuser" action="#{usersController.searchByUser(searchBean.keyword)}" value="User" ajax="false" /> 
+                                                <p:commandButton id="searchbyobject" action="#{auctionController.searchByObject(searchBean.keyword)}" value="Object" ajax="false" /> 
                                             </h:panelGrid>
                                         </h:form>
                                         <h:form>

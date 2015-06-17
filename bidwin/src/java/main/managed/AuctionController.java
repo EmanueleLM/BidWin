@@ -20,6 +20,7 @@ import javax.faces.model.SelectItem;
 import main.Auction;
 import main.session.AuctionSession;
 import main.session.BidSession;
+import main.session.SearchSession;
 
 @ManagedBean(name = "auctionController")
 @SessionScoped
@@ -33,15 +34,28 @@ public class AuctionController implements Serializable {
     private int selectedItemIndex;
     private int auctionid;
     private Auction currentAuction;
-    
+    private List<Auction> currentauctions;
+
     @EJB
     private AuctionSession auctionsession;
     
     @EJB
     private BidSession bidsession;
+    
+    @EJB
+    private SearchSession search;
 
 
     public AuctionController() {
+    }
+
+    public String searchByObject(String keyword) {
+        currentauctions = search.getAuctionsByTag(keyword);
+        return "displayobjects";
+    }
+
+    public List<Auction> getCurrentauctions() {
+        return this.currentauctions;
     }
 
     public Auction getSelected() {
@@ -119,7 +133,12 @@ public class AuctionController implements Serializable {
         this.auctionid = auctionid;
         currentAuction = new Auction();
         currentAuction = bidsession.getAuctionFromId(auctionid);
-        return "/faces/user/makebid?redirect=true";
+        return "makebid?redirect=true";
+    }
+
+    public String prepareList(String username) {
+        currentauctions = search.getHisOpenedAuctions(username);
+        return "displayhisautions?redirect=true";
     }
 
     public String create() {
