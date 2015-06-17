@@ -58,11 +58,12 @@ and open the template in the editor.
                 <p:menubar style="margin-right: 10%; height:300px; width:350px;" >
                     <f:facet name="options">
                         <h:form id="searchengine">
+                            <h:outputText value="SearchEngine" style="font-weight: bold; font-size:150%; margin-top:5px; padding-left:23%;"/>
                             <p:messages id="messages" showDetail="true"/>
                             <p:inputText id="keyword" value="#{searchBean.keyword}" required="true" label="Keyword" style="margin-top:25px; margin-right:35%;margin-left:20%;"/>
                             <p:watermark for="keyword" value="Searchbar" id="watermark" />
 
-                            <h:panelGrid columns="6" style="margin-top:20px;" cellpadding="5">
+                            <h:panelGrid columns="6" style="margin-top:20px; font-weight: bold;" cellpadding="5">
                                 <h:outputText  value="Search by:"/>
                                 <p:spacer />
                                 <p:commandButton id="searchbyuser" action="#{usersController.searchByUser(searchBean.keyword)}" value="User" ajax="false" /> 
