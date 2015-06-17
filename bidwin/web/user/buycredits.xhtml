@@ -8,41 +8,37 @@
 <h:head>
 	<title>User's Profile</title>
 </h:head>
-<h:body>
-	<h:form>
-                        <p:breadCrumb>
-                                <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
-                                <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
-                                <p:menuitem value="User's details" url="/faces/user/userdetails.xhtml" />
-                                <p:menuitem value="Recharge" url="#" />
-                            </p:breadCrumb>
-                        <p:panel header="Recharge your pocket">
-			<h:panelGrid columns="2" id="regGrid">
-                                <h:outputLabel for="Username">Username:</h:outputLabel>
-                                <p:outputLabel id="Username" value="#{userInfo.showUsername()}" />
-
-				<h:outputLabel for="PaymentInfo">PaymentInfo:</h:outputLabel>
-                                <p:outputLabel id="Name" value="#{userInfo.showPaymentInfo()}" />
-
-        		</h:panelGrid>   
-                         
-                        <h:panelGrid columns="5" id="credGrid">    
-				<h:outputLabel for="Credits">Credits:</h:outputLabel>
-                                <p:outputLabel id="ajaxSpinnerValue" value="#{spinnerView.total}" />   
-                                <h:panelGrid columns="2" cellpadding="5" class="ui-grid">
-                                            <h:outputLabel for="ajaxSpinner" value="Recharge: " />
-                                                <p:outputPanel>
-                                                    <p:spinner id="ajaxSpinner" value="#{spinnerView.number}" min="0" max="100" stepFactor="0.01">
-                                                        <p:ajax update="ajaxSpinnerValue" process="@this" />
-                                                    </p:spinner>
-                                                </p:outputPanel>
-                                            </h:panelGrid>
-                                <p:commandButton ajax="false" id="RechargePocket" value="Recharge" action="#{spinnerView.rechargePocket()}" />
-                                <p:tooltip id="toolTipFadeRechargePocket" for="RechargePocket" value="Recharge your pocket!" />
-               		</h:panelGrid>
-                            
-		 </p:panel>
-	</h:form>
-</h:body>
+    <h:body>
+        <h:form>
+            <p:breadCrumb>
+                    <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                    <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                    <p:menuitem value="User's details" url="/faces/user/userdetails.xhtml" />
+                    <p:menuitem value="Recharge" url="#" />
+            </p:breadCrumb>
+            <p:panel header="Recharge your pocket">
+                <h:panelGrid columns="2" id="regGrid">
+                    <h:outputLabel for="Username"><b>Username:</b></h:outputLabel>
+                        <p:outputLabel id="Username" value="#{userInfo.showUsername()}" />
+                        <h:outputLabel for="PaymentInfo"><b>PaymentInfo:</b></h:outputLabel>
+                        <p:outputLabel id="Name" value="#{userInfo.showPaymentInfo()}" />
+                </h:panelGrid>   
+            <h:panelGrid columns="5" id="credGrid">    
+                <h:outputLabel for="Credits"><b>Credits:</b></h:outputLabel>
+                    <p:outputLabel id="ajaxSpinnerValue" value="#{spinnerView.total}" />   
+                    <h:panelGrid columns="2" cellpadding="5" class="ui-grid">
+                        <h:outputLabel for="ajaxSpinner"><b>Recharge:</b></h:outputLabel>
+                                    <p:outputPanel>
+                                        <p:spinner id="ajaxSpinner" value="#{spinnerView.number}" min="0" max="100" stepFactor="1">
+                                            <p:ajax update="ajaxSpinnerValue" process="@this" />
+                                        </p:spinner>
+                                    </p:outputPanel>
+                    </h:panelGrid>
+                    <p:commandButton ajax="false" id="RechargePocket" value="Recharge" action="#{spinnerView.rechargePocket()}" />
+                    <p:tooltip id="toolTipFadeRechargePocket" for="RechargePocket" value="Recharge your pocket!" />
+            </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </h:body>
 
 </html>

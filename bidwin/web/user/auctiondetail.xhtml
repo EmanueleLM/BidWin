@@ -18,7 +18,7 @@
             </p:breadCrumb>
             
             <p:panel header="User's bids">
-                <h:dataTable value="#" var="obj">
+                <h:dataTable value="#" var="obj" style="padding-left:3%;padding-top:3%;">
                         <h:column>                            
                             <h:outputText escape="false" value="#{bundle.ListBidEmpty}" rendered="#{bidController.currentbids.size() == 0}"/>
                             <h:panelGroup rendered="#{bidController.currentbids.size() > 0}">

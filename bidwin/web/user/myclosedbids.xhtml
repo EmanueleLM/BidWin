@@ -17,7 +17,7 @@
             </p:breadCrumb>
             
             <p:panel header="User's bids">
-                <h:dataTable value="#" var="obj">
+                <h:dataTable value="#" var="obj" style="padding-left:18%;padding-top:2%;">
                         <h:column>                            
                             <h:outputText escape="false" value="#{bundle.ListBidEmpty}" rendered="#{bidController.myClosedBids().size() == 0}"/>
                             <h:panelGroup rendered="#{bidController.myClosedBids().size() > 0}">
@@ -42,7 +42,7 @@
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="bid' s detail"/>
+                                            <h:outputText value="bid's detail"/>
                                         </f:facet>
                                         <p:commandLink id="biddetail" value="details" action="#{bidController.prepareShowBids(item.auctionid)}" /> 
                                     </h:column>
