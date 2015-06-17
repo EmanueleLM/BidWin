@@ -17,47 +17,47 @@
             </p:breadCrumb>
             
             <p:panel header="Search by User">
-                <h:dataTable value="#" var="obj">
-                        <h:column>                            
+                <p:dataTable value="#" var="obj">
+                        <p:column>                            
                             <h:outputText escape="false" value="#{bundle.ListUsersEmpty}" rendered="#{usersController.currentusers.size() == 0}"/>
                             <h:panelGroup rendered="#{usersController.currentusers.size() > 0}">
-                                <h:dataTable value="#{usersController.currentusers}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                                    <h:column>
+                                <p:dataTable value="#{usersController.currentusers}" var="item" >
+                                    <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListUsersTitle_username}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.username}"/>
-                                    </h:column>
-                                    <h:column>
+                                    </p:column>
+                                    <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListUsersTitle_name}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.name}"/>
-                                    </h:column>
-                                    <h:column>
+                                    </p:column>
+                                    <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListUsersTitle_surname}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.surname}"/>
-                                    </h:column>
-                                    <h:column>
+                                    </p:column>
+                                    <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListUsersTitle_ranking}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.ranking}"/>
-                                    </h:column>
-                                    <h:column>
+                                    </p:column>
+                                    <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="&nbsp;"/>
                                         </f:facet>
                                         <p:commandLink id="HisAuctions" action="#{auctionController.prepareList(item.username)}" value="His Auctions!"/>
                                         <p:tooltip id="toolTipFadeHisAuctions" for="HisAuctions" value="show his/her open auctions!" />
                                         <h:outputText value=" "/>
-                                    </h:column>                                    
-                                </h:dataTable>
+                                    </p:column>                                    
+                                </p:dataTable>
                             </h:panelGroup>
-                        </h:column>
-                    </h:dataTable>
+                        </p:column>
+                    </p:dataTable>
              <br /> <br />
              </p:panel>
                         

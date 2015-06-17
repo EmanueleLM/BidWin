@@ -19,27 +19,27 @@
             
             <p:panel header="User's bids">
                 <h:outputText value="#{bidController.currentAuction.objectid.objectName}" style="color:grey; font-weight: bold;"/>
-                <h:dataTable value="#" var="obj" style="padding-left:3%;padding-top:1%;">
-                        <h:column>                            
+                <p:dataTable value="#" var="obj" style="padding-top:1%;">
+                        <p:column>                            
                             <h:outputText escape="false" value="#{bundle.ListBidEmpty}" rendered="#{bidController.currentbids.size() == 0}"/>
                             <h:panelGroup rendered="#{bidController.currentbids.size() > 0}">
-                                <h:dataTable value="#{bidController.currentbids}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                                    <h:column>
+                                <p:dataTable value="#{bidController.currentbids}" var="item" >
+                                    <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListBidTitle_users}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.bidPK.username}"/>
-                                    </h:column>
-                                    <h:column>    
+                                    </p:column>
+                                    <p:column>    
                                             <f:facet name="header">
                                             <h:outputText value="#{bundle.ListBidTitle_bidPK_value}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.bidPK.value}"/>
-                                    </h:column>
-                                </h:dataTable>
+                                    </p:column>
+                                </p:dataTable>
                             </h:panelGroup>
-                        </h:column>
-                    </h:dataTable>
+                        </p:column>
+                    </p:dataTable>
              <br /> <br />
              </p:panel>
                         
