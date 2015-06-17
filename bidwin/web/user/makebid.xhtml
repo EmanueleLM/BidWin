@@ -5,52 +5,38 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-	<title>Bid</title>
-</h:head>
-<h:body>
-	<h:form>
+    <h:head>
+            <title>Bid</title>
+    </h:head>
+    
+    <h:body>
+        <h:form>
             <p:breadCrumb>
                     <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
                     <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
                     <p:menuitem value="Auctions List" url="#" />                    
                     <p:menuitem value="Make Bid" url="#" />
             </p:breadCrumb>
-            
             <p:panel header="Bids">
-                
                 <h:panelGrid columns="2" id="regGrid" cellspacing="10px">
-                                <h:outputLabel for="Id">Object Id: </h:outputLabel>
-                                <h:outputText value="#{auctionController.auctionid}" />
-                                
-                  
-                                <h:outputLabel for="ObjectName">Object Name: </h:outputLabel>
-                                <h:outputText value="#" />
-                                
-                                <h:outputLabel for="ajaxSpinner" value="Bid Value: " />
-                                <p:outputPanel>
-                                    <p:spinner id="ajaxSpinner" value="#{spinnerView.numberbid}" min="0" max="3000.00" stepFactor="0.01">
-                                                </p:spinner>
-                                </p:outputPanel>
-                                
-        		</h:panelGrid>
+                    <h:outputLabel for="Id" style="font-weight: bold">Object Name: </h:outputLabel>
+                    <h:outputText value="#{auctionController.currentAuction.objectid.objectName}" />
 
-                                <br />
-                
-                                <p:commandButton id="MakeBid" value="Make Bid" action="#{newbidBean.makebid(auctionController.auctionid, spinnerView.numberbid)}"/>
-                                <p:tooltip id="toolTipFadeMakeBid" for="MakeBid" value="Make a Bid for #{auctionController.currentAuction.auctionid}!" />
-                                
-                                <h:form rendered="#{param['alreadybid']}">
-                                    <h:outputLabel>The Auction has already finished</h:outputLabel>
-                                </h:form>
-                
+                    <h:outputLabel for="ajaxSpinner" value="Bid Value: " style="font-weight: bold"/>
+                    <p:outputPanel>
+                        <p:spinner id="ajaxSpinner" value="#{spinnerView.numberbid}" min="0" max="3000.00" stepFactor="0.01">
+                        </p:spinner>
+                    </p:outputPanel>
+                </h:panelGrid>
                 <br />
-
-
+                <p:commandButton id="MakeBid" value="Make Bid" action="#{newbidBean.makebid(auctionController.auctionid, spinnerView.numberbid)}"/>
+                <p:tooltip id="toolTipFadeMakeBid" for="MakeBid" value="Make a Bid for #{auctionController.currentAuction.auctionid}!" />
+                <h:form rendered="#{param['alreadybid']}">
+                    <h:outputLabel>The Auction is already finished</h:outputLabel>
+                </h:form>
+                <br />
             </p:panel>
-                        
-            
         </h:form>
-</h:body>
+    </h:body>
 
 </html>

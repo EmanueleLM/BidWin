@@ -15,8 +15,10 @@ import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import main.Auction;
 import main.Bid;
+import main.Chart;
 import main.Users;
 import main.dto.BidDTO;
 
@@ -59,6 +61,22 @@ public class BidSession {
             return null;
         }
     }
+    
+    public boolean getWinner(int auctionid) {
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select username, value from bid where  bid.Auction_id= ?2 and bid.value <= (select min(value) from bid where bid.`Auction_id`= ?2 and bid.username= ?1)",Chart.class);
+        jpqlQuery.setParameter(1, usersession.getPrincipalUsername() );
+        jpqlQuery.setParameter(2, auctionid );
+        System.out.println(auctionid);
+        List<Chart> chart = (List<Chart>) jpqlQuery.getResultList();
+            return chart.size()==1;
+        } catch(NoResultException e) { 
+            return false;
+        } catch(PersistenceException e) {
+            return false;
+        }
+        
+    }
 
     public List<Auction> getMyClosedBids(){
         date = new Date(System.currentTimeMillis());
@@ -92,7 +110,7 @@ public class BidSession {
     
     public List<Bid> getMySpecifiedBids(int auctionid){
         try {
-        Query jpqlQuery = em.createNativeQuery("Select bid.* from bid where  bid.Auction_id= ?1 ",Bid.class);
+        Query jpqlQuery = em.createNativeQuery("Select bid.* from bid where  bid.Auction_id= ?1 order by value asc",Bid.class);
         jpqlQuery.setParameter(1, auctionid );
         List<Bid> results = (List<Bid>) jpqlQuery.getResultList();
         return results;

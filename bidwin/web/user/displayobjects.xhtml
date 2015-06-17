@@ -17,22 +17,22 @@
             </p:breadCrumb>
             
             <p:panel header="Search by Tag">
-                <h:dataTable value="#" var="obj">
+                <h:dataTable value="#" var="obj" style="padding-left:13%;padding-top:2%;">
                         <h:column>                            
                             <h:outputText escape="false" value="#{bundle.ListAuctionEmpty}" rendered="#{auctionController.currentauctions.size() == 0}"/>
                             <h:panelGroup rendered="#{auctionController.currentauctions.size() > 0}">
                                 <h:dataTable value="#{auctionController.currentauctions}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListAuctionTitle_objectid}"/>
+                                            <h:outputText value="#{bundle.ListObjectsTitle_objectName}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.objectid.objectid}"/>
+                                        <h:outputText value="#{item.objectid.objectName}"/>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListAuctionTitle_auctionid}"/>
+                                            <h:outputText value="#{bundle.ListObjectsTitle_objectType}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.auctionid}"/>
+                                        <h:outputText value="#{item.objectid.objectType}"/>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
