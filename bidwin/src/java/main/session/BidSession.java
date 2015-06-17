@@ -64,12 +64,11 @@ public class BidSession {
     
     public boolean getWinner(int auctionid) {
         try {
-        Query jpqlQuery = em.createNativeQuery("Select username, value from bid where  bid.Auction_id= ?2 and bid.value <= (select min(value) from bid where bid.`Auction_id`= ?2 and bid.username= ?1)",Chart.class);
-        jpqlQuery.setParameter(1, usersession.getPrincipalUsername() );
-        jpqlQuery.setParameter(2, auctionid );
-        System.out.println(auctionid);
-        List<Chart> chart = (List<Chart>) jpqlQuery.getResultList();
-            return chart.size()==1;
+        Query jpqlQuery = em.createNativeQuery("Select username, min(value) ,count(*) as count from bid b where  b.Auction_id= ?1 group by value asc having count(*)=1",Chart.class);
+        jpqlQuery.setParameter(1, auctionid );
+        Chart chart = (Chart) jpqlQuery.getResultList().get(0);
+        System.out.println( chart.getUsername() + " " + usersession.getPrincipalUsername());
+        return chart.getUsername().equals(usersession.getPrincipalUsername());
         } catch(NoResultException e) { 
             return false;
         } catch(PersistenceException e) {

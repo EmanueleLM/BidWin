@@ -24,6 +24,8 @@ public class Chart implements Serializable {
     private String username;
     @Column(name = "value")
     private int value;
+    @Column(name = "count")
+    private int count;
 
     public String getUsername() {
         return username;
@@ -40,6 +42,16 @@ public class Chart implements Serializable {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
+    
     
     
 }
