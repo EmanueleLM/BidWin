@@ -20,6 +20,7 @@ import javax.faces.model.SelectItem;
 import main.Auction;
 import main.Bid;
 import main.session.BidSession;
+import main.session.UserSession;
 
 @ManagedBean(name = "bidController")
 @SessionScoped
@@ -34,6 +35,9 @@ public class BidController implements Serializable {
     private int auctionid;
     private Auction currentAuction;
     private List<Bid> currentbids;
+    
+    @EJB
+    private UserSession usersession;
     
     @EJB
     private BidSession bidsession;
@@ -57,7 +61,7 @@ public class BidController implements Serializable {
     }
     
     public boolean getWinner(int auctionid) {
-        return bidsession.getWinner(auctionid);
+        return bidsession.getWinner(auctionid,usersession.getPrincipalUsername());
     }
 
     public List<Auction> myClosedBids() {
