@@ -49,6 +49,11 @@ public class BidSession {
         em.merge(user);
     }
 
+    public void notifyTrue(Auction auction) {
+        auction.setNotify(1);
+        em.merge(auction);
+    }
+
     public List<Auction> getMyOpenedBids(){
         date = new Date(System.currentTimeMillis());
         try {
@@ -61,14 +66,14 @@ public class BidSession {
             return null;
         }
     }
-    
-    public boolean getWinner(int auctionid) {
+
+    public boolean getWinner(int auctionid, String username) {
         try {
         Query jpqlQuery = em.createNativeQuery("Select username, min(value) ,count(*) as count from bid b where  b.Auction_id= ?1 group by value asc having count(*)=1",Chart.class);
         jpqlQuery.setParameter(1, auctionid );
         Chart chart = (Chart) jpqlQuery.getResultList().get(0);
         System.out.println( chart.getUsername() + " " + usersession.getPrincipalUsername());
-        return chart.getUsername().equals(usersession.getPrincipalUsername());
+        return chart.getUsername().equals( username );
         } catch(NoResultException e) { 
             return false;
         } catch(PersistenceException e) {
@@ -106,7 +111,7 @@ public class BidSession {
             return null;
         }
     }
-    
+
     public List<Bid> getMySpecifiedBids(int auctionid){
         try {
         Query jpqlQuery = em.createNativeQuery("Select bid.* from bid where  bid.Auction_id= ?1 order by value asc",Bid.class);
@@ -118,5 +123,27 @@ public class BidSession {
         }
     }
 
+    public List<Auction> auctionsToNotify(){
+        date = new Date(System.currentTimeMillis());
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select * from auction where auction.EndTime > ?1  and  auction.notify = 0",Auction.class);
+        jpqlQuery.setParameter(1, date );
+        List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+
+    public List<Users> partecipants(int auctionid){
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select distinct(users.Username), users.Name, users.Surname, users.Email, users.Ranking, users.Address, users.PaymentInfo, users.AuctionCounter, users.Birthdate, users.Credits, users.Password  from users, bid  where  users.Username = bid.Username  and  bid.Auction_id = ?1",Users.class);
+        jpqlQuery.setParameter(1, auctionid );
+        List<Users> results = (List<Users>) jpqlQuery.getResultList();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
 
 }

@@ -75,14 +75,14 @@ public class Auction implements Serializable {
         this.startTime     = startTime;
         this.endTime       = endTime;
         this.objectid      = object;
-        this.notify        = notify ? 0 : 1;
+        this.notify        = notify ? 1 : 0;
     }
 
     public Auction(Integer auctionid, Date startTime, Date endTime, boolean notify) {
         this.auctionid = auctionid;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.notify  = notify ? 0 : 1;
+        this.notify  = notify ? 1 : 0;
     }
 
     public Integer getAuctionid() {
@@ -156,5 +156,5 @@ public class Auction implements Serializable {
     public String toString() {
         return "src.Auction[ auctionid=" + auctionid + " ]";
     }
-    
+
 }
