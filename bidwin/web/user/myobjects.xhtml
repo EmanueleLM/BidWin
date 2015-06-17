@@ -18,53 +18,53 @@
         </p:breadCrumb>
 
         <p:panel header="User's objects">
-            <h:dataTable value="#" var="obj" style="padding-left:23%;padding-top:2%;">
-                <h:column>                            
+            <p:dataTable value="#" var="obj" style="padding-top:2%;">
+                <p:column>                            
                     <h:outputText escape="false" value="#{bundle.ListObjectsEmpty}" rendered="#{objectsController.myobjects().size() == 0}"/>
                         <h:panelGroup rendered="#{objectsController.myobjects().size() > 0}">
-                            <h:dataTable value="#{objectsController.myobjects()}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                                <h:column>
+                            <p:dataTable value="#{objectsController.myobjects()}" var="item">
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListObjectsTitle_objectName}"/>
                                     </f:facet>
                                 <h:outputText value="#{item.objectName}"/>
-                                </h:column>
-                                <h:column>
+                                </p:column>
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListObjectsTitle_objectType}"/>
                                     </f:facet>
                                     <h:outputText value="#{item.objectType}"/>
-                                </h:column>
-                                <h:column>
+                                </p:column>
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListObjectsTitle_description}"/>
                                     </f:facet>
                                     <h:outputText value="#{item.description}"/>
-                                </h:column>
-                                <h:column>
+                                </p:column>
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListObjectsTitle_imageLink}"/>
                                     </f:facet>
                                 <h:outputText value="#{item.imageLink}"/>
-                                </h:column>
-                                <h:column>
+                                </p:column>
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListObjectsTitle_username}"/>
                                     </f:facet>
                                     <h:outputText value="#{item.username}"/>
-                                </h:column>
-                                <h:column>
+                                </p:column>
+                                <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="&nbsp;"/>
                                     </f:facet>
                                     <p:commandLink id="CreateAuction" action="#{objectsController.prepareAuction(item.objectid)}" value="Create auction!"/>
                                     <p:tooltip id="toolTipFadeCreateAuction" for="CreateAuction" value="Create an auction for this object!" />
                                     <h:outputText value=" "/>
-                                </h:column>
-                        </h:dataTable>
+                                </p:column>
+                        </p:dataTable>
                     </h:panelGroup>
-                </h:column>
-            </h:dataTable>
+                </p:column>
+            </p:dataTable>
             <br /> <br />
             <p:commandButton id="CreateObject" value="Create Object" action="/faces/user/createobject.xhtml" style="margin-left:42%;margin-bottom:2%;"/>
             <p:tooltip id="toolTipFadeCreateObject" for="CreateObject" value="Create an object!" />
