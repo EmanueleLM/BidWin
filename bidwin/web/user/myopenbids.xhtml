@@ -17,7 +17,7 @@
             </p:breadCrumb>
             
             <p:panel header="My open auctions">
-                <h:dataTable value="#" var="obj">
+                <h:dataTable value="#" var="obj" style="padding-left:10%;padding-top:2%;">
                         <h:column>                            
                             <h:outputText escape="false" value="#{bundle.ListAuctionEmpty}" rendered="#{bidController.myOpenedBids().size() == 0}"/>
                             <h:panelGroup rendered="#{bidController.myOpenedBids().size() > 0}">
@@ -26,13 +26,13 @@
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListObjectsTitle_objectName}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.objectid.objectName}"/>
+                                        <h:outputText  value="#{item.objectid.objectName}"/>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="#{bundle.BidPosition}"/>
+                                            <h:outputText value="#{bundle.BidIfWinner}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.auctionid}"/>
+                                        <h:outputText value="#{bidController.getWinner(item.auctionid)}"/>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
@@ -46,11 +46,11 @@
                                         </f:facet>
                                         <h:outputText value="#{item.endTime}"/>
                                     </h:column>
-                                    <h:column>
+                                   <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Auction's detail"/>
+                                            <h:outputText value="bid's detail"/>
                                         </f:facet>
-                                        <h:outputText value="#"/>
+                                        <p:commandLink id="biddetail" value="details" action="#{bidController.prepareShowBids(item.auctionid)}" /> 
                                     </h:column>
                                 </h:dataTable>
                             </h:panelGroup>

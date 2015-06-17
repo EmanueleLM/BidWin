@@ -138,7 +138,7 @@ public class AuctionController implements Serializable {
 
     public String prepareList(String username) {
         currentauctions = search.getHisOpenedAuctions(username);
-        return "displayhisautions?redirect=true";
+        return "displayhisauctions?redirect=true";
     }
 
     public String create() {
