@@ -6,7 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-	<title>Auctions By Tag</title>
+	<title>Auctions</title>
 </h:head>
 <h:body>
 	<h:form>
@@ -16,7 +16,7 @@
                     <p:menuitem value="Search Engine" url="#" />
             </p:breadCrumb>
             
-            <p:panel header="Search by Tag">
+            <p:panel header="User's objects">
                 <h:dataTable value="#" var="obj">
                         <h:column>                            
                             <h:outputText escape="false" value="#{bundle.ListAuctionEmpty}" rendered="#{auctionController.currentauctions.size() == 0}"/>
@@ -26,7 +26,7 @@
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListAuctionTitle_objectid}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.objectid.objectid}"/>
+                                        <h:outputText value="#{item.objectid}"/>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
