@@ -17,7 +17,7 @@
             </p:breadCrumb>
             
             <p:panel header="My Open Auctions">
-                <h:dataTable value="#" var="obj" style="padding-left:13%;padding-top:2%;">
+                <h:dataTable value="#" var="obj" style="padding-left:11%;padding-top:2%;">
                         <h:column>                            
                             <h:outputText escape="false" value="#{bundle.ListAuctionEmpty}" rendered="#{auctionController.myAuctions().size() == 0}"/>
                             <h:panelGroup rendered="#{auctionController.myAuctions().size() > 0}">
@@ -51,6 +51,12 @@
                                             <h:outputText value="#{bundle.AuctionCurrentLowestBid}"/>
                                         </f:facet>
                                         <h:outputText value="Actual Winner"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="bid's detail"/>
+                                        </f:facet>
+                                        <p:commandLink id="biddetail" value="details" action="#{bidController.prepareShowBids(item.auctionid)}" /> 
                                     </h:column>
                                 </h:dataTable>
                             </h:panelGroup>
