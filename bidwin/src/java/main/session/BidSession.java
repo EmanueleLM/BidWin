@@ -126,7 +126,7 @@ public class BidSession {
     public List<Auction> auctionsToNotify(){
         date = new Date(System.currentTimeMillis());
         try {
-        Query jpqlQuery = em.createNativeQuery("Select * from auction where auction.EndTime > ?1  and  auction.notify = 0",Auction.class);
+        Query jpqlQuery = em.createNativeQuery("Select * from auction where auction.EndTime < ?1  and  auction.notify = 0",Auction.class);
         jpqlQuery.setParameter(1, date );
         List<Auction> results = (List<Auction>) jpqlQuery.getResultList();
         return results;
