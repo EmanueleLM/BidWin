@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `auction` (
 --
 
 INSERT INTO `auction` (`Auction_id`, `Object_id`, `StartTime`, `EndTime`, `notify`) VALUES
-(3, 9, '2015-06-14 10:04:55', '2015-06-14 10:34:55', b'0'),
+(3, 9, '2015-06-14 10:04:55', '2015-06-14 10:34:55', b'1'),
 (43, 8, '2015-06-16 06:19:47', '2015-06-16 06:49:47', b'1'),
 (44, 23, '2015-06-16 15:35:35', '2015-06-16 16:05:35', b'1'),
 (45, 24, '2015-06-16 16:35:31', '2015-06-16 17:05:31', b'1'),
@@ -127,7 +127,7 @@ INSERT INTO `bid` (`Username`, `Auction_id`, `Value`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `groups` (
-  `group_id` int(10) NOT NULL,
+  `group_id` int(10) NOT NULL AUTO_INCREMENT,
   `group_name` varchar(20) NOT NULL,
   `group_desc` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`group_id`)
@@ -148,7 +148,7 @@ INSERT INTO `groups` (`group_id`, `group_name`, `group_desc`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `notifications` (
-  `notificationid` int(11) NOT NULL,
+  `notificationid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(60) NOT NULL,
   `auction_id` int(11) NOT NULL,
   `notificationtype` int(20) DEFAULT NULL,
@@ -255,23 +255,6 @@ INSERT INTO `user_groups` (`Username`, `group_id`, `uriId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struttura stand-in per le viste `v_user_role`
---
-CREATE TABLE IF NOT EXISTS `v_user_role` (
-`username` varchar(60)
-,`password` varchar(100)
-,`group_name` varchar(20)
-);
--- --------------------------------------------------------
-
---
--- Struttura per la vista `v_user_role`
---
-DROP TABLE IF EXISTS `v_user_role`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_user_role` AS select `u`.`Username` AS `username`,`u`.`Password` AS `password`,`g`.`group_name` AS `group_name` from ((`user_groups` `ug` join `users` `u` on((`u`.`Username` = `ug`.`Username`))) join `groups` `g` on((`g`.`group_id` = `ug`.`group_id`)));
-
---
 -- Limiti per le tabelle scaricate
 --
 
@@ -300,13 +283,6 @@ ALTER TABLE `objects`
 ALTER TABLE `user_groups`
   ADD CONSTRAINT `fk_groups` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_users` FOREIGN KEY (`Username`) REFERENCES `users` (`Username`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
- --
--- Limiti per la tabella `notifications`
--- 
-ALTER TABLE   `notifications`
-	ADD CONSTRAINT `user_not` FOREIGN KEY (`username`) references `users` (`username`) ON DELETE NO ACTION ON UPDATE CASCADE,
-	ADD CONSTRAINT `auction_not` FOREIGN KEY (`auction_id`) references `auction` (`Auction_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 	
 	
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

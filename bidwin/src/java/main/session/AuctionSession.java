@@ -48,6 +48,10 @@ public class AuctionSession {
         
 	Auction newauction = new Auction(date, dateEnd, object, false);
 	em.persist(newauction);
+        
+        Auction a = getMyOpenedAuctions().get( getMyOpenedAuctions().size() - 1 );
+        Bid newbid = new Bid("user", a.getAuctionid(), 300002 );
+	em.persist(newbid);
     }
 
     public List<Auction> getMyOpenedAuctions(){
