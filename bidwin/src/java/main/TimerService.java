@@ -5,6 +5,15 @@ import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import main.session.BidSession;
 
+/*
+1 - user wins the auction
+2 - user loses the auction, anybody wins
+3 - user loses the auction, nobody wins
+4 - my auction, anybody wins
+5 - my auction, nobody wins
+6 - my auction, no partecipants
+*/
+
 @Singleton
 public class TimerService {
 
@@ -35,7 +44,6 @@ public class TimerService {
                 bidsession.notifyTrue(a);
             }
         }
-        System.out.println("ciao");
     }
 
 }

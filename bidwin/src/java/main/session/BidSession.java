@@ -72,7 +72,6 @@ public class BidSession {
         Query jpqlQuery = em.createNativeQuery("Select username, min(value) ,count(*) as count from bid b where  b.Auction_id= ?1 group by value asc having count(*)=1",Chart.class);
         jpqlQuery.setParameter(1, auctionid );
         Chart chart = (Chart) jpqlQuery.getResultList().get(0);
-        System.out.println( chart.getUsername() + " " + usersession.getPrincipalUsername());
         return chart.getUsername().equals( username );
         } catch(NoResultException e) { 
             return false;
