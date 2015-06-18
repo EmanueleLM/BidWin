@@ -54,8 +54,8 @@ and open the template in the editor.
                 </h:form>
             </h:form>
 
-            <h:panelGrid columns="2" cellpadding="10">
-                <p:menubar style="margin-right: 10%; height:300px; width:350px;" >
+            <h:panelGrid columns="2" cellpadding="10" style="width: 1100px;">
+                <p:menubar style="height:300px; width:350px;" >
                     <f:facet name="options">
                         <h:form id="searchengine">
                             <h:outputText value="SearchEngine" style="font-weight: bold; font-size:150%;text-decoration: underline; color: grey; margin-top:5px; padding-left:23%;"/>
@@ -80,27 +80,27 @@ and open the template in the editor.
                 </p:menubar>   
 
 
-            <p:carousel numVisible="1" itemStyle="height:200px;width:500px;" effect="easeInStrong" headerText="Notifications" style="margin-left:150px; margin-top:15px;">
-                <p:tab title="Notification">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:graphicImage name="image" />
-                        <h:outputText
-                            value="..." />
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Notification">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:graphicImage name="image" />
-                        <h:outputText value="..." />
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Notification">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:graphicImage name="image" />
-                        <h:outputText value="..." />
-                    </h:panelGrid>
-                </p:tab>
-            </p:carousel>
+                <p:dataScroller value="#{auctionController.myClosedAuctions()}" var="item" chunkSize="5" mode="inline"  scrollHeight="300" style="height: 300px;">
+                        <f:facet name="header">
+                            <h:outputText value="Notifications" style="color: grey;" />
+                        </f:facet>
+
+                        <h:panelGrid columns="2" style="width:100%;border-bottom: 1px solid gainsboro;" columnClasses="logo,detail" >
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{item.objectid}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Year:" />
+                                    <h:outputText value="#{item.auctionid}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Color:" />
+                                    <h:outputText value="#{item.startTime}" style="font-weight: bold"/>
+                                </h:panelGrid>
+                            </p:outputPanel>
+                        </h:panelGrid>
+                </p:dataScroller>
+
             </h:panelGrid>
 
             </p:panel>
