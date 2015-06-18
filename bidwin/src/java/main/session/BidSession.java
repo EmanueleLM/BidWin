@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionRolledbackLocalException;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -73,9 +74,9 @@ public class BidSession {
         jpqlQuery.setParameter(1, auctionid );
         Chart chart = (Chart) jpqlQuery.getResultList().get(0);
         return chart.getUsername().equals( username );
-        } catch(NoResultException e) { 
+        } catch(TransactionRolledbackLocalException | ArrayIndexOutOfBoundsException e) { 
             return false;
-        } catch(PersistenceException e) {
+        } catch(NullPointerException | PersistenceException e) {
             return false;
         }
         
