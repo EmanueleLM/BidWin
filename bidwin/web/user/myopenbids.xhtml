@@ -45,21 +45,21 @@
                                             <h:outputText value="#{bundle.ListAuctionTitle_endTime}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.endTime}"/>
-                                    </p:column>
+                                   </p:column>
                                    <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="bid's detail"/>
+                                            <h:outputText value="&nbsp;"/>
                                         </f:facet>
                                         <p:commandLink id="biddetail" value="details" action="#{bidController.prepareShowBids(item.auctionid)}" /> 
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="make bid"/>
+                                            <h:outputText value="&nbsp;"/>
                                         </f:facet>
                                         <p:commandLink id="MakeBid" action="#{auctionController.prepareBid(item.auctionid)}" value="Make a bid!"/>
                                         <p:tooltip id="toolTipFadeMakeBid" for="MakeBid" value="Make a bid for this object!" />
                                         <h:outputText value=" "/>
-                                    </p:column> 
+                                    </p:column>
                     </p:dataTable>
                 </h:panelGroup>
             </p:column>

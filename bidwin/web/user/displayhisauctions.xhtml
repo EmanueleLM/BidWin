@@ -17,6 +17,7 @@
             </p:breadCrumb>
             
             <p:panel header="User's objects">
+                <h:outputText value="USER INFO!!!"/>
                 <p:dataTable value="#" var="obj" style="padding-top:2%;">
                         <p:column>                            
                             <h:outputText escape="false" value="#{bundle.ListAuctionEmpty}" rendered="#{auctionController.currentauctions.size() == 0}"/>
@@ -45,6 +46,12 @@
                                             <h:outputText value="#{bundle.ListAuctionTitle_endTime}"/>
                                         </f:facet>
                                         <h:outputText value="#{item.endTime}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="&nbsp;"/>
+                                        </f:facet>
+                                        <p:commandLink id="biddetail" value="details" action="#{bidController.prepareShowBids(item.auctionid)}" /> 
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
