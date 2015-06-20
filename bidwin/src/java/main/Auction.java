@@ -92,7 +92,7 @@ public class Auction implements Serializable {
      * @param auctionid  the auction univoque identifier
      * @param startTime   starting time of the auction
      * @param endTime ending time of teh auction
-     * @param notify this parameter specifies if the auction is ended or not
+     * @param notify this parameter specifies if the auction is notified or not
      */
     public Auction(Integer auctionid, Date startTime, Date endTime, boolean notify) {
         this.auctionid = auctionid;
