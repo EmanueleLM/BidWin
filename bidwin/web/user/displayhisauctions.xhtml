@@ -26,13 +26,13 @@
                         <h:outputLabel for="Name" style="margin-top:5px;"><b>Name:</b></h:outputLabel>
                         <p:outputLabel id="Name" value="#{auctionController.currentUser.name}" />
 
-                        <h:outputLabel for="Surname" style="margin-top:5px;"><b>Ranking:</b></h:outputLabel>
-                        <p:outputLabel id="Surname" value="#{auctionController.currentUser.ranking}"/>
+                        <h:outputLabel for="Ranking" style="margin-top:5px;"><b>Ranking:</b></h:outputLabel>
+                        <p:outputLabel id="Ranking" value="#{auctionController.currentUser.ranking / 100}"/>
 
-                        <h:outputLabel for="Mail" style="margin-top:5px;"><b>Sold Objects:</b></h:outputLabel>
-                        <p:outputLabel id="Mail" value="#{auctionController.currentUser.auctionCounter}" />
+                        <h:outputLabel for="Counter" style="margin-top:5px;"><b>Sold Objects:</b></h:outputLabel>
+                        <p:outputLabel id="Counter" value="#{auctionController.currentUser.auctionCounter}" />
 
-                    </h:panelGrid> 
+                    </h:panelGrid>
                 <p:dataTable value="#" var="obj" style="padding-top:2%;">
                         <p:column>                            
                             <h:outputText escape="false" value="#{bundle.ListAuctionEmpty}" rendered="#{auctionController.currentauctions.size() == 0}"/>

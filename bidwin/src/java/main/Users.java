@@ -404,10 +404,7 @@ public class Users implements Serializable {
             return false;
         }
         Users other = (Users) object;
-        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
-            return false;
-        }
-        return true;
+        return !((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username)));
     }
 
     @Override

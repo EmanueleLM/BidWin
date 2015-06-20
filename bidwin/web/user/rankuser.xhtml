@@ -5,74 +5,47 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-	<title>Rank Users</title>
-</h:head>
-<h:body>
-	<h:form>
+    <h:head>
+            <title>Rank User</title>
+    </h:head>
+    <h:body>
+        <h:form>
             <p:breadCrumb>
                     <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
                     <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
-                    <p:menuitem value="Rank Users" url="#" />
+                    <p:menuitem value="Rank a User" url="/faces/user/toberankedusers.xhtml" />
+                    <p:menuitem value="Rank User" url="#" />
             </p:breadCrumb>
+
+            <p:panel header="Rank User">
+
+            <h:outputText value="User Info"/>
+                    <h:panelGrid columns="2" id="regGrid" style="margin-top:5px;padding-bottom: 10px;">
+
+                        <h:outputLabel for="Username" style="margin-top:5px;"><b>Username:</b></h:outputLabel>
+                        <p:outputLabel id="Username" value="#{usersController.currentUser}"/>
+
+                        <h:outputLabel for="Name" style="margin-top:5px;"><b>Name:</b></h:outputLabel>
+                        <p:outputLabel id="Name" value="#{usersController.currentUser.name}" />
+
+                        <h:outputLabel for="Ranking" style="margin-top:5px;"><b>Ranking:</b></h:outputLabel>
+                        <p:outputLabel id="Ranking" value="#{usersController.currentUser.ranking / 100}"/>
+
+                        <h:outputLabel for="Counter" style="margin-top:5px;"><b>Sold Objects:</b></h:outputLabel>
+                        <p:outputLabel id="Counter" value="#{usersController.currentUser.auctionCounter}" />
+
+                    </h:panelGrid>
+                    
+                    <h:outputLabel for="ajaxSpinner" value="Vote Value: " style="font-weight: bold"/>
+                    <p:outputPanel>
+                        <p:spinner id="ajaxSpinner" value="#{spinnerView.numbervote}" min="1" max="5" stepFactor="0.1">
+                        </p:spinner>
+                    </p:outputPanel>
+                    <p:commandButton ajax="false" id="rankUser" action="#{usersController.vote(usersController.currentUser.username, spinnerView.numbervote)}" value="Rank"/>
+                    <p:tooltip id="toolTipFadeRank" for="rankUser" value="Vote this user!" />
             
-            <p:panel header="Rank Users">
-                <p:dataTable value="#" var="obj">
-                        <p:column>                            
-                            <h:outputText escape="false" value="#{bundle.ListUsersEmpty}" rendered="#{usersController.currentusers.size() == 0}"/>
-                            <h:panelGroup rendered="#{usersController.currentusers.size() > 0}">
-                                <p:dataTable value="#{usersController.currentusers}" var="item" >
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListUsersTitle_username}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.username}"/>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListUsersTitle_name}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.name}"/>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListUsersTitle_surname}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.surname}"/>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListObjectsTitle_objectName}"/>
-                                        </f:facet>
-                                        <h:outputText value="object name from auction"/>
-                                    </p:column>
-                                    <p:column>
-                                        <h:panelGrid columns="2" cellpadding="5" class="ui-grid">
-                                        <h:outputLabel for="ajaxSpinner"><b>Rank</b></h:outputLabel>
-                                            <p:outputPanel>
-                                                <p:spinner id="ajaxSpinner" value="#{spinnerView.number}" min="0" max="5" stepFactor="1">
-                                                    <p:ajax update="ajaxSpinnerValue" process="@this" />
-                                                </p:spinner>
-                                            </p:outputPanel>
-                                        </h:panelGrid>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="&nbsp;"/>
-                                        </f:facet>
-                                        <p:commandLink id="rankUser" action="azionevoto" value="Rank"/>
-                                        <p:tooltip id="toolTipFadeRank" for="rankUser" value="Vote this user!" />
-                                        <h:outputText value=" "/>
-                                    </p:column>                                    
-                                </p:dataTable>
-                            </h:panelGroup>
-                        </p:column>
-                    </p:dataTable>
-             <br /> <br />
-             </p:panel>
-                        
-            
+            </p:panel>
         </h:form>
-</h:body>
+    </h:body>
 
 </html>

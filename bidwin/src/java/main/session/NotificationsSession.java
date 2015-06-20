@@ -17,7 +17,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import main.Auction;
-import main.Bid;
 import main.Notifications;
 import main.Objects;
 import main.Users;
@@ -63,17 +62,6 @@ public class NotificationsSession {
         return auction.getObjectid().getUsername();
     }
 
-    public Bid getUserBid(int auctionid){
-        try {
-        Query jpqlQuery = em.createNativeQuery("Select bid.* from bid where bid.Username = 'user'  and  bid.Auction_id= ?1",Bid.class);
-        jpqlQuery.setParameter(1, auctionid );
-        Bid results = (Bid) jpqlQuery.getSingleResult();
-        return results;
-        } catch(NoResultException e) { 
-            return null;
-        }
-    }
-
     public List<Notifications> getMyNotifications(){
         try {
         Query jpqlQuery = em.createNativeQuery("Select * from notifications where notifications.username = ?1",Notifications.class);
@@ -82,7 +70,8 @@ public class NotificationsSession {
         Collections.reverse(results);
         return results;
         } catch(NoResultException e) { 
-            return null;
+            List<Notifications> results = new ArrayList<>();
+            return results;
         }
     }
 
@@ -90,40 +79,61 @@ public class NotificationsSession {
         List<Users> users = new ArrayList<>();
         for (Notifications n : getMyNotifications()) {
             Auction a = bidsession.getAuctionFromId( n.getAuctionId() );
-            if ( (n.getNotificationtype() == 1) && (getUserBid(n.getAuctionId()).getBidPK().getValue() == 300002) ) {
+            if (n.getNotificationtype() == 1) {
                 users.add( owner(a) );
             }
         }
         return users;
     }
 
+    public int setUserVoted(String username){
+        for (Notifications n : getMyNotifications()) {
+            Auction a = bidsession.getAuctionFromId( n.getAuctionId() );
+            if ( (n.getNotificationtype() == 1) && (owner(a).getUsername().equals( username )) ) {
+                n.setNotificationtype(10);
+                em.merge(n);
+                return 1;
+            }
+        }
+        return -1;
+    }
+
     public List<String> getStringNotifications(){
         List<String> list = new ArrayList<>();
         for (Notifications n : getMyNotifications()) {
             Auction a = bidsession.getAuctionFromId( n.getAuctionId() );
-            a.getObjectid().getObjectName(); 
-            owner(a); 
-            bidsession.getWinner( n.getAuctionId() );
+            String object = a.getObjectid().getObjectName(); 
+            String owner = owner(a).getUsername();
+            String winner = bidsession.getWinner( n.getAuctionId() );
+            
             switch(n.getNotificationtype()) {
                 case 1:
                     list.add("/faces/resources/images/winner.png");
-                    list.add("You won the auction on the " + a.getObjectid().getObjectName() +  " Please vote " + owner(a).getUsername() + ".");
+                    list.add("You won the auction on the " + object +  " Please vote " + owner + " in Rank Users .");
                 break;
                 case 2:
                     list.add("/faces/resources/images/loser.png");
-                    list.add("You lost the auction on the " + a.getObjectid().getObjectName() +".");
+                    list.add("You lost the auction on the " + object +  " created by " + owner + ".");
                 break;
                 case 3:
                     list.add("/faces/resources/images/draw.png");
-                    list.add("Nobody won the " + a.getObjectid().getObjectName() + ".Check the auction again.");
+                    list.add("Nobody won the " + object +  " created by " + owner + ".");
                 break;
                 case 4:
                     list.add("/faces/resources/images/hint.png");
-                    list.add( bidsession.getWinner( n.getAuctionId() ) + " won the auction on your " + a.getObjectid().getObjectName() + '\n' + "  Remember to send the object.");
+                    list.add( winner + " won the auction on your " + object + '\n' + "  Remember to send the object.");
                 break;
                 case 5:
                     list.add("/faces/resources/images/hint.png");
-                    list.add("Nobody won your auction on " + a.getObjectid().getObjectName() + ".Create the auction again.");
+                    list.add("Nobody won your auction on " + object + '\n' + ".Create the auction again.");
+                break;
+                case 6:
+                    list.add("/faces/resources/images/hint.png");
+                    list.add("Nobody has participated in your auction on " + object + '\n' + ".Create the auction again.");
+                break;
+                case 10:
+                    list.add("/faces/resources/images/winner.png");
+                    list.add("You won the auction on the " + object +  " created by " + owner + ".");
                 break;
                 default:
                     list.add("/faces/resources/images/cola.png");
@@ -131,6 +141,7 @@ public class NotificationsSession {
                 break;    
             }
         }
+        list.add("Welcome");
         return list;
     }
 
