@@ -18,9 +18,12 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.Auction;
+import main.Notifications;
 import main.session.AuctionSession;
 import main.session.BidSession;
+import main.session.NotificationsSession;
 import main.session.SearchSession;
+import main.session.UserSession;
 
 @ManagedBean(name = "auctionController")
 @SessionScoped
@@ -35,6 +38,8 @@ public class AuctionController implements Serializable {
     private int auctionid;
     private Auction currentAuction;
     private List<Auction> currentauctions;
+    @EJB
+    private NotificationsSession notificationsession;
 
     @EJB
     private AuctionSession auctionsession;
@@ -44,6 +49,9 @@ public class AuctionController implements Serializable {
     
     @EJB
     private SearchSession search;
+    
+    @EJB
+    UserSession usersession;
 
 
     public AuctionController() {
@@ -290,8 +298,8 @@ public class AuctionController implements Serializable {
 
     }
     
-    public String foo() {
-        return "welcome";
+    public List<String> getNotifications() {
+        return notificationsession.getStringNotifications();
     }
-
+    
 }

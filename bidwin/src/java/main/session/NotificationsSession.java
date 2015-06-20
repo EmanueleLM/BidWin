@@ -99,15 +99,40 @@ public class NotificationsSession {
 
     public List<String> getStringNotifications(){
         List<String> list = new ArrayList<>();
-        
         for (Notifications n : getMyNotifications()) {
-            
-            // informazioni (nei casi in cui non ovvie)
-            // senza usare altre query !!!
             Auction a = bidsession.getAuctionFromId( n.getAuctionId() );
             a.getObjectid().getObjectName(); // nome oggetto e altre informazioni
             owner(a); // proprietario dell'asta (se l'hai vinta devi votarlo)
             bidsession.getWinner( n.getAuctionId() ); // vincitore dell'asta
+            switch(n.getNotificationtype()) {
+                case 1:
+                    list.add("/faces/resources/images/winner.png");
+                    list.add("You won the auction on the " + a.getObjectid().getObjectName() +  " Please vote " + owner(a).getUsername() + ".");
+                break;
+                case 2:
+                    list.add("/faces/resources/images/loser.png");
+                    list.add("You lost the auction on the " + a.getObjectid().getObjectName() +".");
+                break;
+                case 3:
+                    list.add("/faces/resources/images/draw.png");
+                    list.add("Nobody won the " + a.getObjectid().getObjectName() + ".Check the auction again.");
+                break;
+                case 4:
+                    list.add("/faces/resources/images/hint.png");
+                    list.add( bidsession.getWinner( n.getAuctionId() ) + " won the auction on your " + a.getObjectid().getObjectName() + '\n' + "  Remember to send the object.");
+                break;
+                case 5:
+                    list.add("/faces/resources/images/hint.png");
+                    list.add("Nobody won your auction on " + a.getObjectid().getObjectName() + ".Create the auction again.");
+                break;
+                default:
+                    list.add("/faces/resources/images/cola.png");
+                    list.add("Buy a nuke cola.");
+                break;    
+            }
+            // informazioni (nei casi in cui non ovvie)
+            // senza usare altre query !!!
+
             
             // componi e poi fai  list.add( qua la stringa );
         }

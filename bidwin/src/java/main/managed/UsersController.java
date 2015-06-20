@@ -251,6 +251,5 @@ public class UsersController implements Serializable {
 
     }
 
-    public void nop() {}
-
+    
 }

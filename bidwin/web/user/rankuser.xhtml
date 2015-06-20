@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Rank Users</title>
+</h:head>
+<h:body>
+	<h:form>
+            <p:breadCrumb>
+                    <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                    <p:menuitem value="Home" url="/faces/user/welcome.xhtml" />
+                    <p:menuitem value="Rank Users" url="#" />
+            </p:breadCrumb>
+            
+            <p:panel header="Rank Users">
+                <p:dataTable value="#" var="obj">
+                        <p:column>                            
+                            <h:outputText escape="false" value="#{bundle.ListUsersEmpty}" rendered="#{usersController.currentusers.size() == 0}"/>
+                            <h:panelGroup rendered="#{usersController.currentusers.size() > 0}">
+                                <p:dataTable value="#{usersController.currentusers}" var="item" >
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListUsersTitle_username}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.username}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListUsersTitle_name}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.name}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListUsersTitle_surname}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.surname}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListObjectsTitle_objectName}"/>
+                                        </f:facet>
+                                        <h:outputText value="object name from auction"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:panelGrid columns="2" cellpadding="5" class="ui-grid">
+                                        <h:outputLabel for="ajaxSpinner"><b>Rank</b></h:outputLabel>
+                                            <p:outputPanel>
+                                                <p:spinner id="ajaxSpinner" value="#{spinnerView.number}" min="0" max="5" stepFactor="1">
+                                                    <p:ajax update="ajaxSpinnerValue" process="@this" />
+                                                </p:spinner>
+                                            </p:outputPanel>
+                                        </h:panelGrid>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="&nbsp;"/>
+                                        </f:facet>
+                                        <p:commandLink id="rankUser" action="azionevoto" value="Rank"/>
+                                        <p:tooltip id="toolTipFadeRank" for="rankUser" value="Vote this user!" />
+                                        <h:outputText value=" "/>
+                                    </p:column>                                    
+                                </p:dataTable>
+                            </h:panelGroup>
+                        </p:column>
+                    </p:dataTable>
+             <br /> <br />
+             </p:panel>
+                        
+            
+        </h:form>
+</h:body>
+
+</html>
