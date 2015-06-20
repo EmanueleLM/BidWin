@@ -9,10 +9,9 @@ import main.session.NotificationsSession;
 /**
  * 
  * @author Davide
-*/
-
-/*
+ * 
 1 - user wins the auction
+10 - user wins the auction and has already voted
 2 - user loses the auction, somebody wins
 3 - user loses the auction, nobody wins
 4 - my auction, somebody wins

@@ -112,6 +112,10 @@ public class AuctionController implements Serializable {
         return this.currentUser;
     }
 
+    public List<String> getNotifications() {
+        return notificationsession.getStringNotifications();
+    }
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -309,9 +313,5 @@ public class AuctionController implements Serializable {
         }
 
     }
-    
-    public List<String> getNotifications() {
-        return notificationsession.getStringNotifications();
-    }
-    
+
 }

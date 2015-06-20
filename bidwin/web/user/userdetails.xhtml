@@ -31,6 +31,12 @@
 
                 <h:outputLabel for="Mail" style="margin-top:5px;"><b>Mail:</b></h:outputLabel>
                 <p:outputLabel id="Mail" value="#{userInfo.showEmail()}" />
+                
+                <h:outputLabel for="Ranking" style="margin-top:5px;"><b>Ranking:</b></h:outputLabel>
+                <p:outputLabel id="Ranking" value="#{userInfo.showRanking() / 100}"/>
+
+                <h:outputLabel for="Counter" style="margin-top:5px;"><b>Sold Objects:</b></h:outputLabel>
+                <p:outputLabel id="Counter" value="#{userInfo.showAuctionCounter()}" />
 
             </h:panelGrid>   
 

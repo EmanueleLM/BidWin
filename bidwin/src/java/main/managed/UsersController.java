@@ -20,6 +20,7 @@ import javax.faces.model.SelectItem;
 import main.Users;
 import main.session.NotificationsSession;
 import main.session.SearchSession;
+import main.session.UserSession;
 
 /**
  * 
@@ -39,6 +40,10 @@ public class UsersController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Users> currentusers;
+    private Users currentUser;
+    
+    @EJB
+    UserSession usersession;
     
     @EJB
     private SearchSession search;
@@ -57,6 +62,10 @@ public class UsersController implements Serializable {
 
     public List<Users> getCurrentusers() {
         return this.currentusers;
+    }
+
+    public Users getCurrentUser() {
+        return this.currentUser;
     }
 
     public List<Users> getUsersToVote() {
@@ -113,6 +122,18 @@ public class UsersController implements Serializable {
         current = new Users();
         selectedItemIndex = -1;
         return "Create";
+    }
+
+    public String prepareVote(String username) {
+        currentUser = new Users();
+        currentUser = usersession.find(username);
+        return "rankuser?redirect=true";
+    }
+
+    public String vote(String username, float vote) {
+        usersession.updateranking( username, (int) (vote*100) );
+        notificationssession.setUserVoted(username);
+        return "toberankedusers?redirect=true";
     }
 
     public String create() {
@@ -264,5 +285,4 @@ public class UsersController implements Serializable {
 
     }
 
-    
 }

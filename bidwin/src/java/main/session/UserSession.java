@@ -47,6 +47,13 @@ public class UserSession {
         em.merge(user);
     }
 
+    public void updateranking (String username, int vote) {
+	Users user = find(username);
+        user.setAuctionCounter( user.getAuctionCounter() + 1 );
+        user.setRanking( Math.round((user.getRanking() * (user.getAuctionCounter() - 1) + vote ) / user.getAuctionCounter()) );
+        em.merge(user);
+    }
+
     public List<Users> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(Users.class));

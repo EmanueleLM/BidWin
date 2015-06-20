@@ -22,6 +22,7 @@ public class SpinnerController {
     private int number;
     private int numberauction;
     private float numberbid;
+    private float numbervote;
     private int total;
     
     @EJB
@@ -31,6 +32,8 @@ public class SpinnerController {
         number = 0;
         numberauction = 5;
         total = number;
+        numberbid = 0;
+        numbervote = 1;
     }
  
     public void rechargePocket() {
@@ -69,6 +72,14 @@ public class SpinnerController {
 
     public void setNumberbid(float numberbid) {
         this.numberbid = numberbid;
+    }
+
+    public float getNumbervote() {
+        return numbervote;
+    }
+
+    public void setNumbervote(float numbervote) {
+        this.numbervote = numbervote;
     }
 
 }

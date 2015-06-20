@@ -148,7 +148,7 @@ public class BidSession {
 
     public String getWinner(int auctionid) {
         try {
-        Query jpqlQuery = em.createNativeQuery("Select notifications.* from notifications where notifications.auction_id = ?1 and notifications.notificationtype = 1",Notifications.class);
+        Query jpqlQuery = em.createNativeQuery("Select notifications.* from notifications where notifications.auction_id = ?1 and (notifications.notificationtype = 1 or notifications.notificationtype = 10)",Notifications.class);
         jpqlQuery.setParameter(1, auctionid );
         Notifications results = (Notifications) jpqlQuery.getSingleResult();
         return results.getUsername();

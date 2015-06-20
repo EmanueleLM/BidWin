@@ -44,14 +44,14 @@
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.ListUsersTitle_ranking}"/>
                                         </f:facet>
-                                        <h:outputText value="#{item.ranking}"/>
+                                        <h:outputText value="#{item.ranking / 100}"/>
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="&nbsp;"/>
                                         </f:facet>
-                                        <p:commandLink id="HisAuctions" action="#{auctionController.prepareList(item.username)}" value="His Auctions!"/>
-                                        <p:tooltip id="toolTipFadeHisAuctions" for="HisAuctions" value="show his/her open auctions!" />
+                                        <p:commandLink id="Rank" action="#{usersController.prepareVote(item.username)}" value="Vote!"/>
+                                        <p:tooltip id="toolTipFadeRank" for="Rank" value="Vote this user!" />
                                         <h:outputText value=" "/>
                                     </p:column>                                    
                                 </p:dataTable>
