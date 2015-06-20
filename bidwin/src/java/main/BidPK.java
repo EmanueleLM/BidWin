@@ -32,35 +32,68 @@ public class BidPK implements Serializable {
     @Column(name = "Value")
     private int value;
 
+    /**
+     *empty contructor of teh class
+     */
     public BidPK() {
     }
 
+    /**
+     * contructor of BidPK with parameters
+     * @param username the username of the user  who made the bid
+     * @param auctionid the auction related to teh bid
+     * @param value the value of teh bid
+     */
     public BidPK(String username, int auctionid, int value) {
         this.username = username;
         this.auctionid = auctionid;
         this.value = value;
     }
 
+    /**
+     * get the username of the user who made the bid
+     * @return the username of the user who made teh bid
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     *set the username of the user who made the bid
+     * @param username the name of the username who made the bid
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * get the auctionid related to the bid
+     * @return teh auctionid of the auction related to the bid
+     */
     public int getAuctionid() {
         return auctionid;
     }
 
+    /**
+     * set the auctionid of the bid
+     * @param auctionid teh auctionid of the auction related to teh bid
+     */
     public void setAuctionid(int auctionid) {
         this.auctionid = auctionid;
     }
 
+    /**
+     * get the value of the bid
+     * @return the value of this specific bid
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * set the value of the bid
+     * @param value the value of the bid
+     */
     public void setValue(int value) {
         this.value = value;
     }

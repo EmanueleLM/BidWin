@@ -38,33 +38,66 @@ public class Bid implements Serializable {
     @ManyToOne(optional = false)
     private Auction auction;
 
+    /**
+     * constructor (empty) of the class
+     */
     public Bid() {
     }
 
+    /**
+     * contructor whit parameters
+     * @param username the user who made the bid
+     * @param auctionid the auction related to the bid
+     * @param value the value of the bid
+     */
     public Bid(String username, int auctionid, int value) {
         this.bidPK = new BidPK(username, auctionid, value);
     }
 
+    /**
+     * get the bidPK (delegates some functionalities as managing external keys etc.)
+     * @return the bidPK
+     */
     public BidPK getBidPK() {
         return bidPK;
     }
 
+    /**
+     * set the bidPK(delegates some functionalities as managing external keys etc.)
+     * @param bidPK the bidPK
+     */
     public void setBidPK(BidPK bidPK) {
         this.bidPK = bidPK;
     }
 
+    /**
+     * get the user who made teh bid
+     * @return the user who made the bid
+     */
     public Users getUsers() {
         return users;
     }
 
+    /**
+     * set the user who made the bid
+     * @param users who made the bid
+     */
     public void setUsers(Users users) {
         this.users = users;
     }
 
+    /**
+     * the auction related to the bid
+     * @return the auction related to the bid
+     */
     public Auction getAuction() {
         return auction;
     }
 
+    /**
+     * set the auction related to the bid
+     * @param auction the auction related to teh bid
+     */
     public void setAuction(Auction auction) {
         this.auction = auction;
     }

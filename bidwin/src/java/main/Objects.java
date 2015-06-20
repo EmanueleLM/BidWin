@@ -72,9 +72,17 @@ public class Objects implements Serializable {
     @ManyToOne(optional = false)
     private Users username;
 
+    /**
+     *empty contructor of the class
+     */
     public Objects() {
     }
-
+    
+    /**
+     * contructor with parameters used when an object is uploaded by a user
+     * @param object the objectDTO used to get info from the object when newly created
+     * @param username the username of the user who creates the object
+     */
     public Objects(ObjectsDTO object, Users username) {
         
         this.objectName    = object.getObjectName();
@@ -84,6 +92,14 @@ public class Objects implements Serializable {
         this.username      = username;
     }
 
+    /**
+     * contructor with parameters
+     * @param objectid the objectid of the object
+     * @param objectName the object name
+     * @param objectType the object type (used by the serach engine)
+     * @param description a short description of the object
+     * @param imageLink link to image
+     */
     public Objects(Integer objectid, String objectName, String objectType, String description, String imageLink) {
         this.objectid = objectid;
         this.objectName = objectName;
@@ -92,58 +108,114 @@ public class Objects implements Serializable {
         this.imageLink = imageLink;
     }
 
+    /**
+     * get the objectid from a given object
+     * @return the objectid from a given object
+     */
     public Integer getObjectid() {
         return objectid;
     }
 
+    /**
+     * set the objectid from a given object
+     * @param objectid the objectid from a given object
+     */ 
     public void setObjectid(Integer objectid) {
         this.objectid = objectid;
     }
 
+    /**
+     * get the objectname from a given object
+     * @return the objectname from a given object
+     */
     public String getObjectName() {
         return objectName;
     }
 
+    /**
+     * set the objectname from a given object
+     * @param objectName the objectname from a given object
+     */
     public void setObjectName(String objectName) {
         this.objectName = objectName;
     }
 
+    /**
+     * get the objecttype from a given object
+     * @return the objecttype from a given object
+     */
     public String getObjectType() {
         return objectType;
     }
 
+    /**
+     * set the objecttype from a given object
+     * @param objectType the objecttype from a given object
+     */
     public void setObjectType(String objectType) {
         this.objectType = objectType;
     }
 
+    /**
+     * get the object descritpion from a given object
+     * @return the object descritpion from a given object
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * set the object descritpion from a given object
+     * @param description the object descritpion from a given object
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * get the image link from a given object
+     * @return the image link from a given object
+     */
     public String getImageLink() {
         return imageLink;
     }
 
+    /**
+     * set the image link from a given object
+     * @param imageLink the image link from a given object
+     */
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
     }
 
+    /**
+     * get the auction from a given object
+     * @return the auction from a given object
+     */
     public Auction getAuction() {
         return auction;
     }
 
+    /**
+     * set the auction from a given object
+     * @param auction the auction from a given object
+     */
     public void setAuction(Auction auction) {
         this.auction = auction;
     }
 
+    /**
+     * get the username of the user who owns this specific object
+     * @return the username of the user who owns this specific object
+     */
     public Users getUsername() {
         return username;
     }
 
+    /**
+     * set the username of the user who owns this specific object
+     * @param username the username of the user who owns this specific object
+     */
     public void setUsername(Users username) {
         this.username = username;
     }
