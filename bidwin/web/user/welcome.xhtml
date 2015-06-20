@@ -54,7 +54,7 @@ and open the template in the editor.
                 </h:form>
             </h:form>
 
-            <h:panelGrid columns="2" cellpadding="10" style="width: 1100px;">
+            <h:panelGrid columns="2" cellpadding="10" style="width: 1100px; margin-left:5%;">
                 <p:menubar style="height:300px; width:350px;" >
                     <f:facet name="options">
                         <h:form id="searchengine">
@@ -80,22 +80,16 @@ and open the template in the editor.
                 </p:menubar>   
 
 
-                <p:dataScroller value="#{auctionController.myClosedAuctions()}" var="item" chunkSize="5" mode="inline"  scrollHeight="300" style="height: 300px;">
+                <p:dataScroller value="#{auctionController.notifications}" rendered="#{auctionController.notifications.size() > 0}" var="item" chunkSize="5" mode="inline"  scrollHeight="300" style="height: 300px;">
                         <f:facet name="header">
                             <h:outputText value="Notifications" style="color: grey;" />
                         </f:facet>
 
-                        <h:panelGrid columns="2" style="width:100%;border-bottom: 1px solid gainsboro;" columnClasses="logo,detail" >
-                            <p:outputPanel>
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{item.objectid}" style="font-weight: bold"/>
-
-                                    <h:outputText value="Year:" />
-                                    <h:outputText value="#{item.auctionid}" style="font-weight: bold"/>
-
-                                    <h:outputText value="Color:" />
-                                    <h:outputText value="#{item.startTime}" style="font-weight: bold"/>
+                        <h:panelGrid columns="2" style="width:100%;" columnClasses="logo,detail" >
+                            <p:outputPanel style="padding-top:5px;padding-bottom:5px; border-bottom:1px solid gainsboro;">
+                                <h:panelGrid columns="2" cellpadding="5" >
+                                    <p:graphicImage value="#{item}" rendered="#{item.endsWith('g')}" style="margin-left:0%;margin-bottom: 0px;" />
+                                    <h:outputText value="#{item}" rendered="#{item.endsWith('.')}"/>
                                 </h:panelGrid>
                             </p:outputPanel>
                         </h:panelGrid>
