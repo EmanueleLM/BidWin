@@ -6,6 +6,11 @@ import javax.ejb.Singleton;
 import main.session.BidSession;
 import main.session.NotificationsSession;
 
+/**
+ * 
+ * @author Davide
+*/
+
 /*
 1 - user wins the auction
 2 - user loses the auction, somebody wins

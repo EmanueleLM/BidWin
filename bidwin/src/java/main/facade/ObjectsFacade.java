@@ -12,7 +12,7 @@ import main.Objects;
 
 /**
  *
- * @author Ga
+ * @author Emanuele
  */
 @Stateless
 public class ObjectsFacade extends AbstractFacade<Objects> {

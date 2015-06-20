@@ -12,7 +12,7 @@ import main.Groups;
 
 /**
  *
- * @author Ga
+ * @author Emanuele
  */
 @Stateless
 public class GroupsFacade extends AbstractFacade<Groups> {

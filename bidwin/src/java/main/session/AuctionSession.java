@@ -22,7 +22,7 @@ import main.dto.AuctionDTO;
 
 /**
  *
- * @author Mago
+ * @author Davide
  */
 @Stateless
 public class AuctionSession {

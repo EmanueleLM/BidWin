@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ga
+ * @author Emanuele
  */
 @Entity
 @Table(name = "auction")
@@ -66,10 +66,19 @@ public class Auction implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction")
     private Collection<Bid> bidCollection;
 
-
+    /**
+     * Class constructor
+     */
     public Auction() {
     }
 
+    /**
+     * Contructor that returns the auction with the specified parameters
+     * @param startTime starting time of the auction
+     * @param endTime ending time of teh auction
+     * @param object the object of the auction
+     * @param notify this parameter specifies if the auction is ended or not
+     */
     public Auction(Date startTime, Date endTime, Objects object, boolean notify) {
         
         this.startTime     = startTime;
@@ -78,6 +87,13 @@ public class Auction implements Serializable {
         this.notify        = notify ? 1 : 0;
     }
 
+    /**
+     * Contructor that returns the auction with the specified parameters
+     * @param auctionid  the auction univoque identifier
+     * @param startTime   starting time of the auction
+     * @param endTime ending time of teh auction
+     * @param notify this parameter specifies if the auction is ended or not
+     */
     public Auction(Integer auctionid, Date startTime, Date endTime, boolean notify) {
         this.auctionid = auctionid;
         this.startTime = startTime;
@@ -85,52 +101,99 @@ public class Auction implements Serializable {
         this.notify  = notify ? 1 : 0;
     }
 
+    /**
+     * function that returns the auction identifier
+     * @return the auction identifier
+     */
     public Integer getAuctionid() {
         return auctionid;
     }
 
+    /**
+     * set the auction identifier
+     * @param auctionid the auction identifier
+     */
     public void setAuctionid(Integer auctionid) {
         this.auctionid = auctionid;
     }
 
+    /**
+     * return the start time of an auction
+     * @return the start time of the auction
+     */
     public Date getStartTime() {
         return startTime;
     }
 
+    /**
+     * set the auction start time
+     * @param startTime the auction's start time
+     */
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
+    /**
+     * return the auction's end time
+     * @return the auction's end time
+     */
     public Date getEndTime() {
         return endTime;
     }
 
+    /**
+     * set the auction's end time
+     * @param endTime the auction's end time
+     */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
+    /**
+     * return the object related to the auction
+     * @return the object related to the auction
+     */
     public Objects getObjectid() {
         return objectid;
     }
 
+    /**
+     * set the auction's object id 
+     * @param objectid the auction's object id
+     */
     public void setObjectid(Objects objectid) {
         this.objectid = objectid;
     }
 
+    /**
+     * return the integer which informs whether the auction is ended up or not
+     * @return the integer which informs whether the auction is ended up or not
+     */
     public int getNotify() {
         return notify;
     }
 
+    /**
+     * set whether an auction is ended up or not
+     * @param notify the parameter is set to 1 if the auction is ended up, 0 otherwise
+     */
     public void setNotify(int notify) {
         this.notify = notify;
     }
     
-
+    /**
+     * returns the collection of bids related to a specific auction
+     * @return the collection of bids related to a specific auction
+     */
     @XmlTransient
     public Collection<Bid> getBidCollection() {
         return bidCollection;
     }
 
+    /**
+     * set the specific bids related to an auction
+     * @param bidCollection the bids that belongs to an auction
+     */
     public void setBidCollection(Collection<Bid> bidCollection) {
         this.bidCollection = bidCollection;
     }

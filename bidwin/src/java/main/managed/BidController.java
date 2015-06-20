@@ -22,6 +22,11 @@ import main.Bid;
 import main.session.BidSession;
 import main.session.UserSession;
 
+/**
+ * 
+ * @author Davide
+ */
+
 @ManagedBean(name = "bidController")
 @SessionScoped
 public class BidController implements Serializable {

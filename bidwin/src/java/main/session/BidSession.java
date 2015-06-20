@@ -26,7 +26,7 @@ import main.dto.BidDTO;
 
 /**
  *
- * @author Mago
+ * @author Davide
  */
 @Stateless
 public class BidSession {

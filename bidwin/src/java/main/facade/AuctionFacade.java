@@ -12,7 +12,7 @@ import main.Auction;
 
 /**
  *
- * @author Ga
+ * @author Emanuele
  */
 @Stateless
 public class AuctionFacade extends AbstractFacade<Auction> {

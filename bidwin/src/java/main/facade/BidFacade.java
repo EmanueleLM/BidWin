@@ -12,7 +12,7 @@ import main.Bid;
 
 /**
  *
- * @author Ga
+ * @author Emanuele
  */
 @Stateless
 public class BidFacade extends AbstractFacade<Bid> {

@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Ga
+ * @author Emanuele
  */
 @Entity
 @Table(name = "bid")

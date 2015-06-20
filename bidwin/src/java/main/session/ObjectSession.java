@@ -21,7 +21,7 @@ import main.dto.ObjectsDTO;
 
 /**
  *
- * @author Mago
+ * @author Emanuele
  */
 @Stateless
 public class ObjectSession {

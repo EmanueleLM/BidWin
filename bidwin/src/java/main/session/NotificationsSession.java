@@ -25,7 +25,7 @@ import main.dto.ObjectsDTO;
 
 /**
  *
- * @author Mago
+ * @author Davide
  */
 @Stateless
 public class NotificationsSession {

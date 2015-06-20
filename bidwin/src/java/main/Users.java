@@ -27,6 +27,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import org.apache.commons.codec.digest.DigestUtils;
 
+/**
+ * 
+ * @author Emanuele
+ */
 
 @Entity
 @Table(name = "users")
