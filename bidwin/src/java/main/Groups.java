@@ -55,47 +55,91 @@ public class Groups implements Serializable {
     @ManyToMany
     private Collection<Users> usersCollection;
 
+    /**
+     *contructor (empty) of the class
+     */
     public Groups() {
     }
 
+    /**
+     * constructor with the parameter groupid
+     * @param groupId the groupId which identifies the system population w.r.t the permissions on specific url (and functionalities)
+     */
     public Groups(Integer groupId) {
         this.groupId = groupId;
     }
 
+    /**
+     * constructor with the parameter groupid
+     * @param groupId the groupId which identifies the system population w.r.t the permissions on specific url (and functionalities)
+     * @param groupName the specific name of a group (which allows specific permissions)
+     */
     public Groups(Integer groupId, String groupName) {
         this.groupId = groupId;
         this.groupName = groupName;
     }
 
+    /**
+     * get the groupId of a specific group
+     * @return the groupid of a specific group
+     */
     public Integer getGroupId() {
         return groupId;
     }
 
+    /**
+     * set the groupId of a specific group
+     * @param groupId the groupId of a specific group
+     */
     public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
+    /**
+     * get the groupName of a specific group
+     * @return the groupName of a specific group
+     */
     public String getGroupName() {
         return groupName;
     }
 
+    /**
+     * set the groupName of a specific group
+     * @param groupName the groupName of a specific group
+     */
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 
+    /**
+     * get the group descritpion
+     * @return the group description
+     */
     public String getGroupDesc() {
         return groupDesc;
     }
 
+    /**
+     * set the group descritpion
+     * @param groupDesc  the group description
+     */
     public void setGroupDesc(String groupDesc) {
         this.groupDesc = groupDesc;
     }
 
+    /**
+     * get the users who belong to a group
+     * @return the users who belong to a group
+     */
     @XmlTransient
     public Collection<Users> getUsersCollection() {
         return usersCollection;
     }
 
+    /**
+     * set the users who belong to a group
+     * @param usersCollection the users who belong to a group
+     */
     public void setUsersCollection(Collection<Users> usersCollection) {
         this.usersCollection = usersCollection;
     }
