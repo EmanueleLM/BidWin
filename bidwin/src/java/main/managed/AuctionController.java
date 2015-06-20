@@ -25,6 +25,11 @@ import main.session.NotificationsSession;
 import main.session.SearchSession;
 import main.session.UserSession;
 
+/**
+ * 
+ * @author Davide
+ */
+
 @ManagedBean(name = "auctionController")
 @SessionScoped
 public class AuctionController implements Serializable {

@@ -9,7 +9,7 @@ import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author Mago
+ * @author Davide
  */
 @ManagedBean(name="registerBean")
 @RequestScoped

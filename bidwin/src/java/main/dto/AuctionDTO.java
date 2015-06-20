@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
- * @author Mago
+ * @author Davide
  */
 public class AuctionDTO {
         

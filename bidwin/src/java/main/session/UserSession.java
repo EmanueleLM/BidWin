@@ -19,7 +19,7 @@ import main.UserGroupsPK;
 
 /**
  *
- * @author Mago
+ * @author Davide
  */
 @Stateless
 public class UserSession {

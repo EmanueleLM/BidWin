@@ -20,6 +20,11 @@ import javax.faces.model.SelectItem;
 import main.Users;
 import main.session.SearchSession;
 
+/**
+ * 
+ * @author Emanuele
+ */
+
 @ManagedBean(name = "usersController")
 @SessionScoped
 public class UsersController implements Serializable {

@@ -3,6 +3,11 @@ package main.managed;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+/**
+ * 
+ * @author Davide
+ */
+
 @ManagedBean(name="searchBean")
 @RequestScoped
 public class SearchController {

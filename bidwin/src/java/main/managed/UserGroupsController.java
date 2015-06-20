@@ -18,6 +18,11 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.UserGroups;
 
+/**
+ * 
+ * @author Emanuele
+ */
+
 @ManagedBean(name = "userGroupsController")
 @SessionScoped
 public class UserGroupsController implements Serializable {

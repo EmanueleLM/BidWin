@@ -12,7 +12,7 @@ import main.Users;
 
 /**
  *
- * @author Ga
+ * @author Emanuele
  */
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> {

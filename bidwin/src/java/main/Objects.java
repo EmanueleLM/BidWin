@@ -26,7 +26,7 @@ import main.dto.ObjectsDTO;
 
 /**
  *
- * @author Ga
+ * @author Emanuele
  */
 @Entity
 @Table(name = "objects")
