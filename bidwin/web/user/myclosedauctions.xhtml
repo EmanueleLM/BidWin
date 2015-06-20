@@ -50,7 +50,7 @@
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.AuctionWinner}"/>
                                         </f:facet>
-                                        <h:outputText value="Winner"/>
+                                        <h:outputText value="#{bidController.getWinnerName(item.auctionid)}"/>
                                     </p:column>
                                    <p:column>
                                         <f:facet name="header">

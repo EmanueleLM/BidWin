@@ -39,7 +39,7 @@ public class TimerService {
                     
                 } else{
                     
-                    if (bidsession.getWinner(a.getAuctionid(), "user")){
+                    if (bidsession.isWinner(a.getAuctionid(), "user")){
                         
                         notificationssession.save( notificationssession.owner(a), a, 5);
                         notificationssession.replicateobject( notificationssession.owner(a), a.getObjectid().getObjectName(), a.getObjectid().getObjectType(), a.getObjectid().getDescription(), a.getObjectid().getImageLink());
@@ -62,13 +62,13 @@ public class TimerService {
     public void notifyUsers(Auction a, boolean win) {
         for (Users u : bidsession.partecipants(a.getAuctionid())) {
             
-            if ( (bidsession.getWinner(a.getAuctionid(), u.getUsername())) && (!"user".equals(u.getUsername())) ) {
+            if ( (bidsession.isWinner(a.getAuctionid(), u.getUsername())) && (!"user".equals(u.getUsername())) ) {
                 
                 notificationssession.save( u, a, 1);
             
             }
             
-            if ( (!bidsession.getWinner(a.getAuctionid(), u.getUsername())) && (!"user".equals(u.getUsername())) ) {
+            if ( (!bidsession.isWinner(a.getAuctionid(), u.getUsername())) && (!"user".equals(u.getUsername())) ) {
                 
                 if (win) {
                     notificationssession.save( u, a, 2);

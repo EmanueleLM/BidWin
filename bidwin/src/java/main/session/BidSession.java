@@ -20,6 +20,7 @@ import javax.persistence.PersistenceException;
 import main.Auction;
 import main.Bid;
 import main.Chart;
+import main.Notifications;
 import main.Users;
 import main.dto.BidDTO;
 
@@ -66,20 +67,6 @@ public class BidSession {
         } catch(NoResultException e) { 
             return null;
         }
-    }
-
-    public boolean getWinner(int auctionid, String username) {
-        try {
-        Query jpqlQuery = em.createNativeQuery("Select username, min(value) ,count(*) as count from bid b where  b.Auction_id= ?1 group by value asc having count(*)=1",Chart.class);
-        jpqlQuery.setParameter(1, auctionid );
-        Chart chart = (Chart) jpqlQuery.getResultList().get(0);
-        return chart.getUsername().equals( username );
-        } catch(TransactionRolledbackLocalException | ArrayIndexOutOfBoundsException e) { 
-            return false;
-        } catch(NullPointerException | PersistenceException e) {
-            return false;
-        }
-        
     }
 
     public List<Auction> getMyClosedBids(){
@@ -143,6 +130,30 @@ public class BidSession {
         return results;
         } catch(NoResultException e) { 
             return null;
+        }
+    }
+
+    public boolean isWinner(int auctionid, String username) {
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select username, min(value) ,count(*) as count from bid b where  b.Auction_id= ?1 group by value asc having count(*)=1",Chart.class);
+        jpqlQuery.setParameter(1, auctionid );
+        Chart chart = (Chart) jpqlQuery.getResultList().get(0);
+        return chart.getUsername().equals( username );
+        } catch(TransactionRolledbackLocalException | ArrayIndexOutOfBoundsException e) { 
+            return false;
+        } catch(NullPointerException | PersistenceException e) {
+            return false;
+        }
+    }
+
+    public String getWinner(int auctionid) {
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select notifications.* from notifications where notifications.auction_id = ?1 and notifications.notificationtype = 1",Notifications.class);
+        jpqlQuery.setParameter(1, auctionid );
+        Notifications results = (Notifications) jpqlQuery.getSingleResult();
+        return results.getUsername();
+        } catch(NoResultException e) { 
+            return "Nobody won";
         }
     }
 

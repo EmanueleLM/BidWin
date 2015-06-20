@@ -27,7 +27,6 @@ drop table if exists objects;
 drop table if exists users;
 drop table if exists groups;
 drop table if exists user_groups;
-drop view if exists v_user_role;
 drop table if exists notifications;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -55,27 +54,6 @@ CREATE TABLE IF NOT EXISTS `auction` (
   UNIQUE KEY `Objects-id` (`Object_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
 
---
--- Dump dei dati per la tabella `auction`
---
-
-INSERT INTO `auction` (`Auction_id`, `Object_id`, `StartTime`, `EndTime`, `notify`) VALUES
-(3, 9, '2015-06-14 10:04:55', '2015-06-14 10:34:55', b'1'),
-(43, 8, '2015-06-16 06:19:47', '2015-06-16 06:49:47', b'1'),
-(44, 23, '2015-06-16 15:35:35', '2015-06-16 16:05:35', b'1'),
-(45, 24, '2015-06-16 16:35:31', '2015-06-16 17:05:31', b'1'),
-(46, 25, '2015-06-16 17:12:02', '2015-06-16 17:42:02', b'1'),
-(47, 26, '2015-06-16 17:54:27', '2015-06-16 18:24:27', b'1'),
-(48, 27, '2015-06-16 18:36:20', '2015-06-16 19:06:20', b'1'),
-(49, 28, '2015-06-16 19:03:32', '2015-06-16 19:33:32', b'1'),
-(50, 29, '2015-06-16 19:03:41', '2015-06-16 19:33:41', b'1'),
-(51, 30, '2015-06-16 19:57:28', '2015-06-16 20:27:28', b'1'),
-(52, 32, '2015-06-17 06:36:53', '2015-06-17 07:06:53', b'1'),
-(53, 33, '2015-06-17 07:44:34', '2015-06-17 08:14:34', b'1'),
-(54, 35, '2015-06-17 08:33:56', '2015-06-17 09:03:56', b'1'),
-(55, 36, '2015-06-17 09:15:56', '2015-06-18 09:45:56', b'1'),
-(56, 37, '2015-06-17 13:44:32', '2015-06-17 14:14:32', b'1');
-
 -- --------------------------------------------------------
 
 --
@@ -89,36 +67,6 @@ CREATE TABLE IF NOT EXISTS `bid` (
   PRIMARY KEY (`Username`,`Auction_id`,`Value`),
   KEY `bid` (`Auction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `bid`
---
-
-INSERT INTO `bid` (`Username`, `Auction_id`, `Value`) VALUES
-('momo', 43, 0),
-('user', 43, 6),
-('user', 43, 7),
-('utente', 43, 18),
-('pollo', 45, 4),
-('user', 48, 10),
-('user', 51, 1),
-('user', 51, 4),
-('pollo', 52, 1),
-('pollo', 52, 5),
-('pollo', 52, 13),
-('pollo', 52, 21),
-('pollo', 52, 46),
-('pollo', 52, 95),
-('pollo', 52, 500),
-('pollo', 54, 0),
-('pollo', 54, 7),
-('pollo', 54, 24),
-('momo', 55, 9),
-('momo', 55, 100),
-('user', 55, 4),
-('utente', 55, 8),
-('utente', 56, 7),
-('utente', 56, 8);
 
 -- --------------------------------------------------------
 

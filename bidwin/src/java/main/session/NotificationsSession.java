@@ -5,6 +5,7 @@
  */
 package main.session;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import main.Auction;
+import main.Bid;
 import main.Notifications;
 import main.Objects;
 import main.Users;
@@ -35,6 +37,9 @@ public class NotificationsSession {
     
     @EJB
     private UserSession usersession;
+    
+    @EJB
+    private BidSession bidsession;
     
     
     public void save(Users user, Auction auction, Integer notificationtype) {
@@ -58,6 +63,17 @@ public class NotificationsSession {
         return auction.getObjectid().getUsername();
     }
 
+    public Bid getUserBid(int auctionid){
+        try {
+        Query jpqlQuery = em.createNativeQuery("Select bid.* from bid where bid.Username = 'user'  and  bid.Auction_id= ?1",Bid.class);
+        jpqlQuery.setParameter(1, auctionid );
+        Bid results = (Bid) jpqlQuery.getSingleResult();
+        return results;
+        } catch(NoResultException e) { 
+            return null;
+        }
+    }
+
     public List<Notifications> getMyNotifications(){
         try {
         Query jpqlQuery = em.createNativeQuery("Select * from notifications where notifications.username = ?1",Notifications.class);
@@ -68,6 +84,34 @@ public class NotificationsSession {
         } catch(NoResultException e) { 
             return null;
         }
+    }
+
+    public List<Users> getUsersToVote(){
+        List<Users> users = new ArrayList<>();
+        for (Notifications n : getMyNotifications()) {
+            Auction a = bidsession.getAuctionFromId( n.getAuctionId() );
+            if ( (n.getNotificationtype() == 1) && (getUserBid(n.getAuctionId()).getBidPK().getValue() == 300002) ) {
+                users.add( owner(a) );
+            }
+        }
+        return users;
+    }
+
+    public List<String> getStringNotifications(){
+        List<String> list = new ArrayList<>();
+        
+        for (Notifications n : getMyNotifications()) {
+            
+            // informazioni (nei casi in cui non ovvie)
+            // senza usare altre query !!!
+            Auction a = bidsession.getAuctionFromId( n.getAuctionId() );
+            a.getObjectid().getObjectName(); // nome oggetto e altre informazioni
+            owner(a); // proprietario dell'asta (se l'hai vinta devi votarlo)
+            bidsession.getWinner( n.getAuctionId() ); // vincitore dell'asta
+            
+            // componi e poi fai  list.add( qua la stringa );
+        }
+        return list;
     }
 
 }
