@@ -33,29 +33,57 @@ public class UserGroups implements Serializable {
     @Column(name = "uriId")
     private Integer uriId;
 
+    /**
+     * empty contructor for the class
+     */
     public UserGroups() {
     }
 
+    /**
+     * constructor with parameters
+     * @param userGroupsPK the UserGroup manager (manages feature like external keys etc.)
+     */
     public UserGroups(UserGroupsPK userGroupsPK) {
         this.userGroupsPK = userGroupsPK;
     }
 
+    /**
+     * contructor with parameters
+     * @param username the username of the user of a given group
+     * @param groupId the id of a username of a given group
+     */
     public UserGroups(String username, int groupId) {
         this.userGroupsPK = new UserGroupsPK(username, groupId);
     }
 
+    /**
+     * get the UserPK
+     * @return the userPK
+     */
     public UserGroupsPK getUserGroupsPK() {
         return userGroupsPK;
     }
 
+    /**
+     * set the userPK
+     * @param userGroupsPK the userPK
+     */
     public void setUserGroupsPK(UserGroupsPK userGroupsPK) {
         this.userGroupsPK = userGroupsPK;
     }
 
+    /**
+     * function that is used to maintain the properties of the db checked
+     * @return an int that is used to maintain the properties of the dbchecked
+     */
     public Integer getUriId() {
         return uriId;
     }
-
+    
+    /**
+     * set an integer that is used to maintain the properties of the db checked
+     * @param uriId integer used to maintain the properties of the db checked
+     */
     public void setUriId(Integer uriId) {
         this.uriId = uriId;
     }

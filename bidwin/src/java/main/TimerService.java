@@ -29,8 +29,12 @@ public class TimerService {
     @EJB
     private NotificationsSession notificationssession;
     
-    
+
     @Schedule(second="*/20", minute="*",hour="*", persistent=false)
+    
+     /**
+     * checks if the result of an auction and inform the owner about its outcome
+     */
     public void doWork(){
         
         if (!bidsession.auctionsToNotify().isEmpty()) {
@@ -64,6 +68,11 @@ public class TimerService {
         }
     }
 
+    /**
+     * checks if a user won an auction, and make the notification persistent
+     * @param a the auction related to the notification
+     * @param win check whether the user wins or loses an auction
+     */
     public void notifyUsers(Auction a, boolean win) {
         for (Users u : bidsession.partecipants(a.getAuctionid())) {
             
