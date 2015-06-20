@@ -59,9 +59,13 @@ public class BidController implements Serializable {
         return bidsession.getMyOpenedBids();
         
     }
-    
+
     public boolean getWinner(int auctionid) {
-        return bidsession.getWinner(auctionid,usersession.getPrincipalUsername());
+        return bidsession.isWinner(auctionid,usersession.getPrincipalUsername());
+    }
+
+    public String getWinnerName(int auctionid) {
+        return bidsession.getWinner(auctionid);
     }
 
     public List<Auction> myClosedBids() {
