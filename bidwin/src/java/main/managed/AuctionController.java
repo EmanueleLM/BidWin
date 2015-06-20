@@ -18,7 +18,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.Auction;
-import main.Notifications;
+import main.Users;
 import main.session.AuctionSession;
 import main.session.BidSession;
 import main.session.NotificationsSession;
@@ -41,6 +41,7 @@ public class AuctionController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private int auctionid;
+    private Users currentUser;
     private Auction currentAuction;
     private List<Auction> currentauctions;
     @EJB
@@ -107,6 +108,10 @@ public class AuctionController implements Serializable {
         return this.currentAuction;
     }
 
+    public Users getCurrentUser() {
+        return this.currentUser;
+    }
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -151,6 +156,8 @@ public class AuctionController implements Serializable {
 
     public String prepareList(String username) {
         currentauctions = search.getHisOpenedAuctions(username);
+        currentUser = new Users();
+        currentUser = usersession.find(username);
         return "displayhisauctions?redirect=true";
     }
 

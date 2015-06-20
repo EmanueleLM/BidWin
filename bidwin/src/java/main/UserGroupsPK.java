@@ -28,26 +28,50 @@ public class UserGroupsPK implements Serializable {
     @Column(name = "group_id")
     private int groupId;
 
+     /**
+     *empty contructor of the class
+     */
     public UserGroupsPK() {
     }
 
+    /**
+     * contructor with parameters
+     * @param username the username of the user
+     * @param groupId the group of the userPK
+     */
     public UserGroupsPK(String username, int groupId) {
         this.username = username;
         this.groupId = groupId;
     }
 
+    /**
+     * get the username from the userPK
+     * @return  the username from the userPK
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * set  the username from the userPK
+     * @param username  the username from the userPK
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * get the group id from the userPK
+     * @return the group id from the userPK
+     */
     public int getGroupId() {
         return groupId;
     }
 
+    /**
+     * set the group id from the userPK
+     * @param groupId the group id from the userPK
+     */
     public void setGroupId(int groupId) {
         this.groupId = groupId;
     }

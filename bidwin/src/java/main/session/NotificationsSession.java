@@ -101,9 +101,9 @@ public class NotificationsSession {
         List<String> list = new ArrayList<>();
         for (Notifications n : getMyNotifications()) {
             Auction a = bidsession.getAuctionFromId( n.getAuctionId() );
-            a.getObjectid().getObjectName(); // nome oggetto e altre informazioni
-            owner(a); // proprietario dell'asta (se l'hai vinta devi votarlo)
-            bidsession.getWinner( n.getAuctionId() ); // vincitore dell'asta
+            a.getObjectid().getObjectName(); 
+            owner(a); 
+            bidsession.getWinner( n.getAuctionId() );
             switch(n.getNotificationtype()) {
                 case 1:
                     list.add("/faces/resources/images/winner.png");
@@ -130,11 +130,6 @@ public class NotificationsSession {
                     list.add("Buy a nuke cola.");
                 break;    
             }
-            // informazioni (nei casi in cui non ovvie)
-            // senza usare altre query !!!
-
-            
-            // componi e poi fai  list.add( qua la stringa );
         }
         return list;
     }

@@ -18,6 +18,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import main.Users;
+import main.session.NotificationsSession;
 import main.session.SearchSession;
 
 /**
@@ -41,6 +42,9 @@ public class UsersController implements Serializable {
     
     @EJB
     private SearchSession search;
+    
+    @EJB
+    private NotificationsSession notificationssession;
 
 
     public UsersController() {
@@ -53,6 +57,10 @@ public class UsersController implements Serializable {
 
     public List<Users> getCurrentusers() {
         return this.currentusers;
+    }
+
+    public List<Users> getUsersToVote() {
+        return notificationssession.getUsersToVote();
     }
 
     public Users getSelected() {

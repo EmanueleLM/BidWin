@@ -17,7 +17,22 @@
             </p:breadCrumb>
             
             <p:panel header="User's objects">
-                <h:outputText value="USER INFO!!!"/>
+                <h:outputText value="User Info"/>
+                    <h:panelGrid columns="2" id="regGrid" style="margin-top:5px;padding-bottom: 10px;">
+
+                        <h:outputLabel for="Username" style="margin-top:5px;"><b>Username:</b></h:outputLabel>
+                        <p:outputLabel id="Username" value="#{auctionController.currentUser.username}"/>
+
+                        <h:outputLabel for="Name" style="margin-top:5px;"><b>Name:</b></h:outputLabel>
+                        <p:outputLabel id="Name" value="#{auctionController.currentUser.name}" />
+
+                        <h:outputLabel for="Surname" style="margin-top:5px;"><b>Ranking:</b></h:outputLabel>
+                        <p:outputLabel id="Surname" value="#{auctionController.currentUser.ranking}"/>
+
+                        <h:outputLabel for="Mail" style="margin-top:5px;"><b>Sold Objects:</b></h:outputLabel>
+                        <p:outputLabel id="Mail" value="#{auctionController.currentUser.auctionCounter}" />
+
+                    </h:panelGrid> 
                 <p:dataTable value="#" var="obj" style="padding-top:2%;">
                         <p:column>                            
                             <h:outputText escape="false" value="#{bundle.ListAuctionEmpty}" rendered="#{auctionController.currentauctions.size() == 0}"/>
