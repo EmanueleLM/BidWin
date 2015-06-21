@@ -122,9 +122,9 @@ public class NotificationsSession {
     }
 
     /**
-     * set the list of the users that needs a vote
-     * @param username username of the user who has to vote
-     * @return the list of the users that needs a vote
+     * set an user voted
+     * @param username username of the user voted
+     * @return -1 in case of error
      */
     public int setUserVoted(String username){
         for (Notifications n : getMyNotifications()) {
