@@ -33,9 +33,16 @@ public class GroupsController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    /**
+     * empty constructor of the class
+     */
     public GroupsController() {
     }
 
+    /**
+     * get the selected groupscontroller
+     * @return the selected groupscontroller
+     */
     public Groups getSelected() {
         if (current == null) {
             current = new Groups();
@@ -48,6 +55,10 @@ public class GroupsController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     * get the pagination of the objects (used in the crud)
+     * @return the pagination helper (used  in the crud)
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -65,24 +76,40 @@ public class GroupsController implements Serializable {
         }
         return pagination;
     }
-
+    
+    /**
+     * function of the crud
+     * @return page list
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     * function of the crud
+     * @return page list
+     */
     public String prepareView() {
         current = (Groups) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     * function of the crud
+     * @return page create
+     */
     public String prepareCreate() {
         current = new Groups();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     * function of the crud
+     * @return page create
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -94,12 +121,20 @@ public class GroupsController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     * @return page edit
+     */
     public String prepareEdit() {
         current = (Groups) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     * function of the crud
+     * @return page view or null whether the group exists or not
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -111,6 +146,10 @@ public class GroupsController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     * @return page list
+     */
     public String destroy() {
         current = (Groups) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -120,6 +159,10 @@ public class GroupsController implements Serializable {
         return "List";
     }
 
+    /**
+     * function of the crud
+     * @return page view or edit whether the remoction is performed or not
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -133,6 +176,9 @@ public class GroupsController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     */
     private void performDestroy() {
         try {
             getFacade().remove(current);
@@ -142,6 +188,9 @@ public class GroupsController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     */
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
@@ -157,6 +206,10 @@ public class GroupsController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     * @return the items to display
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -164,30 +217,52 @@ public class GroupsController implements Serializable {
         return items;
     }
 
+    /**
+     * function of the crud
+     */
     private void recreateModel() {
         items = null;
     }
 
+    /**
+     * function of the crud
+     */
     private void recreatePagination() {
         pagination = null;
     }
 
+    /**
+     * function of the crud
+     * @return next page list
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * function of the crud
+     * @return previous page list
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * function of the crud
+     * @return the items for the pagination
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     * function of the crud
+     * @return the item for the pagination
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }

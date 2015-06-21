@@ -23,7 +23,10 @@ public class UsersFacade extends AbstractFacade<Users> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
+    /**
+     * abstract facade method for the class users
+     */
     public UsersFacade() {
         super(Users.class);
     }

@@ -51,27 +51,50 @@ public class UsersController implements Serializable {
     @EJB
     private NotificationsSession notificationssession;
 
-
+    /**
+     * empty constructor of the class
+     */
     public UsersController() {
     }
 
+    /**
+     * serach a user by its name (or part of the name, see sql functions in searchsession for details)
+     * @param keyword the keyword used by the search engine
+     * @return the matching users
+     */
     public String searchByUser(String keyword) {
         currentusers = search.getUsersByName(keyword);
         return "displayusers";
     }
 
+    /**
+     * get the current users
+     * @return the list of the current users
+     */
     public List<Users> getCurrentusers() {
         return this.currentusers;
     }
 
+    /**
+     * get the current user
+     * @return the list of the current user
+     */
     public Users getCurrentUser() {
         return this.currentUser;
     }
 
+    /**
+     * get list of users that needs to be voted by the current one
+     * @return list of users that needs to be voted by the current one
+     */
     public List<Users> getUsersToVote() {
         return notificationssession.getUsersToVote();
     }
 
+    /**
+     * get the current usercontroller
+     * @return the current usercontroller
+     */
     public Users getSelected() {
         if (current == null) {
             current = new Users();
@@ -102,40 +125,71 @@ public class UsersController implements Serializable {
         return pagination;
     }
 
+    /**
+     * crud function
+     * @return the page list
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
     
+    /**
+     * crud function
+     * @return the page list for the root
+     */    
     public String prepareListFromRoot() {
         recreateModel();
         return "users/List";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view
+     */
     public String prepareView() {
         current = (Users) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
+    
+    /**
+     * crud function
+     * @return the page create
+     */
     public String prepareCreate() {
         current = new Users();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     * show the page where you vote a user
+     * @param username the user who is receiving the vote
+     * @return the page where the user is receiving the vote
+     */
     public String prepareVote(String username) {
         currentUser = new Users();
         currentUser = usersession.find(username);
         return "rankuser?redirect=true";
     }
 
+    /**
+     * function used after the vote on a user is completed, update the rank of the user, and return to the previous page
+     * @param username the name of the user who received the vote
+     * @param vote the vote itself (from 1 to 5)
+     * @return the previous page (where are displayed the users that still needs a vote)
+     */
     public String vote(String username, float vote) {
         usersession.updateranking( username, (int) (vote*100) );
         notificationssession.setUserVoted(username);
         return "toberankedusers?redirect=true";
     }
-
+    
+    /**
+     * crud function
+     * @return the function preparecreate (null if fails)
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -146,13 +200,21 @@ public class UsersController implements Serializable {
             return null;
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the page edit
+     */
     public String prepareEdit() {
         current = (Users) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -163,7 +225,11 @@ public class UsersController implements Serializable {
             return null;
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the page list
+     */
     public String destroy() {
         current = (Users) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -172,7 +238,11 @@ public class UsersController implements Serializable {
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view or list
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -185,7 +255,10 @@ public class UsersController implements Serializable {
             return "List";
         }
     }
-
+    
+    /**
+     * crud function
+     */
     private void performDestroy() {
         try {
             getFacade().remove(current);
@@ -194,7 +267,10 @@ public class UsersController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
-
+    
+    /**
+     * crud function
+     */
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
@@ -209,38 +285,64 @@ public class UsersController implements Serializable {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the items
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
     }
-
+    
+    /**
+     * crud function
+     */
     private void recreateModel() {
         items = null;
     }
-
+    
+    /**
+     * crud function
+     */
     private void recreatePagination() {
         pagination = null;
     }
-
+    
+    /**
+     * crud function
+     * @return the next page list
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the previous page list
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * crud function
+     * @return the list of selected items
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     * crud function
+     * @return the list of selected item
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }

@@ -34,12 +34,19 @@ public class ObjectSession {
     @EJB
     private UserSession usersession;
     
-    
+    /**
+     * save the object on the db
+     * @param object the object that will be saved on the db
+     */
     public void save(ObjectsDTO object) {
 	Objects newobject = new Objects(object,usersession.getPrincipalUser());
 	em.persist(newobject);
     }
 
+    /**
+     * get the list of objects of the current user
+     * @return the list of objects of the current user
+     */
     public List<Objects> getMyObjects(){
         try {
         Query jpqlQuery = em.createNativeQuery("select * from objects o where o.Object_id  =  (select max(o1.Object_id) as object_id from objects o1 where ( o.Username = ?1  and  o.Username = o1.Username  and  o.ObjectName = o1.ObjectName  and o.ObjectType = o1.ObjectType  and  o.Description = o1.Description  and  o.ImageLink = o1.ImageLink) )",Objects.class);
@@ -51,6 +58,11 @@ public class ObjectSession {
         }
     }
 
+    /**
+     *
+     * @param auction
+     * @return
+     */
     public boolean auctioncheck(AuctionDTO auction) {
         for (Auction a : this.getAllAuctions()) {
             if ( auction.getObjectid().equals( a.getObjectid().getObjectid() )) {
@@ -60,6 +72,11 @@ public class ObjectSession {
         return true;
     }
 
+    /**
+     * get the object from the object id
+     * @param objectid the object id used to retrieve the object
+     * @return the object from the object id
+     */
     public Objects getObjectFromId(int objectid){
         try {
         Query jpqlQuery = em.createNativeQuery("Select * from objects where Object_id = ?1",Objects.class);
@@ -71,6 +88,10 @@ public class ObjectSession {
         }
     }
 
+    /**
+     * get all the auctions
+     * @return a list that contains all the auctions (or null if it's empty)
+     */
     public List<Auction> getAllAuctions(){
         try {
         Query jpqlQuery = em.createNativeQuery("Select auction.* from auction",Auction.class);

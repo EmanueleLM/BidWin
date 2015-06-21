@@ -41,7 +41,11 @@ public class BidSession {
     
     private Date date;
     
-    
+     
+    /**
+     * save the current bid on the db
+     * @param bid  the current bid
+     */   
     public void save(BidDTO bid) {
         
         Users user = usersession.getPrincipalUser();
@@ -51,11 +55,19 @@ public class BidSession {
         em.merge(user);
     }
 
+    /**
+     * set the notify field on the auction table
+     * @param auction the auction where the notify filed will be set
+     */
     public void notifyTrue(Auction auction) {
         auction.setNotify(1);
         em.merge(auction);
     }
 
+    /**
+     * return the results of the query that looks for the open auctions where the current user made at least a bid
+     * @return the open auctions where the current user made at least a bid
+     */
     public List<Auction> getMyOpenedBids(){
         date = new Date(System.currentTimeMillis());
         try {
@@ -69,6 +81,10 @@ public class BidSession {
         }
     }
 
+    /**
+     * return the results of the query that looks for the closed auctions where the current user made at least a bid
+     * @return the closed auctions where the current user made at least a bid
+     */
     public List<Auction> getMyClosedBids(){
         date = new Date(System.currentTimeMillis());
         try {
@@ -88,6 +104,11 @@ public class BidSession {
         return (auction.getEndTime().after( date ));
     }
 
+    /**
+     * get the specified auction from the id
+     * @param auctionid the id used to find the auction
+     * @return the auction that matches with the id
+     */
     public Auction getAuctionFromId(int auctionid){
         try {
         Query jpqlQuery = em.createNativeQuery("Select * from auction where Auction_id = ?1",Auction.class);
@@ -99,6 +120,12 @@ public class BidSession {
         }
     }
 
+
+    /**
+     * get the specified bids from an auction, given the auction id
+     * @param auctionid the id used to find the auction
+     * @return the bids that matches with the auction id
+     */
     public List<Bid> getMySpecifiedBids(int auctionid){
         try {
         Query jpqlQuery = em.createNativeQuery("Select bid.* from bid where bid.Username <> 'user'  and  bid.Auction_id= ?1 order by value asc",Bid.class);
@@ -110,6 +137,10 @@ public class BidSession {
         }
     }
 
+    /**
+     * get the list of auction that need to be notified (notify field)
+     * @return the list of auction that need to be notified (notify field)
+     */
     public List<Auction> auctionsToNotify(){
         date = new Date(System.currentTimeMillis());
         try {
@@ -122,6 +153,11 @@ public class BidSession {
         }
     }
 
+    /**
+     * get the partecipants to a given auction
+     * @param auctionid the field used to retrieve the specified auction
+     * @return the partecipants to a given auction
+     */
     public List<Users> partecipants(int auctionid){
         try {
         Query jpqlQuery = em.createNativeQuery("Select distinct(users.Username), users.Name, users.Surname, users.Email, users.Ranking, users.Address, users.PaymentInfo, users.AuctionCounter, users.Birthdate, users.Credits, users.Password  from users, bid  where  users.Username = bid.Username  and  bid.Auction_id = ?1",Users.class);
@@ -133,6 +169,12 @@ public class BidSession {
         }
     }
 
+    /**
+     * return true if a user is the actual winner of the open auction
+     * @param auctionid the auction where the check is performed
+     * @param username the username used for the check
+     * @return a boolean that says whether the user is the winner or not
+     */
     public boolean isWinner(int auctionid, String username) {
         try {
         Query jpqlQuery = em.createNativeQuery("Select username, min(value) ,count(*) as count from bid b where  b.Auction_id= ?1 group by value asc having count(*)=1",Chart.class);
@@ -146,6 +188,11 @@ public class BidSession {
         }
     }
 
+    /**
+     * returns the actual winner of an auction, given the auction id
+     * @param auctionid the id of the auction
+     * @return the winner ( if present, a messagge otherwise)
+     */
     public String getWinner(int auctionid) {
         try {
         Query jpqlQuery = em.createNativeQuery("Select notifications.* from notifications where notifications.auction_id = ?1 and (notifications.notificationtype = 1 or notifications.notificationtype = 10)",Notifications.class);

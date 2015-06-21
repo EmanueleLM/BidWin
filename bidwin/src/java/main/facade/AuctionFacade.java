@@ -24,6 +24,9 @@ public class AuctionFacade extends AbstractFacade<Auction> {
         return em;
     }
 
+    /**
+     * abstract facade method for the class auction
+     */
     public AuctionFacade() {
         super(Auction.class);
     }

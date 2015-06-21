@@ -59,19 +59,34 @@ public class AuctionController implements Serializable {
     @EJB
     UserSession usersession;
 
-
+    /**
+     *empty constructor of the class auctioncontoller
+     */
     public AuctionController() {
     }
 
+    /**
+     * serach an object by a string keyword
+     * @param keyword the string which is used for the search
+     * @return the page where the result is displayed
+     */
     public String searchByObject(String keyword) {
         currentauctions = search.getAuctionsByTag(keyword);
         return "displayobjects";
     }
 
+    /**
+     * get the current auctions
+     * @return the current aucitons
+     */
     public List<Auction> getCurrentauctions() {
         return this.currentauctions;
     }
 
+    /**
+     * get the selected auction session
+     * @return the selected auction session
+     */
     public Auction getSelected() {
         if (current == null) {
             current = new Auction();
@@ -84,38 +99,75 @@ public class AuctionController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     * get the auctions of the current user
+     * @return the list of the auction of the current user
+     */
     public List<Auction> myAuctions() {
         return auctionsession.getMyOpenedAuctions();
     }
 
+    /**
+     * get the closed auctions of the current user
+     * @return the list of the open auction of the current user
+     */
     public List<Auction> myClosedAuctions() {
         return auctionsession.getMyClosedAuctions();
     }
 
+    /**
+     * get all but the current user's auctions
+     * @return the list of all but the current user's auctions
+     */
     public List<Auction> allButMineAuctions() {
         return auctionsession.getAllOpenedAuctions();
     }
-    
+
+    /**
+     * get all but the current user's auctions, filterd by objectname
+     * @param objectname  the object type used to filter the serach
+     * @return the list of auctions fileterd by objectname
+     */    
     public List<Auction> allNamedButMineAuctions(String objectname) {
         return auctionsession.getAuctionsByTag(objectname);
     }
 
+    /**
+     * get the auctionid from the auctionController
+     * @return the auctionid from the auctionController
+     */
     public int getAuctionid() {
         return this.auctionid;
     }
 
+    /**
+     * get the current auction from the auctionController
+     * @return the current acution from the auctionController
+     */
     public Auction getCurrentAuction() {
         return this.currentAuction;
     }
 
+    /**
+     * get the current user from the auctionController
+     * @return the current user from the auctionController
+     */
     public Users getCurrentUser() {
         return this.currentUser;
     }
 
+    /**
+     * get the list of notifications from the auctionController
+     * @return the list of notifications from the auctionController
+     */
     public List<String> getNotifications() {
         return notificationsession.getStringNotifications();
     }
 
+    /**
+     * get the pagination of the objects (used in the crud)
+     * @return the pagiination helper (used  in the crud)
+     */
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -134,23 +186,40 @@ public class AuctionController implements Serializable {
         return pagination;
     }
 
+    /**
+     * function of the crud
+     * @return page list
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
+    /**
+     * function of the crud
+     * @return page list
+     */
     public String prepareView() {
         current = (Auction) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    /**
+     * function of the crud
+     * @return page create
+     */
     public String prepareCreate() {
         current = new Auction();
         selectedItemIndex = -1;
         return "Create";
     }
 
+    /**
+     * prepare the bid page
+     * @param auctionid the auction where you want to bid
+     * @return page makebid where you can make a bid
+     */
     public String prepareBid(int auctionid) {
         this.auctionid = auctionid;
         currentAuction = new Auction();
@@ -158,6 +227,11 @@ public class AuctionController implements Serializable {
         return "makebid?redirect=true";
     }
 
+    /**
+     * prepare the list of the auction of a user
+     * @param username the user whose auctions are displayed
+     * @return user's opened auctions
+     */
     public String prepareList(String username) {
         currentauctions = search.getHisOpenedAuctions(username);
         currentUser = new Users();
@@ -165,6 +239,10 @@ public class AuctionController implements Serializable {
         return "displayhisauctions?redirect=true";
     }
 
+    /**
+     * function of the crud
+     * @return page list
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -176,12 +254,20 @@ public class AuctionController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     * @return page list
+     */
     public String prepareEdit() {
         current = (Auction) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
+    /**
+     * function of the crud
+     * @return page list
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -193,6 +279,10 @@ public class AuctionController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     * @return page list
+     */
     public String destroy() {
         current = (Auction) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -202,6 +292,10 @@ public class AuctionController implements Serializable {
         return "List";
     }
 
+    /**
+     * function of the crud
+     * @return page view or list
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -215,6 +309,9 @@ public class AuctionController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     */
     private void performDestroy() {
         try {
             getFacade().remove(current);
@@ -224,6 +321,9 @@ public class AuctionController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     */
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
@@ -239,6 +339,10 @@ public class AuctionController implements Serializable {
         }
     }
 
+    /**
+     * function of the crud
+     * @return the list of items for the pagination of the crud
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -246,30 +350,52 @@ public class AuctionController implements Serializable {
         return items;
     }
 
+    /**
+     * function of the crud
+     */
     private void recreateModel() {
         items = null;
     }
 
+    /**
+     * function of the crud
+     */
     private void recreatePagination() {
         pagination = null;
     }
 
+    /**
+     * function of the crud
+     * @return next page list
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * function of the crud
+     * @return previous page list
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * function of the crud
+     * @return the items for the pagination
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     * function of the crud
+     * @return the item for the pagination
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }

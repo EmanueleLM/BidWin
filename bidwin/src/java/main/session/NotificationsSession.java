@@ -40,13 +40,35 @@ public class NotificationsSession {
     @EJB
     private BidSession bidsession;
     
-    
+    /**
+     * save the current notification on the db
+     * @param user the user who recieves the notification
+     * @param auction the auction related to the notification
+     * @param notificationtype the kind of notification 
+        1 - user wins the auction
+        10 - user wins the auction and has already voted
+        2 - user loses the auction, somebody wins
+        3 - user loses the auction, nobody wins
+        4 - my auction, somebody wins
+        5 - my auction, nobody wins
+        6 - my auction, no partecipants
+        */
     public void save(Users user, Auction auction, Integer notificationtype) {
         
 	Notifications newnotifications = new Notifications( user, auction, notificationtype );
 	em.persist(newnotifications);
     }
 
+    /**
+     * functions used to replicate the object (this function is useful when there's a draw in an auction.In this case 
+     * a new object is replicated in order to give the opportunity to the user to create a new auction: Moreover we do not loose 
+     * the hisory of the auctions)
+     * @param user the user who owns the object
+     * @param objectName the name of the object
+     * @param objectType the kind of object
+     * @param description the description of the object
+     * @param imageLink the image link of the object
+     */
     public void replicateobject(Users user, String objectName, String objectType, String description, String imageLink) {
         ObjectsDTO object = new ObjectsDTO();
         object.setObjectName(objectName);
@@ -58,10 +80,19 @@ public class NotificationsSession {
 	em.persist(newobject);
     }
 
+    /**
+     * return the owner of an auction, given the auction
+     * @param auction the auction
+     * @return the owner of an auction, given the auction
+     */
     public Users owner(Auction auction){
         return auction.getObjectid().getUsername();
     }
 
+    /**
+     * get the list of notifications of the current user
+     * @return the list of notifications of the current user
+     */
     public List<Notifications> getMyNotifications(){
         try {
         Query jpqlQuery = em.createNativeQuery("Select * from notifications where notifications.username = ?1",Notifications.class);
@@ -75,6 +106,10 @@ public class NotificationsSession {
         }
     }
 
+    /**
+     * get the list of the users that needs a vote
+     * @return the list of the users that needs a vote
+     */
     public List<Users> getUsersToVote(){
         List<Users> users = new ArrayList<>();
         for (Notifications n : getMyNotifications()) {
@@ -86,6 +121,11 @@ public class NotificationsSession {
         return users;
     }
 
+    /**
+     * set the list of the users that needs a vote
+     * @param username username of the user who has to vote
+     * @return the list of the users that needs a vote
+     */
     public int setUserVoted(String username){
         for (Notifications n : getMyNotifications()) {
             Auction a = bidsession.getAuctionFromId( n.getAuctionId() );
@@ -98,6 +138,10 @@ public class NotificationsSession {
         return -1;
     }
 
+    /**
+     * get the whole list of notifications that will be displayed on the homepage
+     * @return the whole list of notifications that will be displayed on the homepage
+     */
     public List<String> getStringNotifications(){
         List<String> list = new ArrayList<>();
         for (Notifications n : getMyNotifications()) {

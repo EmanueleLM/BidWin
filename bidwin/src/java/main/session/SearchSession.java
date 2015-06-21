@@ -34,7 +34,12 @@ public class SearchSession {
     @EJB
     private UserSession usersession;
     
-    
+    /**
+     * function used by the serach engine to retrieve all the users that match in some way the keyword
+     * The username is searched with a similarity function (LIKE %initials), while name and surname need to match perfectly
+     * @param str the parameter used to perform the serach
+     * @return all the users that match in some way the keyword
+     */
     public List<Users> getUsersByName(String str){
         try {
         Query jpqlQuery = em.createNativeQuery("Select users.* from users where  (users.Username LIKE  ?1   or  users.Name = ?1  or  users.Surname = ?1) and users.Username <> ?2",Users.class);
@@ -47,6 +52,11 @@ public class SearchSession {
         }
     }
 
+    /**
+     * get all the open auctions of a user
+     * @param username the name of the user used to retrieve the auction's list
+     * @return all the open auctions of a user
+     */
     public List<Auction> getHisOpenedAuctions(String username){
         Date d = new Date(System.currentTimeMillis());
         try {
@@ -60,6 +70,11 @@ public class SearchSession {
         }
     }
 
+    /**
+     * get all the open auctions where the object type matches with the keyword used in the search engine
+     * @param str the word used to perform the search
+     * @return all the open auctions where the object type matches with the keyword used in the search engine
+     */
     public List<Auction> getAuctionsByTag(String str){
         Date d = new Date(System.currentTimeMillis());
         try {
