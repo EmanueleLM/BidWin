@@ -23,7 +23,10 @@ public class UserGroupsFacade extends AbstractFacade<UserGroups> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
+    /**
+     * abstract facade method for the class usergroups
+     */
     public UserGroupsFacade() {
         super(UserGroups.class);
     }

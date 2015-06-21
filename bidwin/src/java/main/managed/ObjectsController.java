@@ -41,10 +41,16 @@ public class ObjectsController implements Serializable {
     @EJB
     private ObjectSession objectsession;
 
-
+    /**
+     * empty constructor for the class
+     */
     public ObjectsController() {
     }
 
+    /**
+     * get the current object
+     * @return the current object
+     */
     public Objects getSelected() {
         if (current == null) {
             current = new Objects();
@@ -57,14 +63,26 @@ public class ObjectsController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     * get the objects list of the current user
+     * @return the list of the objects of the current user
+     */  
     public List<Objects> myobjects() {
         return objectsession.getMyObjects();
     }
 
+    /**
+     * get the object id of the current user
+     * @return the object id of the current user
+     */ 
     public int getObjectid() {
         return this.objectid;
     }
 
+    /**
+     * get the object of the current user
+     * @return the object of the current user
+     */ 
     public Objects getCurrentObject() {
         return this.currentObject;
     }
@@ -87,30 +105,51 @@ public class ObjectsController implements Serializable {
         return pagination;
     }
 
+    /**
+     * crud function
+     * @return the page list
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view
+     */
     public String prepareView() {
         current = (Objects) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
+    
+    /**
+     * crud function
+     * @return the page create
+     */
     public String prepareCreate() {
         current = new Objects();
         selectedItemIndex = -1;
         return "Create";
     }
-
+    
+    /**
+     * prepare the auction with the give object assigned to it
+     * @param objectid the object assigned to the auction
+     * @return the page createauction
+     */
     public String prepareAuction(int objectid) {
         this.objectid = objectid;
         currentObject = new Objects();
         currentObject = objectsession.getObjectFromId(objectid);
         return "createauction";
     }
-
+    
+    /**
+     * crud function
+     * @return the function preparecreate(null if fails)
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -121,13 +160,21 @@ public class ObjectsController implements Serializable {
             return null;
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the page edit
+     */
     public String prepareEdit() {
         current = (Objects) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -138,7 +185,11 @@ public class ObjectsController implements Serializable {
             return null;
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the page list
+     */
     public String destroy() {
         current = (Objects) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -147,7 +198,11 @@ public class ObjectsController implements Serializable {
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view ot list(whether the method fails or not)
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -160,7 +215,10 @@ public class ObjectsController implements Serializable {
             return "List";
         }
     }
-
+    
+    /**
+     * crud function
+     */
     private void performDestroy() {
         try {
             getFacade().remove(current);
@@ -169,7 +227,10 @@ public class ObjectsController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
-
+    
+    /**
+     * crud function
+     */
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
@@ -184,38 +245,64 @@ public class ObjectsController implements Serializable {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the items
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
     }
-
+    
+    /**
+     * crud function
+     */
     private void recreateModel() {
         items = null;
     }
-
+    
+    /**
+     * crud function
+     */
     private void recreatePagination() {
         pagination = null;
     }
-
+    
+    /**
+     * crud function
+     * @return the next page list
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the previous page list
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * crud function
+     * @return the list of selected items
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     * crud function
+     * @return the list of selected item
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
@@ -259,9 +346,4 @@ public class ObjectsController implements Serializable {
         }
 
     }
-    
-    public String foo() {
-        return "foo";
-    }
-
 }

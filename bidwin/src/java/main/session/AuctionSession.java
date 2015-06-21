@@ -40,7 +40,10 @@ public class AuctionSession {
     
     private Date date;
     
-    
+    /**
+     * save the current auction on the db
+     * @param auction the current auction
+     */
     public void save(AuctionDTO auction) {
         date = new Date(System.currentTimeMillis());
         Date dateEnd = new Date( System.currentTimeMillis() + (auction.getNumberauction()*60*1000) );
@@ -54,6 +57,10 @@ public class AuctionSession {
 	em.persist(newbid);
     }
 
+    /**
+     * return the results of the query that looks for the open auctions of the current user
+     * @return the open auctions of the current user
+     */
     public List<Auction> getMyOpenedAuctions(){
         date = new Date(System.currentTimeMillis());
         try {
@@ -67,6 +74,10 @@ public class AuctionSession {
         }
     }
 
+    /**
+     * return the results of the query that looks for the closed auctions of the current user
+     * @return the closed auctions of the current user
+     */
     public List<Auction> getMyClosedAuctions(){
         date = new Date(System.currentTimeMillis());
         try {
@@ -80,6 +91,10 @@ public class AuctionSession {
         }
     }
 
+    /**
+     * return the results of the query that looks for all the open auctions 
+     * @return all the open auctions 
+     */
     public List<Auction> getAllOpenedAuctions(){
         date = new Date(System.currentTimeMillis());
         try {
@@ -93,6 +108,11 @@ public class AuctionSession {
         }
     }
     
+    /**
+     * function that returns all the bids from an auction, given the specified auction id
+     * @param auctionid the identifier of the auction
+     * @return the list of bids
+     */
     public List<Bid> getBidsFromId(int auctionid) {
         try {
         Query jpqlQuery = em.createNativeQuery("Select bid.* from bid where bid.Auction_id= ?1 ",Bid.class);
@@ -104,6 +124,11 @@ public class AuctionSession {
         }
     }
     
+    /**
+     * function that returns all the auctions filterd by object type
+     * @param str the object type
+     * @return all the auctions that match the object type
+     */
     public List<Auction> getAuctionsByTag(String str){
         Date d = new Date(System.currentTimeMillis());
         try {

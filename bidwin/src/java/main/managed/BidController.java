@@ -47,9 +47,16 @@ public class BidController implements Serializable {
     @EJB
     private BidSession bidsession;
 
+    /**
+     * empty constructor
+     */
     public BidController() {
     }
 
+    /**
+     * get the current bid
+     * @return the current bid
+     */
     public Bid getSelected() {
         if (current == null) {
             current = new Bid();
@@ -58,21 +65,38 @@ public class BidController implements Serializable {
         }
         return current;
     }
-    
-    
+
+    /**
+     * get the bids of the current user
+     * @return the list of the bids of the current user
+     */  
     public List<Auction> myOpenedBids() {
         return bidsession.getMyOpenedBids();
         
     }
 
+    /**
+     * get if you are the winner of a given auction
+     * @param auctionid the auction id of the auction
+     * @return yes or no whether you are the winner of the current auction
+     */
     public String getWinner(int auctionid) {
         return (bidsession.isWinner(auctionid,usersession.getPrincipalUsername())) ? "yes" : "no";
     }
 
+    /**
+     * get the winner of a given auction
+     * @param auctionid the auction id of the auction
+     * @return the username of the winner of the current auction
+     */
     public String getWinnerName(int auctionid) {
         return bidsession.getWinner(auctionid);
     }
 
+    /**
+     * get the list of my closed bids
+     * @return the list of my closed bids
+     */
     public List<Auction> myClosedBids() {
         return bidsession.getMyClosedBids();
     }
@@ -81,14 +105,26 @@ public class BidController implements Serializable {
         return ejbFacade;
     }
 
+    /**
+     * get the auction id of the current bid
+     * @return the auction id of the current bid
+     */
     public int getAuctionid() {
         return this.auctionid;
     }
 
+    /**
+     * get the auction of the current bid
+     * @return the auction of the current bid
+     */
     public Auction getCurrentAuction() {
         return this.currentAuction;
     }
 
+    /**
+     * get the bids of the current bid(taken from the auction)
+     * @return the bids id of the current bid (taken form the auction)
+     */
     public List<Bid> getCurrentbids() {
         return this.currentbids;
     }
@@ -111,24 +147,40 @@ public class BidController implements Serializable {
         return pagination;
     }
 
+    /**
+     * crud function
+     * @return the page list
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view
+     */
     public String prepareView() {
         current = (Bid) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
+    
+    /**
+     * crud function
+     * @return the page create
+     */
     public String prepareCreate() {
         current = new Bid();
         current.setBidPK(new main.BidPK());
         selectedItemIndex = -1;
         return "Create";
     }
-
+    /**
+     * display the auction's details from a given auction id
+     * @param auctionid the auction id
+     * @return the page where are displayed the auction's details from a given auction id
+     */
     public String prepareShowBids(int auctionid) {
         this.auctionid = auctionid;
         currentAuction = new Auction();
@@ -136,7 +188,11 @@ public class BidController implements Serializable {
         currentbids = bidsession.getMySpecifiedBids(auctionid);
         return "auctiondetail";
     }
-
+    
+    /**
+     * crud function
+     * @return the function preparecreate (null if fails)
+     */
     public String create() {
         try {
             current.getBidPK().setUsername(current.getUsers().getUsername());
@@ -149,13 +205,21 @@ public class BidController implements Serializable {
             return null;
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the page edit
+     */
     public String prepareEdit() {
         current = (Bid) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view
+     */
     public String update() {
         try {
             current.getBidPK().setUsername(current.getUsers().getUsername());
@@ -168,7 +232,11 @@ public class BidController implements Serializable {
             return null;
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the page list
+     */
     public String destroy() {
         current = (Bid) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -177,7 +245,11 @@ public class BidController implements Serializable {
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view or list
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -190,7 +262,10 @@ public class BidController implements Serializable {
             return "List";
         }
     }
-
+    
+    /**
+     * crud function
+     */
     private void performDestroy() {
         try {
             getFacade().remove(current);
@@ -199,7 +274,10 @@ public class BidController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
-
+    
+    /**
+     * crud function
+     */
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
@@ -214,38 +292,64 @@ public class BidController implements Serializable {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the items
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
     }
-
+    
+    /**
+     * crud function
+     */
     private void recreateModel() {
         items = null;
     }
-
+    
+    /**
+     * crud function
+     */
     private void recreatePagination() {
         pagination = null;
     }
-
+    
+    /**
+     * crud function
+     * @return the next page list
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the previous page list
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * crud function
+     * @return the list of selected items
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     * crud function
+     * @return the list of selected item
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }

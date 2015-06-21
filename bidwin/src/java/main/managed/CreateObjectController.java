@@ -15,27 +15,41 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class CreateObjectController {
 
-	@EJB
-	private ObjectSession objectsession;
+    @EJB
+    private ObjectSession objectsession;
 
-	private ObjectsDTO object;
+    private ObjectsDTO object;
 
+    /**
+     *empty constructor of the class
+     */
+    public CreateObjectController() {
+        object = new ObjectsDTO();
+    }
 
-        public CreateObjectController() {
-		object = new ObjectsDTO();
-	}
+    /**
+     * get the objectDTO of the class
+     * @return the objectDTO of the class
+     */
+    public ObjectsDTO getObject() {
+        return object;
+    }
 
-	public ObjectsDTO getObject() {
-		return object;
-	}
+    /**
+     * set the objectDTO of the class
+     * @param object the objectDTO of the class
+     */
+    public void setObject(ObjectsDTO object) {
+        this.object = object;
+    }
 
-	public void setObject(ObjectsDTO object) {
-		this.object = object;
-	}
-
-        public String register() {
-                objectsession.save(object);
-                return "/user/welcome?faces-redirect=true"; 
-	}
+    /**
+     * create a new object and make it persistent on the db
+     * @return the homepage (the current page otherwise)
+     */
+    public String register() {
+        objectsession.save(object);
+        return "/user/welcome?faces-redirect=true"; 
+    }
 
 }

@@ -23,7 +23,10 @@ public class BidFacade extends AbstractFacade<Bid> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
+    /**
+     * abstract facade method for the class bid
+     */
     public BidFacade() {
         super(Bid.class);
     }

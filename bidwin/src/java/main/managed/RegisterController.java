@@ -15,31 +15,46 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class RegisterController {
 	
-	@EJB
-	private UserSession usersession;
+    @EJB
+    private UserSession usersession;
 
-	private UsersDTO user;
+    private UsersDTO user;
 
 
-	public RegisterController() {
-		user = new UsersDTO();
-	}
+    /**
+     * empty constructor for the class
+     */
+    public RegisterController() {
+            user = new UsersDTO();
+    }
 
-	public UsersDTO getUser() {
-		return user;
-	}
+    /**
+     * get the current userDTO
+     * @return the current userDTO
+     */
+    public UsersDTO getUser() {
+            return user;
+    }
 
-	public void setUser(UsersDTO user) {
-		this.user = user;
-	}
+    /**
+     * set the current userDTO
+     * @param user  the current userDTO
+     */
+    public void setUser(UsersDTO user) {
+            this.user = user;
+    }
 
-	public String register() {
-                if ( usersession.usernamecheck(user) ) {
-                    usersession.save(user);
-                    return "/login?faces-redirect=true";
-                } else {
-                    return "/register?faces-redirect=true&alreadyused=true";
-                }
-	}
+    /**
+     * register a new user to the system and the db
+     * @return login page if succeeds, registration page if fails
+     */
+    public String register() {
+            if ( usersession.usernamecheck(user) ) {
+                usersession.save(user);
+                return "/login?faces-redirect=true";
+            } else {
+                return "/register?faces-redirect=true&alreadyused=true";
+            }
+    }
 
 }

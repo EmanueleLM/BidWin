@@ -34,9 +34,16 @@ public class UserGroupsController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    /**
+     * empty constructor
+     */
     public UserGroupsController() {
     }
 
+    /**
+     * get the current usergroups
+     * @return the current usergroups
+     */
     public UserGroups getSelected() {
         if (current == null) {
             current = new UserGroups();
@@ -68,24 +75,40 @@ public class UserGroupsController implements Serializable {
         return pagination;
     }
 
+    /**
+     * crud function
+     * @return the page list
+     */
     public String prepareList() {
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view
+     */
     public String prepareView() {
         current = (UserGroups) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
+    
+    /**
+     * crud function
+     * @return the page create
+     */
     public String prepareCreate() {
         current = new UserGroups();
         current.setUserGroupsPK(new main.UserGroupsPK());
         selectedItemIndex = -1;
         return "Create";
     }
-
+    
+    /**
+     * crud function
+     * @return the function preparecreate (null if fails)
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -96,13 +119,21 @@ public class UserGroupsController implements Serializable {
             return null;
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the page edit
+     */
     public String prepareEdit() {
         current = (UserGroups) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view
+     */
     public String update() {
         try {
             getFacade().edit(current);
@@ -113,7 +144,11 @@ public class UserGroupsController implements Serializable {
             return null;
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the page list
+     */
     public String destroy() {
         current = (UserGroups) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -122,7 +157,11 @@ public class UserGroupsController implements Serializable {
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the page view or list
+     */
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -135,7 +174,10 @@ public class UserGroupsController implements Serializable {
             return "List";
         }
     }
-
+    
+    /**
+     * crud function
+     */
     private void performDestroy() {
         try {
             getFacade().remove(current);
@@ -144,7 +186,10 @@ public class UserGroupsController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/BundleUserGroups").getString("PersistenceErrorOccured"));
         }
     }
-
+    
+    /**
+     * crud function
+     */
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
@@ -159,38 +204,64 @@ public class UserGroupsController implements Serializable {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
-
+    
+    /**
+     * crud function
+     * @return the items
+     */
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
     }
-
+    
+    /**
+     * crud function
+     */
     private void recreateModel() {
         items = null;
     }
-
+    
+    /**
+     * crud function
+     */
     private void recreatePagination() {
         pagination = null;
     }
-
+    
+    /**
+     * crud function
+     * @return the next page list
+     */
     public String next() {
         getPagination().nextPage();
         recreateModel();
         return "List";
     }
-
+    
+    /**
+     * crud function
+     * @return the previous page list
+     */
     public String previous() {
         getPagination().previousPage();
         recreateModel();
         return "List";
     }
 
+    /**
+     * crud function
+     * @return the list of selected items
+     */
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
+    /**
+     * crud function
+     * @return the list of selected item
+     */
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }

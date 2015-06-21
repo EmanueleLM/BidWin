@@ -20,28 +20,44 @@ public class MakeBidController {
 
 	private BidDTO bid;
         
-
-        public MakeBidController() {
+    /**
+     * empty constructor for the class
+     */
+    public MakeBidController() {
 		bid = new BidDTO();
 	}
 
-	public BidDTO getBid() {
+    /**
+     * get the bid for the bidDTO
+     * @return the bid for the bidDTO
+     */
+    public BidDTO getBid() {
 		return bid;
 	}
 
-	public void setBid(BidDTO bid) {
-		this.bid = bid;
-	}
+    /**
+     * set the bid for the bidDTO
+     * @param bid the bid for the bidDTO
+     */
+    public void setBid(BidDTO bid) {
+            this.bid = bid;
+    }
 
-        public String makebid(int auctionid, float numberbid) {
-                bid.setValue( (int)(numberbid*100) );
-                bid.setAuctionid(auctionid);
-                if ( bidsession.bidcheck(bid) ) {
-                    bidsession.save(bid);
-                    return "/user/welcome?faces-redirect=true";
-                } else {
-                    return "/user/makebid?faces-redirect=true&alreadybid=true";
-                }
-	}
+    /**
+     * make a bid persistent
+     * @param auctionid the auction where the bid is made
+     * @param numberbid the number used to see who wins the auction
+     * @return the homepage if the metho succeds, the current page otherwise
+     */
+    public String makebid(int auctionid, float numberbid) {
+            bid.setValue( (int)(numberbid*100) );
+            bid.setAuctionid(auctionid);
+            if ( bidsession.bidcheck(bid) ) {
+                bidsession.save(bid);
+                return "/user/welcome?faces-redirect=true";
+            } else {
+                return "/user/makebid?faces-redirect=true&alreadybid=true";
+            }
+    }
 
 }

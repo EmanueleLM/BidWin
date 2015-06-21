@@ -13,10 +13,13 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class LogoutController {
     
-   
-	public String logout() {
-	    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-	    return "/user/welcome?faces-redirect=true";
-	  }
+    /**
+     * performs the logout from the system
+     * @return the login page 
+     */
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/user/welcome?faces-redirect=true";
+    }
 
 }
