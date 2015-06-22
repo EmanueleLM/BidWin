@@ -4,6 +4,16 @@ It consists of inverse auction system: an inverse auction system works like a
 regular auction. The difference is that in an inverse auction a user has to propose
 the lowest unique bid to win the auction.
 
+### 22/06/2015 22.31 Source, War and documents deploy ###
+
+We finised the project: you can find the complete src, the war file
+and the documents in their respective folders.
+Source: /src
+War: in the root or in /dist
+Installation Guide:
+User Guide:
+Test Cases:
+
 #### 25/05/15 Delivery link  ####
 
 RASD and DD has been moved to their original folder
