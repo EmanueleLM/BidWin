@@ -47,12 +47,19 @@ public class BidSession {
      * @param bid  the current bid
      */   
     public void save(BidDTO bid) {
-        
         Users user = usersession.getPrincipalUser();
 	Bid newbid = new Bid( user.getUsername(), bid.getAuctionid(), bid.getValue() );
 	em.persist(newbid);
         user.setCredits( user.getCredits() - 2 );
         em.merge(user);
+        
+        Auction a = getAuctionFromId(bid.getAuctionid());
+        date = new Date(a.getStartTime().getTime() + (60*60*1000));
+        if (a.getEndTime().before( date )) {
+            date = new Date(a.getEndTime().getTime() + (60*1000));
+            a.setEndTime( date );
+            em.merge(a);
+        }
     }
 
     /**
