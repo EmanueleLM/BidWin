@@ -19,6 +19,8 @@ User Guide: https://github.com/EmanueleLM/BidWin/blob/master/delivery/User-Guide
 
 Test Cases: https://github.com/EmanueleLM/BidWin/blob/master/delivery/Test-Cases.pdf
 
+Hours of Work: https://github.com/EmanueleLM/BidWin/blob/master/delivery/__Hours%20of%20work
+
 
 #### 25/05/15 Delivery link  ####
 
