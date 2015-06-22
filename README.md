@@ -10,10 +10,15 @@ We finised the project: you can find the complete src, the war file
 and the documents in their respective folders.
 
 Source: https://github.com/EmanueleLM/BidWin/tree/master/bidwin
+
 War: https://github.com/EmanueleLM/BidWin 
+
 Installation Guide: https://github.com/EmanueleLM/BidWin/blob/master/delivery/Installation-Guide.pdf
+
 User Guide: https://github.com/EmanueleLM/BidWin/blob/master/delivery/User-Guide.pdf
+
 Test Cases: https://github.com/EmanueleLM/BidWin/blob/master/delivery/Test-Cases.pdf
+
 
 #### 25/05/15 Delivery link  ####
 
