@@ -35,12 +35,13 @@
                         <p:outputLabel id="Counter" value="#{usersController.currentUser.auctionCounter}" />
 
                     </h:panelGrid>
-                    
+                    <h:panelGrid columns="2" id="spinnerGrid" style="margin-top:5px;padding-bottom: 10px;">
                     <h:outputLabel for="ajaxSpinner" value="Vote Value: " style="font-weight: bold"/>
-                    <p:outputPanel>
+                    <p:outputPanel style="margin-bottom: 15px;">
                         <p:spinner id="ajaxSpinner" value="#{spinnerView.numbervote}" min="1" max="5" stepFactor="0.1">
                         </p:spinner>
                     </p:outputPanel>
+                    </h:panelGrid>
                     <p:commandButton ajax="false" id="rankUser" action="#{usersController.vote(usersController.currentUser.username, spinnerView.numbervote)}" value="Rank"/>
                     <p:tooltip id="toolTipFadeRank" for="rankUser" value="Vote this user!" />
             
