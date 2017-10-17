@@ -1,5 +1,5 @@
 # BidWin
-It consists of inverse auction system: an inverse auction system works like a
+Inverse auction system: an inverse auction system works like a
 regular auction. The difference is that in an inverse auction a user has to propose
 the lowest unique bid to win the auction.
 
