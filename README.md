@@ -1,5 +1,4 @@
 # BidWin
-Project developed for Software Engineering II course at Politecnico di Milano.
 It consists of inverse auction system: an inverse auction system works like a
 regular auction. The difference is that in an inverse auction a user has to propose
 the lowest unique bid to win the auction.
